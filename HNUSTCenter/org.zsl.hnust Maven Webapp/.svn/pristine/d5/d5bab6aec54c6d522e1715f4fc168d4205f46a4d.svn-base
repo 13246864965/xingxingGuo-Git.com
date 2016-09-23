@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IRoleDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.Role" >
+    <id column="c_RoleID" property="cRoleid" jdbcType="VARCHAR" />
+    <result column="c_RoleName" property="cRolename" jdbcType="VARCHAR" />
+    <result column="c_RoleCode" property="cRolecode" jdbcType="VARCHAR" />
+    <result column="c_Suatus" property="cSuatus" jdbcType="CHAR" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateDate" property="cUpdatedate" jdbcType="TIMESTAMP" />
+    <result column="c_RoleType" property="cRoletype" jdbcType="INTEGER" />
+    <result column="c_OrgCode" property="cOrgcode" jdbcType="VARCHAR" />
+    <result column="c_OrgID" property="cOrgid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_RoleID, c_RoleName, c_RoleCode, c_Suatus, c_UpdateUserID, c_UpdateDate, c_RoleType, 
+    c_OrgCode, c_OrgID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_role
+    where c_RoleID = #{cRoleid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_role
+    where c_RoleID = #{cRoleid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.Role" >
+    insert into cp_role (c_RoleID, c_RoleName, c_RoleCode, 
+      c_Suatus, c_UpdateUserID, c_UpdateDate, 
+      c_RoleType, c_OrgCode, c_OrgID
+      )
+    values (#{cRoleid,jdbcType=VARCHAR}, #{cRolename,jdbcType=VARCHAR}, #{cRolecode,jdbcType=VARCHAR}, 
+      #{cSuatus,jdbcType=CHAR}, #{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatedate,jdbcType=TIMESTAMP}, 
+      #{cRoletype,jdbcType=INTEGER}, #{cOrgcode,jdbcType=VARCHAR}, #{cOrgid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.Role" >
+    insert into cp_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cRoleid != null" >
+        c_RoleID,
+      </if>
+      <if test="cRolename != null" >
+        c_RoleName,
+      </if>
+      <if test="cRolecode != null" >
+        c_RoleCode,
+      </if>
+      <if test="cSuatus != null" >
+        c_Suatus,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cUpdatedate != null" >
+        c_UpdateDate,
+      </if>
+      <if test="cRoletype != null" >
+        c_RoleType,
+      </if>
+      <if test="cOrgcode != null" >
+        c_OrgCode,
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cRoleid != null" >
+        #{cRoleid,jdbcType=VARCHAR},
+      </if>
+      <if test="cRolename != null" >
+        #{cRolename,jdbcType=VARCHAR},
+      </if>
+      <if test="cRolecode != null" >
+        #{cRolecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cSuatus != null" >
+        #{cSuatus,jdbcType=CHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatedate != null" >
+        #{cUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cRoletype != null" >
+        #{cRoletype,jdbcType=INTEGER},
+      </if>
+      <if test="cOrgcode != null" >
+        #{cOrgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cOrgid != null" >
+        #{cOrgid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.Role" >
+    update cp_role
+    <set >
+      <if test="cRolename != null" >
+        c_RoleName = #{cRolename,jdbcType=VARCHAR},
+      </if>
+      <if test="cRolecode != null" >
+        c_RoleCode = #{cRolecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cSuatus != null" >
+        c_Suatus = #{cSuatus,jdbcType=CHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatedate != null" >
+        c_UpdateDate = #{cUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cRoletype != null" >
+        c_RoleType = #{cRoletype,jdbcType=INTEGER},
+      </if>
+      <if test="cOrgcode != null" >
+        c_OrgCode = #{cOrgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_RoleID = #{cRoleid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.Role" >
+    update cp_role
+    set c_RoleName = #{cRolename,jdbcType=VARCHAR},
+      c_RoleCode = #{cRolecode,jdbcType=VARCHAR},
+      c_Suatus = #{cSuatus,jdbcType=CHAR},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_UpdateDate = #{cUpdatedate,jdbcType=TIMESTAMP},
+      c_RoleType = #{cRoletype,jdbcType=INTEGER},
+      c_OrgCode = #{cOrgcode,jdbcType=VARCHAR},
+      c_OrgID = #{cOrgid,jdbcType=VARCHAR}
+    where c_RoleID = #{cRoleid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IOrgConfigurationDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.OrgConfiguration" >
+    <id column="c_ConfigId" property="cConfigid" jdbcType="VARCHAR" />
+    <result column="c_OrgID" property="cOrgid" jdbcType="VARCHAR" />
+    <result column="c_ConfigType" property="cConfigtype" jdbcType="VARCHAR" />
+    <result column="c_ServerIP" property="cServerip" jdbcType="VARCHAR" />
+    <result column="c_ServerPort" property="cServerport" jdbcType="VARCHAR" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_ConfigId, c_OrgID, c_ConfigType, c_ServerIP, c_ServerPort, c_UpdateUserID, c_UpdateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_orgconfiguration
+    where c_ConfigId = #{cConfigid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_orgconfiguration
+    where c_ConfigId = #{cConfigid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.OrgConfiguration" >
+    insert into cp_orgconfiguration (c_ConfigId, c_OrgID, c_ConfigType, 
+      c_ServerIP, c_ServerPort, c_UpdateUserID, 
+      c_UpdateTime)
+    values (#{cConfigid,jdbcType=VARCHAR}, #{cOrgid,jdbcType=VARCHAR}, #{cConfigtype,jdbcType=VARCHAR}, 
+      #{cServerip,jdbcType=VARCHAR}, #{cServerport,jdbcType=VARCHAR}, #{cUpdateuserid,jdbcType=VARCHAR}, 
+      #{cUpdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.OrgConfiguration" >
+    insert into cp_orgconfiguration
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cConfigid != null" >
+        c_ConfigId,
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID,
+      </if>
+      <if test="cConfigtype != null" >
+        c_ConfigType,
+      </if>
+      <if test="cServerip != null" >
+        c_ServerIP,
+      </if>
+      <if test="cServerport != null" >
+        c_ServerPort,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cConfigid != null" >
+        #{cConfigid,jdbcType=VARCHAR},
+      </if>
+      <if test="cOrgid != null" >
+        #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cConfigtype != null" >
+        #{cConfigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cServerip != null" >
+        #{cServerip,jdbcType=VARCHAR},
+      </if>
+      <if test="cServerport != null" >
+        #{cServerport,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.OrgConfiguration" >
+    update cp_orgconfiguration
+    <set >
+      <if test="cOrgid != null" >
+        c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cConfigtype != null" >
+        c_ConfigType = #{cConfigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cServerip != null" >
+        c_ServerIP = #{cServerip,jdbcType=VARCHAR},
+      </if>
+      <if test="cServerport != null" >
+        c_ServerPort = #{cServerport,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_ConfigId = #{cConfigid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.OrgConfiguration" >
+    update cp_orgconfiguration
+    set c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      c_ConfigType = #{cConfigtype,jdbcType=VARCHAR},
+      c_ServerIP = #{cServerip,jdbcType=VARCHAR},
+      c_ServerPort = #{cServerport,jdbcType=VARCHAR},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP}
+    where c_ConfigId = #{cConfigid,jdbcType=VARCHAR}
+  </update>
+</mapper>

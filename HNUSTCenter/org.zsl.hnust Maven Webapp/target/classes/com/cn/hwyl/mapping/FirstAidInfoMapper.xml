@@ -1,0 +1,1651 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstAidInfoDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FirstAidInfo" >
+    <id column="c_FirstAidInfoID" property="cFirstaidinfoid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_HighRiskState" property="cHighriskstate" jdbcType="VARCHAR" />
+    <result column="c_ToHospitalType" property="cTohospitaltype" jdbcType="VARCHAR" />
+    <result column="c_AmbulanceType" property="cAmbulancetype" jdbcType="VARCHAR" />
+    <result column="c_IsNetworkHospital" property="cIsnetworkhospital" jdbcType="CHAR" />
+    <result column="c_NetworkHospitalName" property="cNetworkhospitalname" jdbcType="VARCHAR" />
+    <result column="c_IsAroundEmergency" property="cIsaroundemergency" jdbcType="CHAR" />
+    <result column="c_DirectLocation" property="cDirectlocation" jdbcType="VARCHAR" />
+    <result column="c_NosocomialDiseaseDepartment" property="cNosocomialdiseasedepartment" jdbcType="VARCHAR" />
+    <result column="c_IsDetourCCU" property="cIsdetourccu" jdbcType="CHAR" />
+    <result column="c_AcceptsLocation" property="cAcceptslocation" jdbcType="VARCHAR" />
+    <result column="c_AcceptsDoctors" property="cAcceptsdoctors" jdbcType="VARCHAR" />
+    <result column="c_AcceptsNurse" property="cAcceptsnurse" jdbcType="VARCHAR" />
+    <result column="c_TransportLocation" property="cTransportlocation" jdbcType="VARCHAR" />
+    <result column="c_FirstContactDoctors" property="cFirstcontactdoctors" jdbcType="VARCHAR" />
+    <result column="c_IsECGTransmission" property="cIsecgtransmission" jdbcType="CHAR" />
+    <result column="c_Consciousness" property="cConsciousness" jdbcType="VARCHAR" />
+    <result column="c_Br" property="cBr" jdbcType="VARCHAR" />
+    <result column="c_Pulse" property="cPulse" jdbcType="VARCHAR" />
+    <result column="c_BT" property="cBt" jdbcType="VARCHAR" />
+    <result column="c_BP" property="cBp" jdbcType="VARCHAR" />
+    <result column="c_HR" property="cHr" jdbcType="VARCHAR" />
+    <result column="c_KillipLevel" property="cKilliplevel" jdbcType="VARCHAR" />
+    <result column="c_cTnI" property="cCtni" jdbcType="VARCHAR" />
+    <result column="c_cTnT" property="cCtnt" jdbcType="VARCHAR" />
+    <result column="c_Myo" property="cMyo" jdbcType="VARCHAR" />
+    <result column="c_CKMB" property="cCkmb" jdbcType="VARCHAR" />
+    <result column="c_Cr" property="cCr" jdbcType="VARCHAR" />
+    <result column="c_PreliminaryDiagnosisDoctor" property="cPreliminarydiagnosisdoctor" jdbcType="VARCHAR" />
+    <result column="c_AspirinDoseFirstTime" property="cAspirindosefirsttime" jdbcType="VARCHAR" />
+    <result column="c_ClopidogrelOrTicagrelor" property="cClopidogrelorticagrelor" jdbcType="VARCHAR" />
+    <result column="c_ClopidogrelOrTicagrelorDose" property="cClopidogrelorticagrelordose" jdbcType="VARCHAR" />
+    <result column="c_Statins" property="cStatins" jdbcType="VARCHAR" />
+    <result column="c_StatinsDose" property="cStatinsdose" jdbcType="VARCHAR" />
+    <result column="c_IsAfterStop" property="cIsafterstop" jdbcType="CHAR" />
+    <result column="c_IsChangeST" property="cIschangest" jdbcType="CHAR" />
+    <result column="c_IsMarkersOn" property="cIsmarkerson" jdbcType="CHAR" />
+    <result column="c_GraceScore" property="cGracescore" jdbcType="DOUBLE" />
+    <result column="c_DangerousLevel" property="cDangerouslevel" jdbcType="VARCHAR" />
+    <result column="c_NoACSDiagnosis" property="cNoacsdiagnosis" jdbcType="VARCHAR" />
+    <result column="c_NoACSOutcome" property="cNoacsoutcome" jdbcType="VARCHAR" />
+    <result column="c_NoACSDoctor" property="cNoacsdoctor" jdbcType="VARCHAR" />
+    <result column="c_NoACSNote" property="cNoacsnote" jdbcType="VARCHAR" />
+    <result column="c_IsShock" property="cIsshock" jdbcType="CHAR" />
+    <result column="c_ShockTime" property="cShocktime" jdbcType="TIMESTAMP" />
+    <result column="c_ShockAddress" property="cShockaddress" jdbcType="VARCHAR" />
+    <result column="c_IsHeartBeatStop" property="cIsheartbeatstop" jdbcType="CHAR" />
+    <result column="c_StopTime" property="cStoptime" jdbcType="TIMESTAMP" />
+    <result column="c_StopAddress" property="cStopaddress" jdbcType="VARCHAR" />
+    <result column="c_IsAcuteHeartFailure" property="cIsacuteheartfailure" jdbcType="CHAR" />
+    <result column="c_HeartFailureTime" property="cHeartfailuretime" jdbcType="TIMESTAMP" />
+    <result column="c_HeartFailureAddress" property="cHeartfailureaddress" jdbcType="VARCHAR" />
+    <result column="c_IsHeartRateDisorder" property="cIsheartratedisorder" jdbcType="CHAR" />
+    <result column="c_DisorderTime" property="cDisordertime" jdbcType="TIMESTAMP" />
+    <result column="c_DisorderAddress" property="cDisorderaddress" jdbcType="VARCHAR" />
+    <result column="c_ComplicationsType" property="cComplicationstype" jdbcType="VARCHAR" />
+    <result column="c_EmergencyOperationLog" property="cEmergencyoperationlog" jdbcType="VARCHAR" />
+    <result column="c_DiagnosisOfChestPain" property="cDiagnosisofchestpain" jdbcType="VARCHAR" />
+    <result column="c_CABG" property="cCabg" jdbcType="CHAR" />
+    <result column="c_STEMReperfusionMeasures" property="cStemreperfusionmeasures" jdbcType="VARCHAR" />
+    <result column="c_NSTEMReperfusionMeasures" property="cNstemreperfusionmeasures" jdbcType="VARCHAR" />
+    <result column="c_NoReperfusionMeasures" property="cNoreperfusionmeasures" jdbcType="VARCHAR" />
+    <result column="c_NoReperfusionMeasuresOther" property="cNoreperfusionmeasuresother" jdbcType="VARCHAR" />
+    <result column="c_DecidedDoctors" property="cDecideddoctors" jdbcType="VARCHAR" />
+    <result column="c_SurgicalInterventionDoctor" property="cSurgicalinterventiondoctor" jdbcType="VARCHAR" />
+    <result column="c_TIMILevelBefore" property="cTimilevelbefore" jdbcType="VARCHAR" />
+    <result column="c_TIMILevelAfter" property="cTimilevelafter" jdbcType="VARCHAR" />
+    <result column="c_IsDelayD2B" property="cIsdelayd2b" jdbcType="CHAR" />
+    <result column="c_DelayReason" property="cDelayreason" jdbcType="VARCHAR" />
+    <result column="c_DelayReasonOther" property="cDelayreasonother" jdbcType="VARCHAR" />
+    <result column="c_DelayNote" property="cDelaynote" jdbcType="VARCHAR" />
+    <result column="c_IsHrombolysis" property="cIshrombolysis" jdbcType="CHAR" />
+    <result column="c_HrombolysisLocation" property="cHrombolysislocation" jdbcType="VARCHAR" />
+    <result column="c_HrombolysisDrug" property="cHrombolysisdrug" jdbcType="VARCHAR" />
+    <result column="c_HrombolysisDrugDose" property="cHrombolysisdrugdose" jdbcType="VARCHAR" />
+    <result column="c_IsHrombolysisAgain" property="cIshrombolysisagain" jdbcType="CHAR" />
+    <result column="c_HrombolysisResults" property="cHrombolysisresults" jdbcType="VARCHAR" />
+    <result column="c_IsRemedialPCI" property="cIsremedialpci" jdbcType="CHAR" />
+    <result column="c_Is3To24HoursImaging" property="cIs3to24hoursimaging" jdbcType="CHAR" />
+    <result column="c_Is3To24HoursPCI" property="cIs3to24hourspci" jdbcType="CHAR" />
+    <result column="c_IsQuietPCI" property="cIsquietpci" jdbcType="CHAR" />
+    <result column="c_IsNoInterventionalDiagnosis" property="cIsnointerventionaldiagnosis" jdbcType="CHAR" />
+    <result column="c_PulmonaryEmbolismLayered" property="cPulmonaryembolismlayered" jdbcType="VARCHAR" />
+    <result column="c_AortaSandwichType" property="cAortasandwichtype" jdbcType="VARCHAR" />
+    <result column="c_HospitalizationDays" property="cHospitalizationdays" jdbcType="INTEGER" />
+    <result column="c_HospitalCosts" property="cHospitalcosts" jdbcType="DOUBLE" />
+    <result column="c_IsHeartFailure" property="cIsheartfailure" jdbcType="CHAR" />
+    <result column="c_PatientsOutComeType" property="cPatientsoutcometype" jdbcType="VARCHAR" />
+    <result column="c_HospitalReason" property="cHospitalreason" jdbcType="VARCHAR" />
+    <result column="c_ReferralHospitalName" property="cReferralhospitalname" jdbcType="VARCHAR" />
+    <result column="c_CauseOfDeath" property="cCauseofdeath" jdbcType="VARCHAR" />
+    <result column="c_DescribeDeath" property="cDescribedeath" jdbcType="VARCHAR" />
+    <result column="c_FirstContactType" property="cFirstcontacttype" jdbcType="VARCHAR" />
+    <result column="c_FirstContactTime" property="cFirstcontacttime" jdbcType="TIMESTAMP" />
+    <result column="c_FirstECGTime" property="cFirstecgtime" jdbcType="TIMESTAMP" />
+    <result column="c_ECGDiagnosisTime" property="cEcgdiagnosistime" jdbcType="TIMESTAMP" />
+    <result column="c_TransmissionTime" property="cTransmissiontime" jdbcType="TIMESTAMP" />
+    <result column="c_BloodTime" property="cBloodtime" jdbcType="TIMESTAMP" />
+    <result column="c_ReportTime" property="cReporttime" jdbcType="TIMESTAMP" />
+    <result column="c_TreatmentType" property="cTreatmenttype" jdbcType="VARCHAR" />
+    <result column="c_illness" property="cIllness" jdbcType="LONGVARCHAR" />
+    <result column="c_PrimaryDiagnosis" property="cPrimarydiagnosis" jdbcType="LONGVARCHAR" />
+    <result column="c_PatientsInfoNote" property="cPatientsinfonote" jdbcType="LONGVARCHAR" />
+    <result column="c_illnessDescription" property="cIllnessdescription" jdbcType="LONGVARCHAR" />
+    <result column="c_MedicalRecords" property="cMedicalrecords" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_FirstAidInfoID, c_FirstAidID, c_HighRiskState, c_ToHospitalType, c_AmbulanceType, 
+    c_IsNetworkHospital, c_NetworkHospitalName, c_IsAroundEmergency, c_DirectLocation, 
+    c_NosocomialDiseaseDepartment, c_IsDetourCCU, c_AcceptsLocation, c_AcceptsDoctors, 
+    c_AcceptsNurse, c_TransportLocation, c_FirstContactDoctors, c_IsECGTransmission, 
+    c_Consciousness, c_Br, c_Pulse, c_BT, c_BP, c_HR, c_KillipLevel, c_cTnI, c_cTnT, 
+    c_Myo, c_CKMB, c_Cr, c_PreliminaryDiagnosisDoctor, c_AspirinDoseFirstTime, c_ClopidogrelOrTicagrelor, 
+    c_ClopidogrelOrTicagrelorDose, c_Statins, c_StatinsDose, c_IsAfterStop, c_IsChangeST, 
+    c_IsMarkersOn, c_GraceScore, c_DangerousLevel, c_NoACSDiagnosis, c_NoACSOutcome, 
+    c_NoACSDoctor, c_NoACSNote, c_IsShock, c_ShockTime, c_ShockAddress, c_IsHeartBeatStop, 
+    c_StopTime, c_StopAddress, c_IsAcuteHeartFailure, c_HeartFailureTime, c_HeartFailureAddress, 
+    c_IsHeartRateDisorder, c_DisorderTime, c_DisorderAddress, c_ComplicationsType, c_EmergencyOperationLog, 
+    c_DiagnosisOfChestPain, c_CABG, c_STEMReperfusionMeasures, c_NSTEMReperfusionMeasures, 
+    c_NoReperfusionMeasures, c_NoReperfusionMeasuresOther, c_DecidedDoctors, c_SurgicalInterventionDoctor, 
+    c_TIMILevelBefore, c_TIMILevelAfter, c_IsDelayD2B, c_DelayReason, c_DelayReasonOther, 
+    c_DelayNote, c_IsHrombolysis, c_HrombolysisLocation, c_HrombolysisDrug, c_HrombolysisDrugDose, 
+    c_IsHrombolysisAgain, c_HrombolysisResults, c_IsRemedialPCI, c_Is3To24HoursImaging, 
+    c_Is3To24HoursPCI, c_IsQuietPCI, c_IsNoInterventionalDiagnosis, c_PulmonaryEmbolismLayered, 
+    c_AortaSandwichType, c_HospitalizationDays, c_HospitalCosts, c_IsHeartFailure, c_PatientsOutComeType, 
+    c_HospitalReason, c_ReferralHospitalName, c_CauseOfDeath, c_DescribeDeath, c_FirstContactType, 
+    c_FirstContactTime, c_FirstECGTime, c_ECGDiagnosisTime, c_TransmissionTime, c_BloodTime, 
+    c_ReportTime, c_TreatmentType,
+    c_illness, c_PrimaryDiagnosis, c_PatientsInfoNote, c_illnessDescription, c_MedicalRecords
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_FirstAidInfo
+     where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_FirstAidInfo
+     where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </delete>
+
+	<insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.FirstAidInfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from cp_FirstAidInfo where
+			c_FirstAidInfoID = #{cFirstaidinfoid,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			 update cp_FirstAidInfo
+    <set >
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cHighriskstate != null" >
+        c_HighRiskState = #{cHighriskstate,jdbcType=VARCHAR},
+      </if>
+      <if test="cTohospitaltype != null" >
+        c_ToHospitalType = #{cTohospitaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancetype != null" >
+        c_AmbulanceType = #{cAmbulancetype,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsnetworkhospital != null" >
+        c_IsNetworkHospital = #{cIsnetworkhospital,jdbcType=CHAR},
+      </if>
+      <if test="cNetworkhospitalname != null" >
+        c_NetworkHospitalName = #{cNetworkhospitalname,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsaroundemergency != null" >
+        c_IsAroundEmergency = #{cIsaroundemergency,jdbcType=CHAR},
+      </if>
+      <if test="cDirectlocation != null" >
+        c_DirectLocation = #{cDirectlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cNosocomialdiseasedepartment != null" >
+        c_NosocomialDiseaseDepartment = #{cNosocomialdiseasedepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdetourccu != null" >
+        c_IsDetourCCU = #{cIsdetourccu,jdbcType=CHAR},
+      </if>
+      <if test="cAcceptslocation != null" >
+        c_AcceptsLocation = #{cAcceptslocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cAcceptsdoctors != null" >
+        c_AcceptsDoctors = #{cAcceptsdoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cAcceptsnurse != null" >
+        c_AcceptsNurse = #{cAcceptsnurse,jdbcType=VARCHAR},
+      </if>
+      <if test="cTransportlocation != null" >
+        c_TransportLocation = #{cTransportlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontactdoctors != null" >
+        c_FirstContactDoctors = #{cFirstcontactdoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsecgtransmission != null" >
+        c_IsECGTransmission = #{cIsecgtransmission,jdbcType=CHAR},
+      </if>
+      <if test="cConsciousness != null" >
+        c_Consciousness = #{cConsciousness,jdbcType=VARCHAR},
+      </if>
+      <if test="cBr != null" >
+        c_Br = #{cBr,jdbcType=VARCHAR},
+      </if>
+      <if test="cPulse != null" >
+        c_Pulse = #{cPulse,jdbcType=VARCHAR},
+      </if>
+      <if test="cBt != null" >
+        c_BT = #{cBt,jdbcType=VARCHAR},
+      </if>
+      <if test="cBp != null" >
+        c_BP = #{cBp,jdbcType=VARCHAR},
+      </if>
+      <if test="cHr != null" >
+        c_HR = #{cHr,jdbcType=VARCHAR},
+      </if>
+      <if test="cKilliplevel != null" >
+        c_KillipLevel = #{cKilliplevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cCtni != null" >
+        c_cTnI = #{cCtni,jdbcType=VARCHAR},
+      </if>
+      <if test="cCtnt != null" >
+        c_cTnT = #{cCtnt,jdbcType=VARCHAR},
+      </if>
+      <if test="cMyo != null" >
+        c_Myo = #{cMyo,jdbcType=VARCHAR},
+      </if>
+      <if test="cCkmb != null" >
+        c_CKMB = #{cCkmb,jdbcType=VARCHAR},
+      </if>
+      <if test="cCr != null" >
+        c_Cr = #{cCr,jdbcType=VARCHAR},
+      </if>
+      <if test="cPreliminarydiagnosisdoctor != null" >
+        c_PreliminaryDiagnosisDoctor = #{cPreliminarydiagnosisdoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cAspirindosefirsttime != null" >
+        c_AspirinDoseFirstTime = #{cAspirindosefirsttime,jdbcType=VARCHAR},
+      </if>
+      <if test="cClopidogrelorticagrelor != null" >
+        c_ClopidogrelOrTicagrelor = #{cClopidogrelorticagrelor,jdbcType=VARCHAR},
+      </if>
+      <if test="cClopidogrelorticagrelordose != null" >
+        c_ClopidogrelOrTicagrelorDose = #{cClopidogrelorticagrelordose,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatins != null" >
+        c_Statins = #{cStatins,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatinsdose != null" >
+        c_StatinsDose = #{cStatinsdose,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsafterstop != null" >
+        c_IsAfterStop = #{cIsafterstop,jdbcType=CHAR},
+      </if>
+      <if test="cIschangest != null" >
+        c_IsChangeST = #{cIschangest,jdbcType=CHAR},
+      </if>
+      <if test="cIsmarkerson != null" >
+        c_IsMarkersOn = #{cIsmarkerson,jdbcType=CHAR},
+      </if>
+      <if test="cGracescore != null" >
+        c_GraceScore = #{cGracescore,jdbcType=DOUBLE},
+      </if>
+      <if test="cDangerouslevel != null" >
+        c_DangerousLevel = #{cDangerouslevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsdiagnosis != null" >
+        c_NoACSDiagnosis = #{cNoacsdiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsoutcome != null" >
+        c_NoACSOutcome = #{cNoacsoutcome,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsdoctor != null" >
+        c_NoACSDoctor = #{cNoacsdoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsnote != null" >
+        c_NoACSNote = #{cNoacsnote,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsshock != null" >
+        c_IsShock = #{cIsshock,jdbcType=CHAR},
+      </if>
+      <if test="cShocktime != null" >
+        c_ShockTime = #{cShocktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cShockaddress != null" >
+        c_ShockAddress = #{cShockaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsheartbeatstop != null" >
+        c_IsHeartBeatStop = #{cIsheartbeatstop,jdbcType=CHAR},
+      </if>
+      <if test="cStoptime != null" >
+        c_StopTime = #{cStoptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cStopaddress != null" >
+        c_StopAddress = #{cStopaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsacuteheartfailure != null" >
+        c_IsAcuteHeartFailure = #{cIsacuteheartfailure,jdbcType=CHAR},
+      </if>
+      <if test="cHeartfailuretime != null" >
+        c_HeartFailureTime = #{cHeartfailuretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cHeartfailureaddress != null" >
+        c_HeartFailureAddress = #{cHeartfailureaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsheartratedisorder != null" >
+        c_IsHeartRateDisorder = #{cIsheartratedisorder,jdbcType=CHAR},
+      </if>
+      <if test="cDisordertime != null" >
+        c_DisorderTime = #{cDisordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDisorderaddress != null" >
+        c_DisorderAddress = #{cDisorderaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cComplicationstype != null" >
+        c_ComplicationsType = #{cComplicationstype,jdbcType=VARCHAR},
+      </if>
+      <if test="cEmergencyoperationlog != null" >
+        c_EmergencyOperationLog = #{cEmergencyoperationlog,jdbcType=VARCHAR},
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        c_DiagnosisOfChestPain = #{cDiagnosisofchestpain,jdbcType=VARCHAR},
+      </if>
+      <if test="cCabg != null" >
+        c_CABG = #{cCabg,jdbcType=CHAR},
+      </if>
+      <if test="cStemreperfusionmeasures != null" >
+        c_STEMReperfusionMeasures = #{cStemreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNstemreperfusionmeasures != null" >
+        c_NSTEMReperfusionMeasures = #{cNstemreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoreperfusionmeasures != null" >
+        c_NoReperfusionMeasures = #{cNoreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoreperfusionmeasuresother != null" >
+        c_NoReperfusionMeasuresOther = #{cNoreperfusionmeasuresother,jdbcType=VARCHAR},
+      </if>
+      <if test="cDecideddoctors != null" >
+        c_DecidedDoctors = #{cDecideddoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cSurgicalinterventiondoctor != null" >
+        c_SurgicalInterventionDoctor = #{cSurgicalinterventiondoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cTimilevelbefore != null" >
+        c_TIMILevelBefore = #{cTimilevelbefore,jdbcType=VARCHAR},
+      </if>
+      <if test="cTimilevelafter != null" >
+        c_TIMILevelAfter = #{cTimilevelafter,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdelayd2b != null" >
+        c_IsDelayD2B = #{cIsdelayd2b,jdbcType=CHAR},
+      </if>
+      <if test="cDelayreason != null" >
+        c_DelayReason = #{cDelayreason,jdbcType=VARCHAR},
+      </if>
+      <if test="cDelayreasonother != null" >
+        c_DelayReasonOther = #{cDelayreasonother,jdbcType=VARCHAR},
+      </if>
+      <if test="cDelaynote != null" >
+        c_DelayNote = #{cDelaynote,jdbcType=VARCHAR},
+      </if>
+      <if test="cIshrombolysis != null" >
+        c_IsHrombolysis = #{cIshrombolysis,jdbcType=CHAR},
+      </if>
+      <if test="cHrombolysislocation != null" >
+        c_HrombolysisLocation = #{cHrombolysislocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cHrombolysisdrug != null" >
+        c_HrombolysisDrug = #{cHrombolysisdrug,jdbcType=VARCHAR},
+      </if>
+      <if test="cHrombolysisdrugdose != null" >
+        c_HrombolysisDrugDose = #{cHrombolysisdrugdose,jdbcType=VARCHAR},
+      </if>
+      <if test="cIshrombolysisagain != null" >
+        c_IsHrombolysisAgain = #{cIshrombolysisagain,jdbcType=CHAR},
+      </if>
+      <if test="cHrombolysisresults != null" >
+        c_HrombolysisResults = #{cHrombolysisresults,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsremedialpci != null" >
+        c_IsRemedialPCI = #{cIsremedialpci,jdbcType=CHAR},
+      </if>
+      <if test="cIs3to24hoursimaging != null" >
+        c_Is3To24HoursImaging = #{cIs3to24hoursimaging,jdbcType=CHAR},
+      </if>
+      <if test="cIs3to24hourspci != null" >
+        c_Is3To24HoursPCI = #{cIs3to24hourspci,jdbcType=CHAR},
+      </if>
+      <if test="cIsquietpci != null" >
+        c_IsQuietPCI = #{cIsquietpci,jdbcType=CHAR},
+      </if>
+      <if test="cIsnointerventionaldiagnosis != null" >
+        c_IsNoInterventionalDiagnosis = #{cIsnointerventionaldiagnosis,jdbcType=CHAR},
+      </if>
+      <if test="cPulmonaryembolismlayered != null" >
+        c_PulmonaryEmbolismLayered = #{cPulmonaryembolismlayered,jdbcType=VARCHAR},
+      </if>
+      <if test="cAortasandwichtype != null" >
+        c_AortaSandwichType = #{cAortasandwichtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalizationdays != null" >
+        c_HospitalizationDays = #{cHospitalizationdays,jdbcType=INTEGER},
+      </if>
+      <if test="cHospitalcosts != null" >
+        c_HospitalCosts = #{cHospitalcosts,jdbcType=DOUBLE},
+      </if>
+      <if test="cIsheartfailure != null" >
+        c_IsHeartFailure = #{cIsheartfailure,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsoutcometype != null" >
+        c_PatientsOutComeType = #{cPatientsoutcometype,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalreason != null" >
+        c_HospitalReason = #{cHospitalreason,jdbcType=VARCHAR},
+      </if>
+      <if test="cReferralhospitalname != null" >
+        c_ReferralHospitalName = #{cReferralhospitalname,jdbcType=VARCHAR},
+      </if>
+      <if test="cCauseofdeath != null" >
+        c_CauseOfDeath = #{cCauseofdeath,jdbcType=VARCHAR},
+      </if>
+      <if test="cDescribedeath != null" >
+        c_DescribeDeath = #{cDescribedeath,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontacttype != null" >
+        c_FirstContactType = #{cFirstcontacttype,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontacttime != null" >
+        c_FirstContactTime = #{cFirstcontacttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cFirstecgtime != null" >
+        c_FirstECGTime = #{cFirstecgtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cEcgdiagnosistime != null" >
+        c_ECGDiagnosisTime = #{cEcgdiagnosistime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cTransmissiontime != null" >
+        c_TransmissionTime = #{cTransmissiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cBloodtime != null" >
+        c_BloodTime = #{cBloodtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cReporttime != null" >
+        c_ReportTime = #{cReporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cTreatmenttype != null" >
+        c_TreatmentType = #{cTreatmenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="cIllness != null" >
+        c_illness = #{cIllness,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cPrimarydiagnosis != null" >
+        c_PrimaryDiagnosis = #{cPrimarydiagnosis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cPatientsinfonote != null" >
+        c_PatientsInfoNote = #{cPatientsinfonote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cIllnessdescription != null" >
+        c_illnessDescription = #{cIllnessdescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cMedicalrecords != null" >
+        c_MedicalRecords = #{cMedicalrecords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+     where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+		</if>
+		<if test="count==0">
+			insert into cp_FirstAidInfo (c_FirstAidInfoID, c_FirstAidID,
+			c_HighRiskState,
+			c_ToHospitalType, c_AmbulanceType, c_IsNetworkHospital,
+			c_NetworkHospitalName, c_IsAroundEmergency,
+			c_DirectLocation, c_NosocomialDiseaseDepartment,
+			c_IsDetourCCU, c_AcceptsLocation, c_AcceptsDoctors,
+			c_AcceptsNurse, c_TransportLocation, c_FirstContactDoctors,
+			c_IsECGTransmission, c_Consciousness, c_Br,
+			c_Pulse, c_BT, c_BP, c_HR,
+			c_KillipLevel, c_cTnI, c_cTnT,
+			c_Myo, c_CKMB, c_Cr, c_PreliminaryDiagnosisDoctor,
+			c_AspirinDoseFirstTime, c_ClopidogrelOrTicagrelor,
+			c_ClopidogrelOrTicagrelorDose, c_Statins,
+			c_StatinsDose, c_IsAfterStop, c_IsChangeST,
+			c_IsMarkersOn, c_GraceScore, c_DangerousLevel,
+			c_NoACSDiagnosis, c_NoACSOutcome, c_NoACSDoctor,
+			c_NoACSNote, c_IsShock, c_ShockTime,
+			c_ShockAddress, c_IsHeartBeatStop, c_StopTime,
+			c_StopAddress, c_IsAcuteHeartFailure, c_HeartFailureTime,
+			c_HeartFailureAddress, c_IsHeartRateDisorder,
+			c_DisorderTime, c_DisorderAddress, c_ComplicationsType,
+			c_EmergencyOperationLog, c_DiagnosisOfChestPain,
+			c_CABG, c_STEMReperfusionMeasures, c_NSTEMReperfusionMeasures,
+			c_NoReperfusionMeasures, c_NoReperfusionMeasuresOther,
+			c_DecidedDoctors, c_SurgicalInterventionDoctor,
+			c_TIMILevelBefore, c_TIMILevelAfter, c_IsDelayD2B,
+			c_DelayReason, c_DelayReasonOther, c_DelayNote,
+			c_IsHrombolysis, c_HrombolysisLocation, c_HrombolysisDrug,
+			c_HrombolysisDrugDose, c_IsHrombolysisAgain,
+			c_HrombolysisResults, c_IsRemedialPCI, c_Is3To24HoursImaging,
+			c_Is3To24HoursPCI, c_IsQuietPCI, c_IsNoInterventionalDiagnosis,
+			c_PulmonaryEmbolismLayered, c_AortaSandwichType,
+			c_HospitalizationDays, c_HospitalCosts, c_IsHeartFailure,
+			c_PatientsOutComeType, c_HospitalReason,
+			c_ReferralHospitalName, c_CauseOfDeath, c_DescribeDeath,
+			c_FirstContactType, c_FirstContactTime,
+			c_FirstECGTime, c_ECGDiagnosisTime, c_TransmissionTime,
+			c_BloodTime, c_ReportTime, c_TreatmentType,
+			c_illness, c_PrimaryDiagnosis, c_PatientsInfoNote,
+			c_illnessDescription, c_MedicalRecords
+			)
+			values (#{cFirstaidinfoid,jdbcType=VARCHAR},
+			#{cFirstaidid,jdbcType=VARCHAR}, #{cHighriskstate,jdbcType=VARCHAR},
+			#{cTohospitaltype,jdbcType=VARCHAR},
+			#{cAmbulancetype,jdbcType=VARCHAR},
+			#{cIsnetworkhospital,jdbcType=CHAR},
+			#{cNetworkhospitalname,jdbcType=VARCHAR},
+			#{cIsaroundemergency,jdbcType=CHAR},
+			#{cDirectlocation,jdbcType=VARCHAR},
+			#{cNosocomialdiseasedepartment,jdbcType=VARCHAR},
+			#{cIsdetourccu,jdbcType=CHAR}, #{cAcceptslocation,jdbcType=VARCHAR},
+			#{cAcceptsdoctors,jdbcType=VARCHAR},
+			#{cAcceptsnurse,jdbcType=VARCHAR},
+			#{cTransportlocation,jdbcType=VARCHAR},
+			#{cFirstcontactdoctors,jdbcType=VARCHAR},
+			#{cIsecgtransmission,jdbcType=CHAR},
+			#{cConsciousness,jdbcType=VARCHAR}, #{cBr,jdbcType=VARCHAR},
+			#{cPulse,jdbcType=VARCHAR}, #{cBt,jdbcType=VARCHAR},
+			#{cBp,jdbcType=VARCHAR}, #{cHr,jdbcType=VARCHAR},
+			#{cKilliplevel,jdbcType=VARCHAR}, #{cCtni,jdbcType=VARCHAR},
+			#{cCtnt,jdbcType=VARCHAR},
+			#{cMyo,jdbcType=VARCHAR}, #{cCkmb,jdbcType=VARCHAR}, #{cCr,jdbcType=VARCHAR},
+			#{cPreliminarydiagnosisdoctor,jdbcType=VARCHAR},
+			#{cAspirindosefirsttime,jdbcType=VARCHAR},
+			#{cClopidogrelorticagrelor,jdbcType=VARCHAR},
+			#{cClopidogrelorticagrelordose,jdbcType=VARCHAR},
+			#{cStatins,jdbcType=VARCHAR},
+			#{cStatinsdose,jdbcType=VARCHAR}, #{cIsafterstop,jdbcType=CHAR}, #{cIschangest,jdbcType=CHAR},
+			#{cIsmarkerson,jdbcType=CHAR}, #{cGracescore,jdbcType=DOUBLE},
+			#{cDangerouslevel,jdbcType=VARCHAR},
+			#{cNoacsdiagnosis,jdbcType=VARCHAR},
+			#{cNoacsoutcome,jdbcType=VARCHAR}, #{cNoacsdoctor,jdbcType=VARCHAR},
+			#{cNoacsnote,jdbcType=VARCHAR}, #{cIsshock,jdbcType=CHAR},
+			#{cShocktime,jdbcType=TIMESTAMP},
+			#{cShockaddress,jdbcType=VARCHAR}, #{cIsheartbeatstop,jdbcType=CHAR}, #{cStoptime,jdbcType=TIMESTAMP},
+			#{cStopaddress,jdbcType=VARCHAR},
+			#{cIsacuteheartfailure,jdbcType=CHAR},
+			#{cHeartfailuretime,jdbcType=TIMESTAMP},
+			#{cHeartfailureaddress,jdbcType=VARCHAR},
+			#{cIsheartratedisorder,jdbcType=CHAR},
+			#{cDisordertime,jdbcType=TIMESTAMP},
+			#{cDisorderaddress,jdbcType=VARCHAR},
+			#{cComplicationstype,jdbcType=VARCHAR},
+			#{cEmergencyoperationlog,jdbcType=VARCHAR},
+			#{cDiagnosisofchestpain,jdbcType=VARCHAR},
+			#{cCabg,jdbcType=CHAR}, #{cStemreperfusionmeasures,jdbcType=VARCHAR},
+			#{cNstemreperfusionmeasures,jdbcType=VARCHAR},
+			#{cNoreperfusionmeasures,jdbcType=VARCHAR},
+			#{cNoreperfusionmeasuresother,jdbcType=VARCHAR},
+			#{cDecideddoctors,jdbcType=VARCHAR},
+			#{cSurgicalinterventiondoctor,jdbcType=VARCHAR},
+			#{cTimilevelbefore,jdbcType=VARCHAR},
+			#{cTimilevelafter,jdbcType=VARCHAR}, #{cIsdelayd2b,jdbcType=CHAR},
+			#{cDelayreason,jdbcType=VARCHAR},
+			#{cDelayreasonother,jdbcType=VARCHAR},
+			#{cDelaynote,jdbcType=VARCHAR},
+			#{cIshrombolysis,jdbcType=CHAR}, #{cHrombolysislocation,jdbcType=VARCHAR},
+			#{cHrombolysisdrug,jdbcType=VARCHAR},
+			#{cHrombolysisdrugdose,jdbcType=VARCHAR},
+			#{cIshrombolysisagain,jdbcType=CHAR},
+			#{cHrombolysisresults,jdbcType=VARCHAR},
+			#{cIsremedialpci,jdbcType=CHAR},
+			#{cIs3to24hoursimaging,jdbcType=CHAR},
+			#{cIs3to24hourspci,jdbcType=CHAR}, #{cIsquietpci,jdbcType=CHAR},
+			#{cIsnointerventionaldiagnosis,jdbcType=CHAR},
+			#{cPulmonaryembolismlayered,jdbcType=VARCHAR},
+			#{cAortasandwichtype,jdbcType=VARCHAR},
+			#{cHospitalizationdays,jdbcType=INTEGER},
+			#{cHospitalcosts,jdbcType=DOUBLE}, #{cIsheartfailure,jdbcType=CHAR},
+			#{cPatientsoutcometype,jdbcType=VARCHAR},
+			#{cHospitalreason,jdbcType=VARCHAR},
+			#{cReferralhospitalname,jdbcType=VARCHAR},
+			#{cCauseofdeath,jdbcType=VARCHAR},
+			#{cDescribedeath,jdbcType=VARCHAR},
+			#{cFirstcontacttype,jdbcType=VARCHAR},
+			#{cFirstcontacttime,jdbcType=TIMESTAMP},
+			#{cFirstecgtime,jdbcType=TIMESTAMP},
+			#{cEcgdiagnosistime,jdbcType=TIMESTAMP},
+			#{cTransmissiontime,jdbcType=TIMESTAMP},
+			#{cBloodtime,jdbcType=TIMESTAMP}, #{cReporttime,jdbcType=TIMESTAMP},
+			#{cTreatmenttype,jdbcType=VARCHAR},
+			#{cIllness,jdbcType=LONGVARCHAR}, #{cPrimarydiagnosis,jdbcType=LONGVARCHAR},
+			#{cPatientsinfonote,jdbcType=LONGVARCHAR},
+			#{cIllnessdescription,jdbcType=LONGVARCHAR},
+			#{cMedicalrecords,jdbcType=LONGVARCHAR}
+			)
+		</if>
+
+	</insert>
+  
+  
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.FirstAidInfo" >
+    insert into cp_FirstAidInfo (c_FirstAidInfoID, c_FirstAidID, c_HighRiskState, 
+      c_ToHospitalType, c_AmbulanceType, c_IsNetworkHospital, 
+      c_NetworkHospitalName, c_IsAroundEmergency, 
+      c_DirectLocation, c_NosocomialDiseaseDepartment, 
+      c_IsDetourCCU, c_AcceptsLocation, c_AcceptsDoctors, 
+      c_AcceptsNurse, c_TransportLocation, c_FirstContactDoctors, 
+      c_IsECGTransmission, c_Consciousness, c_Br, 
+      c_Pulse, c_BT, c_BP, c_HR, 
+      c_KillipLevel, c_cTnI, c_cTnT, 
+      c_Myo, c_CKMB, c_Cr, c_PreliminaryDiagnosisDoctor, 
+      c_AspirinDoseFirstTime, c_ClopidogrelOrTicagrelor, 
+      c_ClopidogrelOrTicagrelorDose, c_Statins, 
+      c_StatinsDose, c_IsAfterStop, c_IsChangeST, 
+      c_IsMarkersOn, c_GraceScore, c_DangerousLevel, 
+      c_NoACSDiagnosis, c_NoACSOutcome, c_NoACSDoctor, 
+      c_NoACSNote, c_IsShock, c_ShockTime, 
+      c_ShockAddress, c_IsHeartBeatStop, c_StopTime, 
+      c_StopAddress, c_IsAcuteHeartFailure, c_HeartFailureTime, 
+      c_HeartFailureAddress, c_IsHeartRateDisorder, 
+      c_DisorderTime, c_DisorderAddress, c_ComplicationsType, 
+      c_EmergencyOperationLog, c_DiagnosisOfChestPain, 
+      c_CABG, c_STEMReperfusionMeasures, c_NSTEMReperfusionMeasures, 
+      c_NoReperfusionMeasures, c_NoReperfusionMeasuresOther, 
+      c_DecidedDoctors, c_SurgicalInterventionDoctor, 
+      c_TIMILevelBefore, c_TIMILevelAfter, c_IsDelayD2B, 
+      c_DelayReason, c_DelayReasonOther, c_DelayNote, 
+      c_IsHrombolysis, c_HrombolysisLocation, c_HrombolysisDrug, 
+      c_HrombolysisDrugDose, c_IsHrombolysisAgain, 
+      c_HrombolysisResults, c_IsRemedialPCI, c_Is3To24HoursImaging, 
+      c_Is3To24HoursPCI, c_IsQuietPCI, c_IsNoInterventionalDiagnosis, 
+      c_PulmonaryEmbolismLayered, c_AortaSandwichType, 
+      c_HospitalizationDays, c_HospitalCosts, c_IsHeartFailure, 
+      c_PatientsOutComeType, c_HospitalReason, 
+      c_ReferralHospitalName, c_CauseOfDeath, c_DescribeDeath, 
+      c_FirstContactType, c_FirstContactTime, 
+      c_FirstECGTime, c_ECGDiagnosisTime, c_TransmissionTime, 
+      c_BloodTime, c_ReportTime, c_TreatmentType, 
+      c_illness, c_PrimaryDiagnosis, c_PatientsInfoNote, 
+      c_illnessDescription, c_MedicalRecords
+      )
+    values (#{cFirstaidinfoid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR}, #{cHighriskstate,jdbcType=VARCHAR}, 
+      #{cTohospitaltype,jdbcType=VARCHAR}, #{cAmbulancetype,jdbcType=VARCHAR}, #{cIsnetworkhospital,jdbcType=CHAR}, 
+      #{cNetworkhospitalname,jdbcType=VARCHAR}, #{cIsaroundemergency,jdbcType=CHAR}, 
+      #{cDirectlocation,jdbcType=VARCHAR}, #{cNosocomialdiseasedepartment,jdbcType=VARCHAR}, 
+      #{cIsdetourccu,jdbcType=CHAR}, #{cAcceptslocation,jdbcType=VARCHAR}, #{cAcceptsdoctors,jdbcType=VARCHAR}, 
+      #{cAcceptsnurse,jdbcType=VARCHAR}, #{cTransportlocation,jdbcType=VARCHAR}, #{cFirstcontactdoctors,jdbcType=VARCHAR}, 
+      #{cIsecgtransmission,jdbcType=CHAR}, #{cConsciousness,jdbcType=VARCHAR}, #{cBr,jdbcType=VARCHAR}, 
+      #{cPulse,jdbcType=VARCHAR}, #{cBt,jdbcType=VARCHAR}, #{cBp,jdbcType=VARCHAR}, #{cHr,jdbcType=VARCHAR}, 
+      #{cKilliplevel,jdbcType=VARCHAR}, #{cCtni,jdbcType=VARCHAR}, #{cCtnt,jdbcType=VARCHAR}, 
+      #{cMyo,jdbcType=VARCHAR}, #{cCkmb,jdbcType=VARCHAR}, #{cCr,jdbcType=VARCHAR}, #{cPreliminarydiagnosisdoctor,jdbcType=VARCHAR}, 
+      #{cAspirindosefirsttime,jdbcType=VARCHAR}, #{cClopidogrelorticagrelor,jdbcType=VARCHAR}, 
+      #{cClopidogrelorticagrelordose,jdbcType=VARCHAR}, #{cStatins,jdbcType=VARCHAR}, 
+      #{cStatinsdose,jdbcType=VARCHAR}, #{cIsafterstop,jdbcType=CHAR}, #{cIschangest,jdbcType=CHAR}, 
+      #{cIsmarkerson,jdbcType=CHAR}, #{cGracescore,jdbcType=DOUBLE}, #{cDangerouslevel,jdbcType=VARCHAR}, 
+      #{cNoacsdiagnosis,jdbcType=VARCHAR}, #{cNoacsoutcome,jdbcType=VARCHAR}, #{cNoacsdoctor,jdbcType=VARCHAR}, 
+      #{cNoacsnote,jdbcType=VARCHAR}, #{cIsshock,jdbcType=CHAR}, #{cShocktime,jdbcType=TIMESTAMP}, 
+      #{cShockaddress,jdbcType=VARCHAR}, #{cIsheartbeatstop,jdbcType=CHAR}, #{cStoptime,jdbcType=TIMESTAMP}, 
+      #{cStopaddress,jdbcType=VARCHAR}, #{cIsacuteheartfailure,jdbcType=CHAR}, #{cHeartfailuretime,jdbcType=TIMESTAMP}, 
+      #{cHeartfailureaddress,jdbcType=VARCHAR}, #{cIsheartratedisorder,jdbcType=CHAR}, 
+      #{cDisordertime,jdbcType=TIMESTAMP}, #{cDisorderaddress,jdbcType=VARCHAR}, #{cComplicationstype,jdbcType=VARCHAR}, 
+      #{cEmergencyoperationlog,jdbcType=VARCHAR}, #{cDiagnosisofchestpain,jdbcType=VARCHAR}, 
+      #{cCabg,jdbcType=CHAR}, #{cStemreperfusionmeasures,jdbcType=VARCHAR}, #{cNstemreperfusionmeasures,jdbcType=VARCHAR}, 
+      #{cNoreperfusionmeasures,jdbcType=VARCHAR}, #{cNoreperfusionmeasuresother,jdbcType=VARCHAR}, 
+      #{cDecideddoctors,jdbcType=VARCHAR}, #{cSurgicalinterventiondoctor,jdbcType=VARCHAR}, 
+      #{cTimilevelbefore,jdbcType=VARCHAR}, #{cTimilevelafter,jdbcType=VARCHAR}, #{cIsdelayd2b,jdbcType=CHAR}, 
+      #{cDelayreason,jdbcType=VARCHAR}, #{cDelayreasonother,jdbcType=VARCHAR}, #{cDelaynote,jdbcType=VARCHAR}, 
+      #{cIshrombolysis,jdbcType=CHAR}, #{cHrombolysislocation,jdbcType=VARCHAR}, #{cHrombolysisdrug,jdbcType=VARCHAR}, 
+      #{cHrombolysisdrugdose,jdbcType=VARCHAR}, #{cIshrombolysisagain,jdbcType=CHAR}, 
+      #{cHrombolysisresults,jdbcType=VARCHAR}, #{cIsremedialpci,jdbcType=CHAR}, #{cIs3to24hoursimaging,jdbcType=CHAR}, 
+      #{cIs3to24hourspci,jdbcType=CHAR}, #{cIsquietpci,jdbcType=CHAR}, #{cIsnointerventionaldiagnosis,jdbcType=CHAR}, 
+      #{cPulmonaryembolismlayered,jdbcType=VARCHAR}, #{cAortasandwichtype,jdbcType=VARCHAR}, 
+      #{cHospitalizationdays,jdbcType=INTEGER}, #{cHospitalcosts,jdbcType=DOUBLE}, #{cIsheartfailure,jdbcType=CHAR}, 
+      #{cPatientsoutcometype,jdbcType=VARCHAR}, #{cHospitalreason,jdbcType=VARCHAR}, 
+      #{cReferralhospitalname,jdbcType=VARCHAR}, #{cCauseofdeath,jdbcType=VARCHAR}, #{cDescribedeath,jdbcType=VARCHAR}, 
+      #{cFirstcontacttype,jdbcType=VARCHAR}, #{cFirstcontacttime,jdbcType=TIMESTAMP}, 
+      #{cFirstecgtime,jdbcType=TIMESTAMP}, #{cEcgdiagnosistime,jdbcType=TIMESTAMP}, #{cTransmissiontime,jdbcType=TIMESTAMP}, 
+      #{cBloodtime,jdbcType=TIMESTAMP}, #{cReporttime,jdbcType=TIMESTAMP}, #{cTreatmenttype,jdbcType=VARCHAR}, 
+      #{cIllness,jdbcType=LONGVARCHAR}, #{cPrimarydiagnosis,jdbcType=LONGVARCHAR}, #{cPatientsinfonote,jdbcType=LONGVARCHAR}, 
+      #{cIllnessdescription,jdbcType=LONGVARCHAR}, #{cMedicalrecords,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.FirstAidInfo" >
+    insert into cp_FirstAidInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cFirstaidinfoid != null" >
+        c_FirstAidInfoID,
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID,
+      </if>
+      <if test="cHighriskstate != null" >
+        c_HighRiskState,
+      </if>
+      <if test="cTohospitaltype != null" >
+        c_ToHospitalType,
+      </if>
+      <if test="cAmbulancetype != null" >
+        c_AmbulanceType,
+      </if>
+      <if test="cIsnetworkhospital != null" >
+        c_IsNetworkHospital,
+      </if>
+      <if test="cNetworkhospitalname != null" >
+        c_NetworkHospitalName,
+      </if>
+      <if test="cIsaroundemergency != null" >
+        c_IsAroundEmergency,
+      </if>
+      <if test="cDirectlocation != null" >
+        c_DirectLocation,
+      </if>
+      <if test="cNosocomialdiseasedepartment != null" >
+        c_NosocomialDiseaseDepartment,
+      </if>
+      <if test="cIsdetourccu != null" >
+        c_IsDetourCCU,
+      </if>
+      <if test="cAcceptslocation != null" >
+        c_AcceptsLocation,
+      </if>
+      <if test="cAcceptsdoctors != null" >
+        c_AcceptsDoctors,
+      </if>
+      <if test="cAcceptsnurse != null" >
+        c_AcceptsNurse,
+      </if>
+      <if test="cTransportlocation != null" >
+        c_TransportLocation,
+      </if>
+      <if test="cFirstcontactdoctors != null" >
+        c_FirstContactDoctors,
+      </if>
+      <if test="cIsecgtransmission != null" >
+        c_IsECGTransmission,
+      </if>
+      <if test="cConsciousness != null" >
+        c_Consciousness,
+      </if>
+      <if test="cBr != null" >
+        c_Br,
+      </if>
+      <if test="cPulse != null" >
+        c_Pulse,
+      </if>
+      <if test="cBt != null" >
+        c_BT,
+      </if>
+      <if test="cBp != null" >
+        c_BP,
+      </if>
+      <if test="cHr != null" >
+        c_HR,
+      </if>
+      <if test="cKilliplevel != null" >
+        c_KillipLevel,
+      </if>
+      <if test="cCtni != null" >
+        c_cTnI,
+      </if>
+      <if test="cCtnt != null" >
+        c_cTnT,
+      </if>
+      <if test="cMyo != null" >
+        c_Myo,
+      </if>
+      <if test="cCkmb != null" >
+        c_CKMB,
+      </if>
+      <if test="cCr != null" >
+        c_Cr,
+      </if>
+      <if test="cPreliminarydiagnosisdoctor != null" >
+        c_PreliminaryDiagnosisDoctor,
+      </if>
+      <if test="cAspirindosefirsttime != null" >
+        c_AspirinDoseFirstTime,
+      </if>
+      <if test="cClopidogrelorticagrelor != null" >
+        c_ClopidogrelOrTicagrelor,
+      </if>
+      <if test="cClopidogrelorticagrelordose != null" >
+        c_ClopidogrelOrTicagrelorDose,
+      </if>
+      <if test="cStatins != null" >
+        c_Statins,
+      </if>
+      <if test="cStatinsdose != null" >
+        c_StatinsDose,
+      </if>
+      <if test="cIsafterstop != null" >
+        c_IsAfterStop,
+      </if>
+      <if test="cIschangest != null" >
+        c_IsChangeST,
+      </if>
+      <if test="cIsmarkerson != null" >
+        c_IsMarkersOn,
+      </if>
+      <if test="cGracescore != null" >
+        c_GraceScore,
+      </if>
+      <if test="cDangerouslevel != null" >
+        c_DangerousLevel,
+      </if>
+      <if test="cNoacsdiagnosis != null" >
+        c_NoACSDiagnosis,
+      </if>
+      <if test="cNoacsoutcome != null" >
+        c_NoACSOutcome,
+      </if>
+      <if test="cNoacsdoctor != null" >
+        c_NoACSDoctor,
+      </if>
+      <if test="cNoacsnote != null" >
+        c_NoACSNote,
+      </if>
+      <if test="cIsshock != null" >
+        c_IsShock,
+      </if>
+      <if test="cShocktime != null" >
+        c_ShockTime,
+      </if>
+      <if test="cShockaddress != null" >
+        c_ShockAddress,
+      </if>
+      <if test="cIsheartbeatstop != null" >
+        c_IsHeartBeatStop,
+      </if>
+      <if test="cStoptime != null" >
+        c_StopTime,
+      </if>
+      <if test="cStopaddress != null" >
+        c_StopAddress,
+      </if>
+      <if test="cIsacuteheartfailure != null" >
+        c_IsAcuteHeartFailure,
+      </if>
+      <if test="cHeartfailuretime != null" >
+        c_HeartFailureTime,
+      </if>
+      <if test="cHeartfailureaddress != null" >
+        c_HeartFailureAddress,
+      </if>
+      <if test="cIsheartratedisorder != null" >
+        c_IsHeartRateDisorder,
+      </if>
+      <if test="cDisordertime != null" >
+        c_DisorderTime,
+      </if>
+      <if test="cDisorderaddress != null" >
+        c_DisorderAddress,
+      </if>
+      <if test="cComplicationstype != null" >
+        c_ComplicationsType,
+      </if>
+      <if test="cEmergencyoperationlog != null" >
+        c_EmergencyOperationLog,
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        c_DiagnosisOfChestPain,
+      </if>
+      <if test="cCabg != null" >
+        c_CABG,
+      </if>
+      <if test="cStemreperfusionmeasures != null" >
+        c_STEMReperfusionMeasures,
+      </if>
+      <if test="cNstemreperfusionmeasures != null" >
+        c_NSTEMReperfusionMeasures,
+      </if>
+      <if test="cNoreperfusionmeasures != null" >
+        c_NoReperfusionMeasures,
+      </if>
+      <if test="cNoreperfusionmeasuresother != null" >
+        c_NoReperfusionMeasuresOther,
+      </if>
+      <if test="cDecideddoctors != null" >
+        c_DecidedDoctors,
+      </if>
+      <if test="cSurgicalinterventiondoctor != null" >
+        c_SurgicalInterventionDoctor,
+      </if>
+      <if test="cTimilevelbefore != null" >
+        c_TIMILevelBefore,
+      </if>
+      <if test="cTimilevelafter != null" >
+        c_TIMILevelAfter,
+      </if>
+      <if test="cIsdelayd2b != null" >
+        c_IsDelayD2B,
+      </if>
+      <if test="cDelayreason != null" >
+        c_DelayReason,
+      </if>
+      <if test="cDelayreasonother != null" >
+        c_DelayReasonOther,
+      </if>
+      <if test="cDelaynote != null" >
+        c_DelayNote,
+      </if>
+      <if test="cIshrombolysis != null" >
+        c_IsHrombolysis,
+      </if>
+      <if test="cHrombolysislocation != null" >
+        c_HrombolysisLocation,
+      </if>
+      <if test="cHrombolysisdrug != null" >
+        c_HrombolysisDrug,
+      </if>
+      <if test="cHrombolysisdrugdose != null" >
+        c_HrombolysisDrugDose,
+      </if>
+      <if test="cIshrombolysisagain != null" >
+        c_IsHrombolysisAgain,
+      </if>
+      <if test="cHrombolysisresults != null" >
+        c_HrombolysisResults,
+      </if>
+      <if test="cIsremedialpci != null" >
+        c_IsRemedialPCI,
+      </if>
+      <if test="cIs3to24hoursimaging != null" >
+        c_Is3To24HoursImaging,
+      </if>
+      <if test="cIs3to24hourspci != null" >
+        c_Is3To24HoursPCI,
+      </if>
+      <if test="cIsquietpci != null" >
+        c_IsQuietPCI,
+      </if>
+      <if test="cIsnointerventionaldiagnosis != null" >
+        c_IsNoInterventionalDiagnosis,
+      </if>
+      <if test="cPulmonaryembolismlayered != null" >
+        c_PulmonaryEmbolismLayered,
+      </if>
+      <if test="cAortasandwichtype != null" >
+        c_AortaSandwichType,
+      </if>
+      <if test="cHospitalizationdays != null" >
+        c_HospitalizationDays,
+      </if>
+      <if test="cHospitalcosts != null" >
+        c_HospitalCosts,
+      </if>
+      <if test="cIsheartfailure != null" >
+        c_IsHeartFailure,
+      </if>
+      <if test="cPatientsoutcometype != null" >
+        c_PatientsOutComeType,
+      </if>
+      <if test="cHospitalreason != null" >
+        c_HospitalReason,
+      </if>
+      <if test="cReferralhospitalname != null" >
+        c_ReferralHospitalName,
+      </if>
+      <if test="cCauseofdeath != null" >
+        c_CauseOfDeath,
+      </if>
+      <if test="cDescribedeath != null" >
+        c_DescribeDeath,
+      </if>
+      <if test="cFirstcontacttype != null" >
+        c_FirstContactType,
+      </if>
+      <if test="cFirstcontacttime != null" >
+        c_FirstContactTime,
+      </if>
+      <if test="cFirstecgtime != null" >
+        c_FirstECGTime,
+      </if>
+      <if test="cEcgdiagnosistime != null" >
+        c_ECGDiagnosisTime,
+      </if>
+      <if test="cTransmissiontime != null" >
+        c_TransmissionTime,
+      </if>
+      <if test="cBloodtime != null" >
+        c_BloodTime,
+      </if>
+      <if test="cReporttime != null" >
+        c_ReportTime,
+      </if>
+      <if test="cTreatmenttype != null" >
+        c_TreatmentType,
+      </if>
+      <if test="cIllness != null" >
+        c_illness,
+      </if>
+      <if test="cPrimarydiagnosis != null" >
+        c_PrimaryDiagnosis,
+      </if>
+      <if test="cPatientsinfonote != null" >
+        c_PatientsInfoNote,
+      </if>
+      <if test="cIllnessdescription != null" >
+        c_illnessDescription,
+      </if>
+      <if test="cMedicalrecords != null" >
+        c_MedicalRecords,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cFirstaidinfoid != null" >
+        #{cFirstaidinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cHighriskstate != null" >
+        #{cHighriskstate,jdbcType=VARCHAR},
+      </if>
+      <if test="cTohospitaltype != null" >
+        #{cTohospitaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancetype != null" >
+        #{cAmbulancetype,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsnetworkhospital != null" >
+        #{cIsnetworkhospital,jdbcType=CHAR},
+      </if>
+      <if test="cNetworkhospitalname != null" >
+        #{cNetworkhospitalname,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsaroundemergency != null" >
+        #{cIsaroundemergency,jdbcType=CHAR},
+      </if>
+      <if test="cDirectlocation != null" >
+        #{cDirectlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cNosocomialdiseasedepartment != null" >
+        #{cNosocomialdiseasedepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdetourccu != null" >
+        #{cIsdetourccu,jdbcType=CHAR},
+      </if>
+      <if test="cAcceptslocation != null" >
+        #{cAcceptslocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cAcceptsdoctors != null" >
+        #{cAcceptsdoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cAcceptsnurse != null" >
+        #{cAcceptsnurse,jdbcType=VARCHAR},
+      </if>
+      <if test="cTransportlocation != null" >
+        #{cTransportlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontactdoctors != null" >
+        #{cFirstcontactdoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsecgtransmission != null" >
+        #{cIsecgtransmission,jdbcType=CHAR},
+      </if>
+      <if test="cConsciousness != null" >
+        #{cConsciousness,jdbcType=VARCHAR},
+      </if>
+      <if test="cBr != null" >
+        #{cBr,jdbcType=VARCHAR},
+      </if>
+      <if test="cPulse != null" >
+        #{cPulse,jdbcType=VARCHAR},
+      </if>
+      <if test="cBt != null" >
+        #{cBt,jdbcType=VARCHAR},
+      </if>
+      <if test="cBp != null" >
+        #{cBp,jdbcType=VARCHAR},
+      </if>
+      <if test="cHr != null" >
+        #{cHr,jdbcType=VARCHAR},
+      </if>
+      <if test="cKilliplevel != null" >
+        #{cKilliplevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cCtni != null" >
+        #{cCtni,jdbcType=VARCHAR},
+      </if>
+      <if test="cCtnt != null" >
+        #{cCtnt,jdbcType=VARCHAR},
+      </if>
+      <if test="cMyo != null" >
+        #{cMyo,jdbcType=VARCHAR},
+      </if>
+      <if test="cCkmb != null" >
+        #{cCkmb,jdbcType=VARCHAR},
+      </if>
+      <if test="cCr != null" >
+        #{cCr,jdbcType=VARCHAR},
+      </if>
+      <if test="cPreliminarydiagnosisdoctor != null" >
+        #{cPreliminarydiagnosisdoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cAspirindosefirsttime != null" >
+        #{cAspirindosefirsttime,jdbcType=VARCHAR},
+      </if>
+      <if test="cClopidogrelorticagrelor != null" >
+        #{cClopidogrelorticagrelor,jdbcType=VARCHAR},
+      </if>
+      <if test="cClopidogrelorticagrelordose != null" >
+        #{cClopidogrelorticagrelordose,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatins != null" >
+        #{cStatins,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatinsdose != null" >
+        #{cStatinsdose,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsafterstop != null" >
+        #{cIsafterstop,jdbcType=CHAR},
+      </if>
+      <if test="cIschangest != null" >
+        #{cIschangest,jdbcType=CHAR},
+      </if>
+      <if test="cIsmarkerson != null" >
+        #{cIsmarkerson,jdbcType=CHAR},
+      </if>
+      <if test="cGracescore != null" >
+        #{cGracescore,jdbcType=DOUBLE},
+      </if>
+      <if test="cDangerouslevel != null" >
+        #{cDangerouslevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsdiagnosis != null" >
+        #{cNoacsdiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsoutcome != null" >
+        #{cNoacsoutcome,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsdoctor != null" >
+        #{cNoacsdoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsnote != null" >
+        #{cNoacsnote,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsshock != null" >
+        #{cIsshock,jdbcType=CHAR},
+      </if>
+      <if test="cShocktime != null" >
+        #{cShocktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cShockaddress != null" >
+        #{cShockaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsheartbeatstop != null" >
+        #{cIsheartbeatstop,jdbcType=CHAR},
+      </if>
+      <if test="cStoptime != null" >
+        #{cStoptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cStopaddress != null" >
+        #{cStopaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsacuteheartfailure != null" >
+        #{cIsacuteheartfailure,jdbcType=CHAR},
+      </if>
+      <if test="cHeartfailuretime != null" >
+        #{cHeartfailuretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cHeartfailureaddress != null" >
+        #{cHeartfailureaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsheartratedisorder != null" >
+        #{cIsheartratedisorder,jdbcType=CHAR},
+      </if>
+      <if test="cDisordertime != null" >
+        #{cDisordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDisorderaddress != null" >
+        #{cDisorderaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cComplicationstype != null" >
+        #{cComplicationstype,jdbcType=VARCHAR},
+      </if>
+      <if test="cEmergencyoperationlog != null" >
+        #{cEmergencyoperationlog,jdbcType=VARCHAR},
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        #{cDiagnosisofchestpain,jdbcType=VARCHAR},
+      </if>
+      <if test="cCabg != null" >
+        #{cCabg,jdbcType=CHAR},
+      </if>
+      <if test="cStemreperfusionmeasures != null" >
+        #{cStemreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNstemreperfusionmeasures != null" >
+        #{cNstemreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoreperfusionmeasures != null" >
+        #{cNoreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoreperfusionmeasuresother != null" >
+        #{cNoreperfusionmeasuresother,jdbcType=VARCHAR},
+      </if>
+      <if test="cDecideddoctors != null" >
+        #{cDecideddoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cSurgicalinterventiondoctor != null" >
+        #{cSurgicalinterventiondoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cTimilevelbefore != null" >
+        #{cTimilevelbefore,jdbcType=VARCHAR},
+      </if>
+      <if test="cTimilevelafter != null" >
+        #{cTimilevelafter,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdelayd2b != null" >
+        #{cIsdelayd2b,jdbcType=CHAR},
+      </if>
+      <if test="cDelayreason != null" >
+        #{cDelayreason,jdbcType=VARCHAR},
+      </if>
+      <if test="cDelayreasonother != null" >
+        #{cDelayreasonother,jdbcType=VARCHAR},
+      </if>
+      <if test="cDelaynote != null" >
+        #{cDelaynote,jdbcType=VARCHAR},
+      </if>
+      <if test="cIshrombolysis != null" >
+        #{cIshrombolysis,jdbcType=CHAR},
+      </if>
+      <if test="cHrombolysislocation != null" >
+        #{cHrombolysislocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cHrombolysisdrug != null" >
+        #{cHrombolysisdrug,jdbcType=VARCHAR},
+      </if>
+      <if test="cHrombolysisdrugdose != null" >
+        #{cHrombolysisdrugdose,jdbcType=VARCHAR},
+      </if>
+      <if test="cIshrombolysisagain != null" >
+        #{cIshrombolysisagain,jdbcType=CHAR},
+      </if>
+      <if test="cHrombolysisresults != null" >
+        #{cHrombolysisresults,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsremedialpci != null" >
+        #{cIsremedialpci,jdbcType=CHAR},
+      </if>
+      <if test="cIs3to24hoursimaging != null" >
+        #{cIs3to24hoursimaging,jdbcType=CHAR},
+      </if>
+      <if test="cIs3to24hourspci != null" >
+        #{cIs3to24hourspci,jdbcType=CHAR},
+      </if>
+      <if test="cIsquietpci != null" >
+        #{cIsquietpci,jdbcType=CHAR},
+      </if>
+      <if test="cIsnointerventionaldiagnosis != null" >
+        #{cIsnointerventionaldiagnosis,jdbcType=CHAR},
+      </if>
+      <if test="cPulmonaryembolismlayered != null" >
+        #{cPulmonaryembolismlayered,jdbcType=VARCHAR},
+      </if>
+      <if test="cAortasandwichtype != null" >
+        #{cAortasandwichtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalizationdays != null" >
+        #{cHospitalizationdays,jdbcType=INTEGER},
+      </if>
+      <if test="cHospitalcosts != null" >
+        #{cHospitalcosts,jdbcType=DOUBLE},
+      </if>
+      <if test="cIsheartfailure != null" >
+        #{cIsheartfailure,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsoutcometype != null" >
+        #{cPatientsoutcometype,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalreason != null" >
+        #{cHospitalreason,jdbcType=VARCHAR},
+      </if>
+      <if test="cReferralhospitalname != null" >
+        #{cReferralhospitalname,jdbcType=VARCHAR},
+      </if>
+      <if test="cCauseofdeath != null" >
+        #{cCauseofdeath,jdbcType=VARCHAR},
+      </if>
+      <if test="cDescribedeath != null" >
+        #{cDescribedeath,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontacttype != null" >
+        #{cFirstcontacttype,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontacttime != null" >
+        #{cFirstcontacttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cFirstecgtime != null" >
+        #{cFirstecgtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cEcgdiagnosistime != null" >
+        #{cEcgdiagnosistime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cTransmissiontime != null" >
+        #{cTransmissiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cBloodtime != null" >
+        #{cBloodtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cReporttime != null" >
+        #{cReporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cTreatmenttype != null" >
+        #{cTreatmenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="cIllness != null" >
+        #{cIllness,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cPrimarydiagnosis != null" >
+        #{cPrimarydiagnosis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cPatientsinfonote != null" >
+        #{cPatientsinfonote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cIllnessdescription != null" >
+        #{cIllnessdescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cMedicalrecords != null" >
+        #{cMedicalrecords,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FirstAidInfo" >
+    update cp_FirstAidInfo
+    <set >
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cHighriskstate != null" >
+        c_HighRiskState = #{cHighriskstate,jdbcType=VARCHAR},
+      </if>
+      <if test="cTohospitaltype != null" >
+        c_ToHospitalType = #{cTohospitaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancetype != null" >
+        c_AmbulanceType = #{cAmbulancetype,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsnetworkhospital != null" >
+        c_IsNetworkHospital = #{cIsnetworkhospital,jdbcType=CHAR},
+      </if>
+      <if test="cNetworkhospitalname != null" >
+        c_NetworkHospitalName = #{cNetworkhospitalname,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsaroundemergency != null" >
+        c_IsAroundEmergency = #{cIsaroundemergency,jdbcType=CHAR},
+      </if>
+      <if test="cDirectlocation != null" >
+        c_DirectLocation = #{cDirectlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cNosocomialdiseasedepartment != null" >
+        c_NosocomialDiseaseDepartment = #{cNosocomialdiseasedepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdetourccu != null" >
+        c_IsDetourCCU = #{cIsdetourccu,jdbcType=CHAR},
+      </if>
+      <if test="cAcceptslocation != null" >
+        c_AcceptsLocation = #{cAcceptslocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cAcceptsdoctors != null" >
+        c_AcceptsDoctors = #{cAcceptsdoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cAcceptsnurse != null" >
+        c_AcceptsNurse = #{cAcceptsnurse,jdbcType=VARCHAR},
+      </if>
+      <if test="cTransportlocation != null" >
+        c_TransportLocation = #{cTransportlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontactdoctors != null" >
+        c_FirstContactDoctors = #{cFirstcontactdoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsecgtransmission != null" >
+        c_IsECGTransmission = #{cIsecgtransmission,jdbcType=CHAR},
+      </if>
+      <if test="cConsciousness != null" >
+        c_Consciousness = #{cConsciousness,jdbcType=VARCHAR},
+      </if>
+      <if test="cBr != null" >
+        c_Br = #{cBr,jdbcType=VARCHAR},
+      </if>
+      <if test="cPulse != null" >
+        c_Pulse = #{cPulse,jdbcType=VARCHAR},
+      </if>
+      <if test="cBt != null" >
+        c_BT = #{cBt,jdbcType=VARCHAR},
+      </if>
+      <if test="cBp != null" >
+        c_BP = #{cBp,jdbcType=VARCHAR},
+      </if>
+      <if test="cHr != null" >
+        c_HR = #{cHr,jdbcType=VARCHAR},
+      </if>
+      <if test="cKilliplevel != null" >
+        c_KillipLevel = #{cKilliplevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cCtni != null" >
+        c_cTnI = #{cCtni,jdbcType=VARCHAR},
+      </if>
+      <if test="cCtnt != null" >
+        c_cTnT = #{cCtnt,jdbcType=VARCHAR},
+      </if>
+      <if test="cMyo != null" >
+        c_Myo = #{cMyo,jdbcType=VARCHAR},
+      </if>
+      <if test="cCkmb != null" >
+        c_CKMB = #{cCkmb,jdbcType=VARCHAR},
+      </if>
+      <if test="cCr != null" >
+        c_Cr = #{cCr,jdbcType=VARCHAR},
+      </if>
+      <if test="cPreliminarydiagnosisdoctor != null" >
+        c_PreliminaryDiagnosisDoctor = #{cPreliminarydiagnosisdoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cAspirindosefirsttime != null" >
+        c_AspirinDoseFirstTime = #{cAspirindosefirsttime,jdbcType=VARCHAR},
+      </if>
+      <if test="cClopidogrelorticagrelor != null" >
+        c_ClopidogrelOrTicagrelor = #{cClopidogrelorticagrelor,jdbcType=VARCHAR},
+      </if>
+      <if test="cClopidogrelorticagrelordose != null" >
+        c_ClopidogrelOrTicagrelorDose = #{cClopidogrelorticagrelordose,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatins != null" >
+        c_Statins = #{cStatins,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatinsdose != null" >
+        c_StatinsDose = #{cStatinsdose,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsafterstop != null" >
+        c_IsAfterStop = #{cIsafterstop,jdbcType=CHAR},
+      </if>
+      <if test="cIschangest != null" >
+        c_IsChangeST = #{cIschangest,jdbcType=CHAR},
+      </if>
+      <if test="cIsmarkerson != null" >
+        c_IsMarkersOn = #{cIsmarkerson,jdbcType=CHAR},
+      </if>
+      <if test="cGracescore != null" >
+        c_GraceScore = #{cGracescore,jdbcType=DOUBLE},
+      </if>
+      <if test="cDangerouslevel != null" >
+        c_DangerousLevel = #{cDangerouslevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsdiagnosis != null" >
+        c_NoACSDiagnosis = #{cNoacsdiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsoutcome != null" >
+        c_NoACSOutcome = #{cNoacsoutcome,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsdoctor != null" >
+        c_NoACSDoctor = #{cNoacsdoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoacsnote != null" >
+        c_NoACSNote = #{cNoacsnote,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsshock != null" >
+        c_IsShock = #{cIsshock,jdbcType=CHAR},
+      </if>
+      <if test="cShocktime != null" >
+        c_ShockTime = #{cShocktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cShockaddress != null" >
+        c_ShockAddress = #{cShockaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsheartbeatstop != null" >
+        c_IsHeartBeatStop = #{cIsheartbeatstop,jdbcType=CHAR},
+      </if>
+      <if test="cStoptime != null" >
+        c_StopTime = #{cStoptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cStopaddress != null" >
+        c_StopAddress = #{cStopaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsacuteheartfailure != null" >
+        c_IsAcuteHeartFailure = #{cIsacuteheartfailure,jdbcType=CHAR},
+      </if>
+      <if test="cHeartfailuretime != null" >
+        c_HeartFailureTime = #{cHeartfailuretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cHeartfailureaddress != null" >
+        c_HeartFailureAddress = #{cHeartfailureaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsheartratedisorder != null" >
+        c_IsHeartRateDisorder = #{cIsheartratedisorder,jdbcType=CHAR},
+      </if>
+      <if test="cDisordertime != null" >
+        c_DisorderTime = #{cDisordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDisorderaddress != null" >
+        c_DisorderAddress = #{cDisorderaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cComplicationstype != null" >
+        c_ComplicationsType = #{cComplicationstype,jdbcType=VARCHAR},
+      </if>
+      <if test="cEmergencyoperationlog != null" >
+        c_EmergencyOperationLog = #{cEmergencyoperationlog,jdbcType=VARCHAR},
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        c_DiagnosisOfChestPain = #{cDiagnosisofchestpain,jdbcType=VARCHAR},
+      </if>
+      <if test="cCabg != null" >
+        c_CABG = #{cCabg,jdbcType=CHAR},
+      </if>
+      <if test="cStemreperfusionmeasures != null" >
+        c_STEMReperfusionMeasures = #{cStemreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNstemreperfusionmeasures != null" >
+        c_NSTEMReperfusionMeasures = #{cNstemreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoreperfusionmeasures != null" >
+        c_NoReperfusionMeasures = #{cNoreperfusionmeasures,jdbcType=VARCHAR},
+      </if>
+      <if test="cNoreperfusionmeasuresother != null" >
+        c_NoReperfusionMeasuresOther = #{cNoreperfusionmeasuresother,jdbcType=VARCHAR},
+      </if>
+      <if test="cDecideddoctors != null" >
+        c_DecidedDoctors = #{cDecideddoctors,jdbcType=VARCHAR},
+      </if>
+      <if test="cSurgicalinterventiondoctor != null" >
+        c_SurgicalInterventionDoctor = #{cSurgicalinterventiondoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="cTimilevelbefore != null" >
+        c_TIMILevelBefore = #{cTimilevelbefore,jdbcType=VARCHAR},
+      </if>
+      <if test="cTimilevelafter != null" >
+        c_TIMILevelAfter = #{cTimilevelafter,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdelayd2b != null" >
+        c_IsDelayD2B = #{cIsdelayd2b,jdbcType=CHAR},
+      </if>
+      <if test="cDelayreason != null" >
+        c_DelayReason = #{cDelayreason,jdbcType=VARCHAR},
+      </if>
+      <if test="cDelayreasonother != null" >
+        c_DelayReasonOther = #{cDelayreasonother,jdbcType=VARCHAR},
+      </if>
+      <if test="cDelaynote != null" >
+        c_DelayNote = #{cDelaynote,jdbcType=VARCHAR},
+      </if>
+      <if test="cIshrombolysis != null" >
+        c_IsHrombolysis = #{cIshrombolysis,jdbcType=CHAR},
+      </if>
+      <if test="cHrombolysislocation != null" >
+        c_HrombolysisLocation = #{cHrombolysislocation,jdbcType=VARCHAR},
+      </if>
+      <if test="cHrombolysisdrug != null" >
+        c_HrombolysisDrug = #{cHrombolysisdrug,jdbcType=VARCHAR},
+      </if>
+      <if test="cHrombolysisdrugdose != null" >
+        c_HrombolysisDrugDose = #{cHrombolysisdrugdose,jdbcType=VARCHAR},
+      </if>
+      <if test="cIshrombolysisagain != null" >
+        c_IsHrombolysisAgain = #{cIshrombolysisagain,jdbcType=CHAR},
+      </if>
+      <if test="cHrombolysisresults != null" >
+        c_HrombolysisResults = #{cHrombolysisresults,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsremedialpci != null" >
+        c_IsRemedialPCI = #{cIsremedialpci,jdbcType=CHAR},
+      </if>
+      <if test="cIs3to24hoursimaging != null" >
+        c_Is3To24HoursImaging = #{cIs3to24hoursimaging,jdbcType=CHAR},
+      </if>
+      <if test="cIs3to24hourspci != null" >
+        c_Is3To24HoursPCI = #{cIs3to24hourspci,jdbcType=CHAR},
+      </if>
+      <if test="cIsquietpci != null" >
+        c_IsQuietPCI = #{cIsquietpci,jdbcType=CHAR},
+      </if>
+      <if test="cIsnointerventionaldiagnosis != null" >
+        c_IsNoInterventionalDiagnosis = #{cIsnointerventionaldiagnosis,jdbcType=CHAR},
+      </if>
+      <if test="cPulmonaryembolismlayered != null" >
+        c_PulmonaryEmbolismLayered = #{cPulmonaryembolismlayered,jdbcType=VARCHAR},
+      </if>
+      <if test="cAortasandwichtype != null" >
+        c_AortaSandwichType = #{cAortasandwichtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalizationdays != null" >
+        c_HospitalizationDays = #{cHospitalizationdays,jdbcType=INTEGER},
+      </if>
+      <if test="cHospitalcosts != null" >
+        c_HospitalCosts = #{cHospitalcosts,jdbcType=DOUBLE},
+      </if>
+      <if test="cIsheartfailure != null" >
+        c_IsHeartFailure = #{cIsheartfailure,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsoutcometype != null" >
+        c_PatientsOutComeType = #{cPatientsoutcometype,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalreason != null" >
+        c_HospitalReason = #{cHospitalreason,jdbcType=VARCHAR},
+      </if>
+      <if test="cReferralhospitalname != null" >
+        c_ReferralHospitalName = #{cReferralhospitalname,jdbcType=VARCHAR},
+      </if>
+      <if test="cCauseofdeath != null" >
+        c_CauseOfDeath = #{cCauseofdeath,jdbcType=VARCHAR},
+      </if>
+      <if test="cDescribedeath != null" >
+        c_DescribeDeath = #{cDescribedeath,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontacttype != null" >
+        c_FirstContactType = #{cFirstcontacttype,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstcontacttime != null" >
+        c_FirstContactTime = #{cFirstcontacttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cFirstecgtime != null" >
+        c_FirstECGTime = #{cFirstecgtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cEcgdiagnosistime != null" >
+        c_ECGDiagnosisTime = #{cEcgdiagnosistime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cTransmissiontime != null" >
+        c_TransmissionTime = #{cTransmissiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cBloodtime != null" >
+        c_BloodTime = #{cBloodtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cReporttime != null" >
+        c_ReportTime = #{cReporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cTreatmenttype != null" >
+        c_TreatmentType = #{cTreatmenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="cIllness != null" >
+        c_illness = #{cIllness,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cPrimarydiagnosis != null" >
+        c_PrimaryDiagnosis = #{cPrimarydiagnosis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cPatientsinfonote != null" >
+        c_PatientsInfoNote = #{cPatientsinfonote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cIllnessdescription != null" >
+        c_illnessDescription = #{cIllnessdescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cMedicalrecords != null" >
+        c_MedicalRecords = #{cMedicalrecords,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+     where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </update>
+</mapper>

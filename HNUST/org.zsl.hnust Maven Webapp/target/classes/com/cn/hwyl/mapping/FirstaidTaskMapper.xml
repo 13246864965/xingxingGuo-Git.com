@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstaidTaskDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FirstaidTask" >
+    <id column="c_TaskID" property="cTaskid" jdbcType="VARCHAR" />
+    <result column="c_PatientsName" property="cPatientsname" jdbcType="VARCHAR" />
+    <result column="c_PatientsSex" property="cPatientssex" jdbcType="CHAR" />
+    <result column="c_PatientsAge" property="cPatientsage" jdbcType="VARCHAR" />
+    <result column="c_PatientsPhone" property="cPatientsphone" jdbcType="VARCHAR" />
+    <result column="c_OnsetTime" property="cOnsettime" jdbcType="TIMESTAMP" />
+    <result column="c_OnsetAddress" property="cOnsetaddress" jdbcType="VARCHAR" />
+    <result column="c_UrgentContacts" property="cUrgentcontacts" jdbcType="VARCHAR" />
+    <result column="c_UrgentContactsPhone" property="cUrgentcontactsphone" jdbcType="VARCHAR" />
+    <result column="c_TaskProperties" property="cTaskproperties" jdbcType="VARCHAR" />
+    <result column="c_Ambulance" property="cAmbulance" jdbcType="VARCHAR" />
+    <result column="c_TaskState" property="cTaskstate" jdbcType="CHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_CreateTime" property="cCreatetime" jdbcType="TIMESTAMP" />
+    <result column="c_CreateUserID" property="cCreateuserid" jdbcType="VARCHAR" />
+    <result column="c_AmbulanceNumber" property="cAmbulancenumber" jdbcType="VARCHAR" />
+    <result column="c_PatientsComplaint" property="cPatientscomplaint" jdbcType="LONGVARCHAR" />
+    <result column="c_TaskSummary" property="cTasksummary" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_TaskID, c_PatientsName, c_PatientsSex, c_PatientsAge, c_PatientsPhone, c_OnsetTime, 
+    c_OnsetAddress, c_UrgentContacts, c_UrgentContactsPhone, c_TaskProperties, c_Ambulance, 
+    c_TaskState, c_UpdateTime, c_UpdateUserID, c_CreateTime, c_CreateUserID, c_AmbulanceNumber,
+    c_PatientsComplaint, c_TaskSummary
+  </sql>
+  
+  <sql  id="queryByCondition" >
+	 <if test="cPatientsname != null" >
+        and c_PatientsName = #{cPatientsname,jdbcType=VARCHAR}
+      </if>
+      <if test="cPatientssex != null" >
+        and c_PatientsSex = #{cPatientssex,jdbcType=CHAR}
+      </if>
+      <if test="cPatientsage != null" >
+        and c_PatientsAge = #{cPatientsage,jdbcType=VARCHAR}
+      </if>
+      <if test="cPatientsphone != null" >
+        and c_PatientsPhone = #{cPatientsphone,jdbcType=VARCHAR}
+      </if>
+      <if test="cOnsettime != null" >
+        and c_OnsetTime = #{cOnsettime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cOnsetaddress != null" >
+       and c_OnsetAddress = #{cOnsetaddress,jdbcType=VARCHAR}
+      </if>
+      <if test="cUrgentcontacts != null" >
+        and c_UrgentContacts = #{cUrgentcontacts,jdbcType=VARCHAR}
+      </if>
+      <if test="cUrgentcontactsphone != null" >
+        and c_UrgentContactsPhone = #{cUrgentcontactsphone,jdbcType=VARCHAR}
+      </if>
+      <if test="cTaskproperties != null" >
+        and c_TaskProperties = #{cTaskproperties,jdbcType=VARCHAR}
+      </if>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_firstaidtask
+    where c_TaskID = #{cTaskid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_firstaidtask
+    where c_TaskID = #{cTaskid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.FirstaidTask" >
+    insert into cp_firstaidtask (c_TaskID, c_PatientsName, c_PatientsSex, 
+      c_PatientsAge, c_PatientsPhone, c_OnsetTime, 
+      c_OnsetAddress, c_UrgentContacts, c_UrgentContactsPhone, 
+      c_TaskProperties, c_Ambulance, c_TaskState, 
+      c_UpdateTime, c_UpdateUserID, c_CreateTime, 
+      c_CreateUserID, c_AmbulanceNumber, c_PatientsComplaint, 
+      c_TaskSummary)
+    values (#{cTaskid,jdbcType=VARCHAR}, #{cPatientsname,jdbcType=VARCHAR}, #{cPatientssex,jdbcType=CHAR}, 
+      #{cPatientsage,jdbcType=VARCHAR}, #{cPatientsphone,jdbcType=VARCHAR}, #{cOnsettime,jdbcType=TIMESTAMP}, 
+      #{cOnsetaddress,jdbcType=VARCHAR}, #{cUrgentcontacts,jdbcType=VARCHAR}, #{cUrgentcontactsphone,jdbcType=VARCHAR}, 
+      #{cTaskproperties,jdbcType=VARCHAR}, #{cAmbulance,jdbcType=VARCHAR}, #{cTaskstate,jdbcType=CHAR}, 
+      #{cUpdatetime,jdbcType=TIMESTAMP}, #{cUpdateuserid,jdbcType=VARCHAR}, #{cCreatetime,jdbcType=TIMESTAMP}, 
+      #{cCreateuserid,jdbcType=VARCHAR}, #{cAmbulancenumber,jdbcType=VARCHAR}, #{cPatientscomplaint,jdbcType=LONGVARCHAR}, 
+      #{cTasksummary,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.FirstaidTask">
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+		select count(*) from cp_firstaidtask
+		 where c_TaskID = #{cTaskid,jdbcType=VARCHAR}
+	</selectKey>
+	<if test="count > 0">
+	 update cp_firstaidtask
+    <set >
+      <if test="cPatientsname != null" >
+        c_PatientsName = #{cPatientsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientssex != null" >
+        c_PatientsSex = #{cPatientssex,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsage != null" >
+        c_PatientsAge = #{cPatientsage,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsphone != null" >
+        c_PatientsPhone = #{cPatientsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cOnsettime != null" >
+        c_OnsetTime = #{cOnsettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cOnsetaddress != null" >
+        c_OnsetAddress = #{cOnsetaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cUrgentcontacts != null" >
+        c_UrgentContacts = #{cUrgentcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="cUrgentcontactsphone != null" >
+        c_UrgentContactsPhone = #{cUrgentcontactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cTaskproperties != null" >
+        c_TaskProperties = #{cTaskproperties,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulance != null" >
+        c_Ambulance = #{cAmbulance,jdbcType=VARCHAR},
+      </if>
+      <if test="cTaskstate != null" >
+        c_TaskState = #{cTaskstate,jdbcType=CHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreatetime != null" >
+        c_CreateTime = #{cCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateuserid != null" >
+        c_CreateUserID = #{cCreateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancenumber != null" >
+        c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientscomplaint != null" >
+        c_PatientsComplaint = #{cPatientscomplaint,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cTasksummary != null" >
+        c_TaskSummary = #{cTasksummary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where c_TaskID = #{cTaskid,jdbcType=VARCHAR}
+	</if>
+	<if test="count==0">
+	  insert into cp_firstaidtask (c_TaskID, c_PatientsName, c_PatientsSex, 
+      c_PatientsAge, c_PatientsPhone, c_OnsetTime, 
+      c_OnsetAddress, c_UrgentContacts, c_UrgentContactsPhone, 
+      c_TaskProperties, c_Ambulance, c_TaskState, 
+      c_UpdateTime, c_UpdateUserID, c_CreateTime, 
+      c_CreateUserID, c_AmbulanceNumber, c_PatientsComplaint, 
+      c_TaskSummary)
+    values (#{cTaskid,jdbcType=VARCHAR}, #{cPatientsname,jdbcType=VARCHAR}, #{cPatientssex,jdbcType=CHAR}, 
+      #{cPatientsage,jdbcType=VARCHAR}, #{cPatientsphone,jdbcType=VARCHAR}, #{cOnsettime,jdbcType=TIMESTAMP}, 
+      #{cOnsetaddress,jdbcType=VARCHAR}, #{cUrgentcontacts,jdbcType=VARCHAR}, #{cUrgentcontactsphone,jdbcType=VARCHAR}, 
+      #{cTaskproperties,jdbcType=VARCHAR}, #{cAmbulance,jdbcType=VARCHAR}, #{cTaskstate,jdbcType=CHAR}, 
+      #{cUpdatetime,jdbcType=TIMESTAMP}, #{cUpdateuserid,jdbcType=VARCHAR}, #{cCreatetime,jdbcType=TIMESTAMP}, 
+      #{cCreateuserid,jdbcType=VARCHAR}, #{cAmbulancenumber,jdbcType=VARCHAR}, #{cPatientscomplaint,jdbcType=LONGVARCHAR}, 
+      #{cTasksummary,jdbcType=LONGVARCHAR})
+	</if>
+</insert>
+  
+  
+  
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.FirstaidTask" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_firstaidtask
+    where 1=1 <include refid="queryByCondition" /> 
+    limit #{currPageIndex},#{recordNumPer} 
+
+  </select>
+  
+   <select id="selectByPageCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.FirstaidTask" >
+    select count(1)
+    from cp_firstaidtask
+    where 1=1 <include refid="queryByCondition" /> 
+  </select>
+  
+  
+  
+  
+  
+  
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.FirstaidTask" >
+    insert into cp_firstaidtask
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cTaskid != null" >
+        c_TaskID,
+      </if>
+      <if test="cPatientsname != null" >
+        c_PatientsName,
+      </if>
+      <if test="cPatientssex != null" >
+        c_PatientsSex,
+      </if>
+      <if test="cPatientsage != null" >
+        c_PatientsAge,
+      </if>
+      <if test="cPatientsphone != null" >
+        c_PatientsPhone,
+      </if>
+      <if test="cOnsettime != null" >
+        c_OnsetTime,
+      </if>
+      <if test="cOnsetaddress != null" >
+        c_OnsetAddress,
+      </if>
+      <if test="cUrgentcontacts != null" >
+        c_UrgentContacts,
+      </if>
+      <if test="cUrgentcontactsphone != null" >
+        c_UrgentContactsPhone,
+      </if>
+      <if test="cTaskproperties != null" >
+        c_TaskProperties,
+      </if>
+      <if test="cAmbulance != null" >
+        c_Ambulance,
+      </if>
+      <if test="cTaskstate != null" >
+        c_TaskState,
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cCreatetime != null" >
+        c_CreateTime,
+      </if>
+      <if test="cCreateuserid != null" >
+        c_CreateUserID,
+      </if>
+      <if test="cAmbulancenumber != null" >
+        c_AmbulanceNumber,
+      </if>
+      <if test="cPatientscomplaint != null" >
+        c_PatientsComplaint,
+      </if>
+      <if test="cTasksummary != null" >
+        c_TaskSummary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cTaskid != null" >
+        #{cTaskid,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsname != null" >
+        #{cPatientsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientssex != null" >
+        #{cPatientssex,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsage != null" >
+        #{cPatientsage,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsphone != null" >
+        #{cPatientsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cOnsettime != null" >
+        #{cOnsettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cOnsetaddress != null" >
+        #{cOnsetaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cUrgentcontacts != null" >
+        #{cUrgentcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="cUrgentcontactsphone != null" >
+        #{cUrgentcontactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cTaskproperties != null" >
+        #{cTaskproperties,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulance != null" >
+        #{cAmbulance,jdbcType=VARCHAR},
+      </if>
+      <if test="cTaskstate != null" >
+        #{cTaskstate,jdbcType=CHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreatetime != null" >
+        #{cCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateuserid != null" >
+        #{cCreateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancenumber != null" >
+        #{cAmbulancenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientscomplaint != null" >
+        #{cPatientscomplaint,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cTasksummary != null" >
+        #{cTasksummary,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.FirstaidTask" >
+    update cp_firstaidtask
+    <set >
+      <if test="cPatientsname != null" >
+        c_PatientsName = #{cPatientsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientssex != null" >
+        c_PatientsSex = #{cPatientssex,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsage != null" >
+        c_PatientsAge = #{cPatientsage,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsphone != null" >
+        c_PatientsPhone = #{cPatientsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cOnsettime != null" >
+        c_OnsetTime = #{cOnsettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cOnsetaddress != null" >
+        c_OnsetAddress = #{cOnsetaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cUrgentcontacts != null" >
+        c_UrgentContacts = #{cUrgentcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="cUrgentcontactsphone != null" >
+        c_UrgentContactsPhone = #{cUrgentcontactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cTaskproperties != null" >
+        c_TaskProperties = #{cTaskproperties,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulance != null" >
+        c_Ambulance = #{cAmbulance,jdbcType=VARCHAR},
+      </if>
+      <if test="cTaskstate != null" >
+        c_TaskState = #{cTaskstate,jdbcType=CHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreatetime != null" >
+        c_CreateTime = #{cCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateuserid != null" >
+        c_CreateUserID = #{cCreateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancenumber != null" >
+        c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientscomplaint != null" >
+        c_PatientsComplaint = #{cPatientscomplaint,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cTasksummary != null" >
+        c_TaskSummary = #{cTasksummary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where c_TaskID = #{cTaskid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FirstaidTask" >
+    update cp_firstaidtask
+    set c_PatientsName = #{cPatientsname,jdbcType=VARCHAR},
+      c_PatientsSex = #{cPatientssex,jdbcType=CHAR},
+      c_PatientsAge = #{cPatientsage,jdbcType=VARCHAR},
+      c_PatientsPhone = #{cPatientsphone,jdbcType=VARCHAR},
+      c_OnsetTime = #{cOnsettime,jdbcType=TIMESTAMP},
+      c_OnsetAddress = #{cOnsetaddress,jdbcType=VARCHAR},
+      c_UrgentContacts = #{cUrgentcontacts,jdbcType=VARCHAR},
+      c_UrgentContactsPhone = #{cUrgentcontactsphone,jdbcType=VARCHAR},
+      c_TaskProperties = #{cTaskproperties,jdbcType=VARCHAR},
+      c_Ambulance = #{cAmbulance,jdbcType=VARCHAR},
+      c_TaskState = #{cTaskstate,jdbcType=CHAR},
+      c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_CreateTime = #{cCreatetime,jdbcType=TIMESTAMP},
+      c_CreateUserID = #{cCreateuserid,jdbcType=VARCHAR},
+      c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      c_PatientsComplaint = #{cPatientscomplaint,jdbcType=LONGVARCHAR},
+      c_TaskSummary = #{cTasksummary,jdbcType=LONGVARCHAR}
+    where c_TaskID = #{cTaskid,jdbcType=VARCHAR}
+  </update>
+</mapper>

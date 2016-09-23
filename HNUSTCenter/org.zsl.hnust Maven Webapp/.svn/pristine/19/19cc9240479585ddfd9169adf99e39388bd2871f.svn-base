@@ -1,0 +1,451 @@
+package com.cn.hwyl.main;
+
+import java.util.Date;
+
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.cn.hwyl.module.FirstAidModule;
+import com.cn.hwyl.module.OrganizeModule;
+import com.cn.hwyl.module.PermissionsModule;
+import com.cn.hwyl.module.UserModule;
+import com.cn.hwyl.pojo.Channel;
+import com.cn.hwyl.pojo.HospitalServiceCenter;
+import com.cn.hwyl.pojo.Organization;
+import com.cn.hwyl.pojo.User;
+import com.cn.hwyl.pojo.body.user.UserLoginBody;
+import com.cn.hwyl.pojo.request.BodyRequest;
+import com.cn.hwyl.pojo.request.HeadRequest;
+import com.cn.hwyl.pojo.response.Result;
+import com.cn.hwyl.service.IChannelService;
+import com.cn.hwyl.service.IHospitalServiceCenterService;
+import com.cn.hwyl.service.IOrganizationService;
+import com.cn.hwyl.service.IUserService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+/**
+ * 此类为端点服务类，它的方法publish用于将一个已经添加了@WebService注解对象绑定到一个地址的端口上。
+ * 
+ * @WebService
+ * 它是一个注解，用在类上指定将此类发布成一个ws. Endpoint
+ */
+@WebService 
+public class WebServiceCP{
+	
+	private static Logger logger = Logger.getLogger(WebServiceCP.class);
+
+	private static ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+	
+	// exclude=true时，该方法不会被发布@WebMethod(exclude = false)
+	public String callService(HeadRequest head, BodyRequest body) {
+		logger.info("callService HeadRequest param{} is:::" + head.toString());
+		String result = null;
+		String service = head.getService();
+		// 用户模块
+		if (service.contains("User_Login")) {
+			result = UserModule.userAll(head, body);
+		}
+		//急救模块
+		if(service.contains("FirstAid_")){
+			result = FirstAidModule.firstAidAll(head, body);
+		}
+		//机构模块
+		if(service.contains("Organize_")){
+			result = OrganizeModule.organizeAll(head, body);
+		}
+		//权限模块
+		if(service.contains("Permissions_")){
+			result = PermissionsModule.permissionsAll(head, body);
+		}
+		
+		return result;
+	}
+	
+	
+	//提供登录接口
+	public String userLogin(@WebParam(name="login")String login) {
+		logger.info("userLogin param{} is:::" + login.toString());
+		
+		Result result = new Result();
+		
+		Gson gson = new Gson();
+		User user =null;
+		IUserService userService = null;
+		
+		try {// MD5Util.md5Encode(body.getUserLoginBody().getcUserpwd())
+			userService = (IUserService) ac.getBean("userService");
+			
+			UserLoginBody userLoginBody = gson.fromJson(login, new TypeToken<UserLoginBody>() {
+			}.getType());
+
+			user = userService.selectByCusername(userLoginBody.getcUsername());
+
+			if (user == null || "".equals(user)) {
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo(userLoginBody.getcUsername() + "用户不存在！！");
+				return gson.toJson(result);
+			}
+			if (!user.getcUserpwd().equals(userLoginBody.getcUserpwd())) {
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("用户密码不对,请重新输入！！");
+				return gson.toJson(result);
+			}
+		} catch (Exception e) {
+			logger.error("程序异常:" + e);
+			result.setResultCode("0");
+			result.setIsLogin(false);
+			result.setErrorInfo("程序异常,请联系管理员！！");
+			return gson.toJson(result);
+		}
+		result.setResultCode("1");
+//		result.setObj(user);
+		result.setIsLogin(true);
+		try {
+			System.out.println( gson.toJson(result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gson.toJson(result);
+	}
+	
+	@SuppressWarnings("unused")
+	@WebMethod
+	public String dataService (String head, String body){
+		@SuppressWarnings("resource")
+//		ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+		Gson gson = new Gson();
+		Result result = new Result();
+		
+		IChannelService channelService = null;
+		IHospitalServiceCenterService hospitalServiceCenterService = null;
+		IOrganizationService organizationService = null;
+		
+		HeadRequest q =  gson.fromJson(head, new TypeToken<HeadRequest>(){}.getType());
+		
+		HospitalServiceCenter hospitalServiceCenter  = gson.fromJson(body, new TypeToken<HospitalServiceCenter>(){}.getType());
+		
+		logger.info("dataService  param{} is:::" + hospitalServiceCenter.toString());
+
+		Channel channel = (Channel)hospitalServiceCenter;
+		
+		Organization organization = (Organization)hospitalServiceCenter;
+		
+		//同步添加
+		if("synchronousDataByInsert".equals(q.getService())){
+			int hospitalServiceCenterResult = 0;
+			int channelResult = 0;
+			int organizationResult = 0;
+			
+			try {
+				hospitalServiceCenterService = (IHospitalServiceCenterService) ac.getBean("hospitalServiceCenterService");
+				channelService = (IChannelService) ac.getBean("channelService");
+				organizationService = (IOrganizationService) ac.getBean("organizationService");
+
+				if (hospitalServiceCenter == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("服务中心信息传参为空");
+					return gson.toJson(result);
+				} else {
+					hospitalServiceCenterResult = hospitalServiceCenterService.insert(hospitalServiceCenter);
+				}
+
+				if (channel == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("渠道信息传参为空");
+					return gson.toJson(result);
+				} else {
+					channelResult = channelService.insert(channel);
+				}
+
+				if (organization == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("机构信息传参为空");
+					return gson.toJson(result);
+				} else {
+					organizationResult = organizationService.insert(organization);
+				}
+
+				if (hospitalServiceCenterResult > 0 && channelResult > 0 && organizationResult > 0) {
+					result.setResultCode("1");
+					result.setErrorInfo("操作成功");
+					return gson.toJson(result);
+				}
+
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+			}
+
+			return gson.toJson(result);
+		}
+		//同步更改
+		if("synchronousDataByUpdate".equals(q.getService())){
+
+			int hospitalServiceCenterResult = 0;
+			int channelResult = 0;
+			int organizationResult = 0;
+
+			try {
+				hospitalServiceCenterService = (IHospitalServiceCenterService) ac.getBean("hospitalServiceCenterService");
+				channelService = (IChannelService) ac.getBean("channelService");
+				organizationService = (IOrganizationService) ac.getBean("organizationService");
+
+				if (hospitalServiceCenter == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("服务中心信息传参为空");
+					return gson.toJson(result);
+				} else {
+					hospitalServiceCenterResult = hospitalServiceCenterService.updateByPrimaryKey(hospitalServiceCenter);
+				}
+
+				if (channel == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("渠道信息传参为空");
+					return gson.toJson(result);
+				} else {
+					channelResult = channelService.updateByPrimaryKey(channel);
+				}
+
+				if (organization == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("机构信息传参为空");
+					return gson.toJson(result);
+				} else {
+					organizationResult = organizationService.updateByPrimaryKey(organization);
+				}
+
+				if (hospitalServiceCenterResult > 0 && channelResult > 0 && organizationResult > 0) {
+					result.setResultCode("1");
+					result.setErrorInfo("操作成功");
+					return gson.toJson(result);
+				}
+
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+			}
+
+		}
+		return gson.toJson(result);
+	}
+	
+	
+	
+	@SuppressWarnings("unused")
+	private String synchronousDataByInsert(Organization organization, Channel channel,
+			HospitalServiceCenter hospitalServiceCenter) {
+		
+		logger.info("synchronousDataByInsert Organization  param{1}:::" + organization.toString());
+		logger.info("synchronousDataByInsert Channel param{2} is:::" + channel.toString());
+		logger.info("synchronousDataByInsert HospitalServiceCenter param{3} is:::" + hospitalServiceCenter.toString());
+		
+		IChannelService channelService = null;
+		IHospitalServiceCenterService hospitalServiceCenterService = null;
+		IOrganizationService organizationService = null;
+		
+		Result result = new Result();
+		Gson gson = new Gson();
+		int hospitalServiceCenterResult = 0;
+		int channelResult = 0;
+		int organizationResult = 0;
+		
+		try {
+			hospitalServiceCenterService = (IHospitalServiceCenterService) ac.getBean("hospitalServiceCenterService");
+			channelService = (IChannelService) ac.getBean("channelService");
+			organizationService = (IOrganizationService) ac.getBean("organizationService");
+
+			if (hospitalServiceCenter == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("服务中心信息传参为空");
+				return gson.toJson(result);
+			} else {
+				hospitalServiceCenterResult = hospitalServiceCenterService.insert(hospitalServiceCenter);
+			}
+
+			if (channel == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("渠道信息传参为空");
+				return gson.toJson(result);
+			} else {
+				channelResult = channelService.insert(channel);
+			}
+
+			if (organization == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("机构信息传参为空");
+				return gson.toJson(result);
+			} else {
+				organizationResult = organizationService.insert(organization);
+			}
+
+			if (hospitalServiceCenterResult > 0 && channelResult > 0 && organizationResult > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+
+		} catch (Exception e) {
+			logger.error("程序异常:" + e);
+			result.setResultCode("0");
+			result.setIsLogin(false);
+			result.setErrorInfo("程序异常,请联系管理员！！");
+		}
+
+		return gson.toJson(result);
+	}
+
+	@SuppressWarnings("unused")
+	private String synchronousDataByUpdate(Organization organization, Channel channel,
+			HospitalServiceCenter hospitalServiceCenter) {
+
+		logger.info("synchronousDataByUpdate Organization  param{1}:::" + organization.toString());
+		logger.info("synchronousDataByUpdate Channel param{2} is:::" + channel.toString());
+		logger.info("synchronousDataByUpdate HospitalServiceCenter param{3} is:::" + hospitalServiceCenter.toString());
+
+		IChannelService channelService = null;
+		IHospitalServiceCenterService hospitalServiceCenterService = null;
+		IOrganizationService organizationService = null;
+
+		Result result = new Result();
+		Gson gson = new Gson();
+		int hospitalServiceCenterResult = 0;
+		int channelResult = 0;
+		int organizationResult = 0;
+
+		try {
+			hospitalServiceCenterService = (IHospitalServiceCenterService) ac.getBean("hospitalServiceCenterService");
+			channelService = (IChannelService) ac.getBean("channelService");
+			organizationService = (IOrganizationService) ac.getBean("organizationService");
+
+			if (hospitalServiceCenter == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("服务中心信息传参为空");
+				return gson.toJson(result);
+			} else {
+				hospitalServiceCenterResult = hospitalServiceCenterService.updateByPrimaryKey(hospitalServiceCenter);
+			}
+
+			if (channel == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("渠道信息传参为空");
+				return gson.toJson(result);
+			} else {
+				channelResult = channelService.updateByPrimaryKey(channel);
+			}
+
+			if (organization == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("机构信息传参为空");
+				return gson.toJson(result);
+			} else {
+				organizationResult = organizationService.updateByPrimaryKey(organization);
+			}
+
+			if (hospitalServiceCenterResult > 0 && channelResult > 0 && organizationResult > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+
+		} catch (Exception e) {
+			logger.error("程序异常:" + e);
+			result.setResultCode("0");
+			result.setIsLogin(false);
+			result.setErrorInfo("程序异常,请联系管理员！！");
+		}
+
+		return gson.toJson(result);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		Gson gson = new Gson();
+		HospitalServiceCenter hos = new HospitalServiceCenter();
+		
+		hos.setCenterType("centerType");
+		hos.setServiceCenterGroupCode("cerviceCenterGroupCode");
+		hos.setChannelCode("channelCode");
+		hos.setChannelType("channelType");
+		hos.setCity("city");
+		hos.setContractNo("contractNo");
+		hos.setCountry("country");
+		hos.setFriendOrgnize("friendOrgnize");
+		hos.setGateLoginAccount("gateLoginAccount");
+		hos.setGatePassword("gatePassword");
+		hos.setLegalPerson("legalPerson");
+		hos.setMakeOrgnize("makeOrgnize");
+		hos.setMakeType("makeType");
+		hos.setMemo("memo");
+		hos.setNetConfigId("netConfigId");
+		hos.setNetSolutionTemplate("netSolutionTemplate");
+		hos.setOrderNo("orderNo");
+		hos.setOrgAddress("orgAddress");
+		hos.setOrgCode("orgCode");
+		hos.setOrgHead("orgHead");
+		hos.setOrgHeadphone("orgHeadphone");
+		hos.setOrgId("orgId");
+		hos.setOrgName("orgName");
+		hos.setOrgState("orgState");
+		hos.setOrgType("orgType");
+		hos.setOspDomain("ospDomain");
+		hos.setParentOrgCode("parentOrgCode");
+		hos.setProvince("province");
+		hos.setRecordNumPer(123456);
+		hos.setRegion("region");
+		hos.setRuleUnit("ruleUnit");
+		hos.setServiceCenterCode("serviceCenterCode");
+		hos.setServiceCenterGroupName("serviceCenterGroupName");
+		hos.setUpdateTime(new Date());
+		hos.setUpdateUserId("updateUserId");
+		
+		System.out.println(gson.toJson(hos));
+		
+		
+		
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

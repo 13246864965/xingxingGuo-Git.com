@@ -1,0 +1,111 @@
+package com.cn.hwyl.pojo;
+
+public class Channel extends Organization{
+    private String channelCode;
+
+    private String contractNo;
+
+    private String channelType;
+
+    private String makeType;
+
+    private String makeOrgnize;
+
+    private String friendOrgnize;
+
+	public String getChannelCode() {
+		return channelCode;
+	}
+
+	public void setChannelCode(String channelCode) {
+		this.channelCode = channelCode;
+	}
+
+	public String getContractNo() {
+		return contractNo;
+	}
+
+	public void setContractNo(String contractNo) {
+		this.contractNo = contractNo;
+	}
+
+	public String getChannelType() {
+		return channelType;
+	}
+
+	public void setChannelType(String channelType) {
+		this.channelType = channelType;
+	}
+
+	public String getMakeType() {
+		return makeType;
+	}
+
+	public void setMakeType(String makeType) {
+		this.makeType = makeType;
+	}
+
+	public String getMakeOrgnize() {
+		return makeOrgnize;
+	}
+
+	public void setMakeOrgnize(String makeOrgnize) {
+		this.makeOrgnize = makeOrgnize;
+	}
+
+	public String getFriendOrgnize() {
+		return friendOrgnize;
+	}
+
+	public void setFriendOrgnize(String friendOrgnize) {
+		this.friendOrgnize = friendOrgnize;
+	}
+
+//    public String getcChannelcode() {
+//        return cChannelcode;
+//    }
+//
+//    public void setcChannelcode(String cChannelcode) {
+//        this.cChannelcode = cChannelcode == null ? null : cChannelcode.trim();
+//    }
+//
+//    public String getcContractno() {
+//        return cContractno;
+//    }
+//
+//    public void setcContractno(String cContractno) {
+//        this.cContractno = cContractno == null ? null : cContractno.trim();
+//    }
+//
+//    public String getcChanneltype() {
+//        return cChanneltype;
+//    }
+//
+//    public void setcChanneltype(String cChanneltype) {
+//        this.cChanneltype = cChanneltype == null ? null : cChanneltype.trim();
+//    }
+//
+//    public String getcMaketype() {
+//        return cMaketype;
+//    }
+//
+//    public void setcMaketype(String cMaketype) {
+//        this.cMaketype = cMaketype == null ? null : cMaketype.trim();
+//    }
+//
+//    public String getcMakeorgnize() {
+//        return cMakeorgnize;
+//    }
+//
+//    public void setcMakeorgnize(String cMakeorgnize) {
+//        this.cMakeorgnize = cMakeorgnize == null ? null : cMakeorgnize.trim();
+//    }
+//
+//    public String getcFriendorgnize() {
+//        return cFriendorgnize;
+//    }
+//
+//    public void setcFriendorgnize(String cFriendorgnize) {
+//        this.cFriendorgnize = cFriendorgnize == null ? null : cFriendorgnize.trim();
+//    }
+}

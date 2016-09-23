@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+ 
+<!-- 在启动Web项目时，容器(比如Tomcat)会读web.xml配置文件中的两个节点<listener>和<contex-param>。 -->
+<!-- 接着容器会创建一个ServletContext(上下文),应用范围内即整个WEB项目都能使用这个上下文。 -->
+<!-- 接着容器会将读取到<context-param>转化为键值对,并交给ServletContext。 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-mybatis.xml</param-value>
+  </context-param>
+   <!-- 编码过滤器 -->  
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>  
+        <param-name>forceEncoding</param-name>  
+        <param-value>true</param-value>  
+      </init-param> 
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+   <!-- Spring监听器 -->  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 防止Spring内存溢出监听器 -->  
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+  <!-- 可以自定义servlet.xml配置文件的位置和名称，默认为WEB-INF目录下 -->
+  <servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>/index.jsp</welcome-file>
+  </welcome-file-list>
+  <session-config>
+    <session-timeout>15</session-timeout>
+  </session-config>
+  <!-- listener 监听器 -->
+  <listener>
+    <listener-class>
+	com.cn.hwyl.main.StartMsdlServiceMain
+    </listener-class>
+  </listener>
+   <!-- servlet 监听器 -->
+  <servlet>
+    <servlet-name>StartServiceSocketMain</servlet-name>
+    <servlet-class>com.cn.hwyl.main.StartServiceSocketMain</servlet-class>
+    <load-on-startup>5</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartServiceSocketMain</servlet-name>
+    <url-pattern>/event-collect</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>StartServic1eSocketMain</servlet-name>
+    <servlet-class>com.cn.hwyl.main.StartServic1eSocketMain</servlet-class>
+    <load-on-startup>5</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartServic1eSocketMain</servlet-name>
+    <url-pattern>/event-collects</url-pattern>
+  </servlet-mapping>
+</web-app>

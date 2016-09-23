@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstAidTimeDao">
+	<resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FirstAidTime">
+		<id column="c_TimeID" property="cTimeid" jdbcType="VARCHAR" />
+		<result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+		<result column="c_Time" property="cTime" jdbcType="TIMESTAMP" />
+		<result column="c_TimeType" property="cTimetype" jdbcType="CHAR" />
+		<result column="c_UpdateUserID" property="cUpdateuserid"
+			jdbcType="VARCHAR" />
+		<result column="c_TimeNote" property="cTimenote" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		c_TimeID, c_FirstAidID, c_Time, c_TimeType,
+		c_UpdateUserID,c_TimeNote
+	</sql>
+	<sql id="queryByCondition">
+		<if test="cTimeid != null">
+			and c_TimeID = #{cTimeid,jdbcType=VARCHAR}
+		</if>
+		<if test="cFirstaidid != null">
+			and c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+		</if>
+		<if test="cTimetype != null">
+			and c_TimeType= #{cTimetype,jdbcType=VARCHAR}
+		</if>
+		<if test="cTimenote != null">
+			and c_TimeNote= #{cTimenote,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from cp_FirstAidTime
+		where c_TimeID = #{cTimeid,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByPrimaryByFirstAidTime" resultMap="BaseResultMap"
+		parameterType="com.cn.hwyl.pojo.FirstAidTime">
+		select
+		<include refid="Base_Column_List" />
+		from cp_FirstAidTime
+		where 1 = 1
+		<include refid="queryByCondition" />
+	</select>
+
+	<insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.FirstAidTime">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from cp_FirstAidTime
+			where c_FirstAidID =
+			#{cFirstaidid,jdbcType=VARCHAR} and c_TimeType =
+			#{cTimetype,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			update cp_FirstAidTime
+			set c_FirstAidID =
+			#{cFirstaidid,jdbcType=VARCHAR},
+			<!-- c_Time = #{cTime,jdbcType=TIMESTAMP}, -->
+			c_TimeType = #{cTimetype,jdbcType=CHAR},
+			c_UpdateUserID =
+			#{cUpdateuserid,jdbcType=VARCHAR},
+			c_TimeNote =
+			#{cTimenote,jdbcType=LONGVARCHAR}
+			where c_FirstAidID =
+			#{cFirstaidid,jdbcType=VARCHAR} and c_TimeType =
+			#{cTimetype,jdbcType=VARCHAR}
+		</if>
+		<if test="count==0">
+			insert into cp_FirstAidTime (c_TimeID, c_FirstAidID,
+			c_Time,
+			c_TimeType, c_UpdateUserID, c_TimeNote
+			)
+			values
+			(#{cTimeid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR},
+			#{cTime,jdbcType=TIMESTAMP},
+			#{cTimetype,jdbcType=CHAR},
+			#{cUpdateuserid,jdbcType=VARCHAR}, #{cTimenote,jdbcType=LONGVARCHAR}
+			)
+		</if>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		cp_FirstAidTime
+		where c_TimeID = #{cTimeid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hwyl.pojo.FirstAidTime">
+		insert into cp_FirstAidTime
+		(c_TimeID, c_FirstAidID, c_Time,
+		c_TimeType, c_UpdateUserID, c_TimeNote
+		)
+		values (#{cTimeid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR},
+		#{cTime,jdbcType=TIMESTAMP},
+		#{cTimetype,jdbcType=CHAR},
+		#{cUpdateuserid,jdbcType=VARCHAR}, #{cTimenote,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FirstAidTime">
+		update
+		cp_FirstAidTime
+		set c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+		c_Time = #{cTime,jdbcType=TIMESTAMP},
+		c_TimeType =
+		#{cTimetype,jdbcType=CHAR},
+		c_UpdateUserID =
+		#{cUpdateuserid,jdbcType=VARCHAR},
+		c_TimeNote =
+		#{cTimenote,jdbcType=LONGVARCHAR}
+		where c_TimeID =
+		#{cTimeid,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from cp_FirstAidTime WHERE c_TimeID IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item.cTimeid}
+		</foreach>
+	</delete>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into cp_FirstAidTime (c_TimeID, c_FirstAidID, c_Time,
+		c_TimeType, c_UpdateUserID, c_TimeNote)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.cTimeid,jdbcType=VARCHAR},
+			#{item.cFirstaidid,jdbcType=VARCHAR},
+			#{item.cTime,jdbcType=TIMESTAMP},
+			#{item.cTimetype,jdbcType=CHAR},
+			#{item.cUpdateuserid,jdbcType=VARCHAR},
+			#{item.cTimenote,jdbcType=LONGVARCHAR}
+			)
+		</foreach>
+	</insert>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

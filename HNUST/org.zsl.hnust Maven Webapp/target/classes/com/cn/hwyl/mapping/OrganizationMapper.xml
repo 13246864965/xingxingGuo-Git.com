@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IOrganizationDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.Organization" >
+    <id column="c_OrgID" property="orgId" jdbcType="VARCHAR" />
+    <result column="c_OrgCode" property="orgCode" jdbcType="VARCHAR" />
+    <result column="c_OrgName" property="orgName" jdbcType="VARCHAR" />
+    <result column="c_UpdateUserID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="c_OrgState" property="orgState" jdbcType="VARCHAR" />
+    
+    <result column="c_orgType" jdbcType="VARCHAR" property="orgType" />
+    <result column="c_parentOrgCode" jdbcType="VARCHAR" property="parentOrgCode" />
+    <result column="c_gateLoginAccount" jdbcType="VARCHAR" property="gateLoginAccount" />
+    <result column="c_gatePassword" jdbcType="VARCHAR" property="gatePassword" />
+    <result column="c_ospDomain" jdbcType="VARCHAR" property="ospDomain" />
+    <result column="c_country" jdbcType="VARCHAR" property="country" />
+    <result column="c_province" jdbcType="VARCHAR" property="province" />
+    <result column="c_region" jdbcType="VARCHAR" property="region" />
+    <result column="c_city" jdbcType="VARCHAR" property="city" />
+    <result column="c_orgAddress" jdbcType="VARCHAR" property="orgAddress" />
+    <result column="c_legalPerson" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="c_orgHead" jdbcType="VARCHAR" property="orgHead" />
+    <result column="c_orgHeadPhone" jdbcType="VARCHAR" property="orgHeadphone" />
+    <result column="c_orderNo" jdbcType="INTEGER" property="orderNo" />
+    <result column="c_memo" jdbcType="VARCHAR" property="memo" />
+    <result column="c_NetConfigId" jdbcType="VARCHAR" property="netConfigId" />
+    <result column="c_ruleunit" jdbcType="VARCHAR" property="ruleUnit" />
+  </resultMap>
+  
+  
+  <sql  id="queryByCondition" >
+	  <if test="orgCode != null" >
+      and c_OrgCode = #{orgCode,jdbcType=VARCHAR}
+      </if>
+      <if test="orgName != null" >
+      and c_OrgName = #{orgName,jdbcType=VARCHAR}
+      </if>
+  </sql>
+  <sql id="Base_Column_List" >
+    c_OrgID, c_OrgCode, c_OrgName, c_UpdateUserID, c_UpdateTime, c_OrgState,
+    c_orgType,c_parentOrgCode,c_gateLoginAccount,c_gatePassword,
+    c_ospDomain,c_country,c_province,c_region,c_city,c_orgAddress,
+    c_legalPerson,c_orgHead,c_orgHeadPhone,c_orderNo,c_memo,c_NetConfigId,c_ruleunit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_Organization
+    where c_OrgID = #{orgId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.Organization" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_Organization
+    where 1=1 <include refid="queryByCondition" /> 
+    limit #{currPageIndex},#{recordNumPer} 
+  </select>
+  
+  <select id="selectByCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.Organization" >
+    select count(1)
+    from cp_Organization
+    where 1=1 <include refid="queryByCondition" /> 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_Organization
+    where c_OrgID = #{orgId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.Organization">
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+		select count(*) from cp_Organization where
+		c_OrgID = #{orgId,jdbcType=VARCHAR}
+	</selectKey>
+	<if test="count > 0">
+		 update cp_Organization
+    <set >
+      <if test="orgCode != null" >
+        c_OrgCode = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        c_OrgName = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        c_UpdateUserID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        c_UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgState != null" >
+        c_OrgState = #{orgState,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        c_orgType = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentOrgCode != null">
+        c_parentOrgCode = #{parentOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gateLoginAccount != null">
+        c_gateLoginAccount = #{gateLoginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gatePassword != null">
+        c_gatePassword = #{gatePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ospDomain != null">
+        c_ospDomain = #{ospDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        c_country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        c_province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        c_region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        c_city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null">
+        c_orgAddress = #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        c_legalPerson = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="orgHead != null">
+        c_orgHead = #{orgHead,jdbcType=VARCHAR},
+      </if>
+      <if test="orgHeadphone != null">
+        c_orgHeadPhone = #{orgHeadphone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        c_orderNo = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        c_memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="netConfigId != null">
+        c_NetConfigId = #{netConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleUnit != null">
+        c_ruleunit = #{ruleUnit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_OrgID = #{orgId,jdbcType=VARCHAR}
+	</if>
+	<if test="count==0">
+		insert into cp_Organization (c_OrgID, c_OrgCode, c_OrgName,
+		c_UpdateUserID, c_UpdateTime, c_OrgState,
+		c_orgType,c_parentOrgCode,c_gateLoginAccount,c_gatePassword,
+		c_ospDomain,c_country,c_province,c_region,c_city,c_orgAddress,
+		c_legalPerson,c_orgHead,c_orgHeadPhone,c_orderNo,c_memo,c_NetConfigId,c_ruleunit
+		)
+		values (#{orgId,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR},
+		#{orgName,jdbcType=VARCHAR},
+		#{updateUserId,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=TIMESTAMP}, #{orgState,jdbcType=VARCHAR},
+		#{orgType,jdbcType=VARCHAR}, #{parentOrgCode,jdbcType=VARCHAR},
+		#{gateLoginAccount,jdbcType=VARCHAR},
+		#{gatePassword,jdbcType=VARCHAR}, #{ospDomain,jdbcType=VARCHAR},
+		#{country,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR},
+		#{orgAddress,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{orgHead,jdbcType=VARCHAR},
+		#{orgHeadphone,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{netConfigId,jdbcType=VARCHAR}, #{ruleUnit,jdbcType=VARCHAR}
+		)
+	</if>
+
+</insert>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		DELETE FROM cp_Organization WHERE c_OrgID IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item.orgId}
+		</foreach>
+	</delete>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+	INSERT INTO cp_Organization (c_OrgID, c_OrgCode, c_OrgName,
+	c_UpdateUserID, c_UpdateTime, c_OrgState,
+	c_orgType,c_parentOrgCode,c_gateLoginAccount,c_gatePassword,
+	c_ospDomain,c_country,c_province,c_region,c_city,c_orgAddress,
+	c_legalPerson,c_orgHead,c_orgHeadPhone,c_orderNo,c_memo,c_NetConfigId,c_ruleunit)
+	VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+		(
+		#{item.orgId,jdbcType=VARCHAR}, #{item.orgCode,jdbcType=VARCHAR},
+		#{item.orgName,jdbcType=VARCHAR},
+		#{item.updateUserId,jdbcType=VARCHAR},
+		#{item.updateTime,jdbcType=TIMESTAMP},
+		#{item.orgState,jdbcType=VARCHAR},
+		#{item.orgType,jdbcType=VARCHAR},
+		#{item.parentOrgCode,jdbcType=VARCHAR},
+		#{item.gateLoginAccount,jdbcType=VARCHAR},
+		#{item.gatePassword,jdbcType=VARCHAR},
+		#{item.ospDomain,jdbcType=VARCHAR},
+		#{item.country,jdbcType=VARCHAR},
+		#{item.province,jdbcType=VARCHAR},
+		#{item.region,jdbcType=VARCHAR},
+		#{item.city,jdbcType=VARCHAR},
+		#{item.orgAddress,jdbcType=VARCHAR},
+		#{item.legalPerson,jdbcType=VARCHAR},
+		#{item.orgHead,jdbcType=VARCHAR},
+		#{item.orgHeadphone,jdbcType=VARCHAR},
+		#{item.orderNo,jdbcType=INTEGER},
+		#{item.memo,jdbcType=VARCHAR},
+		#{item.netConfigId,jdbcType=VARCHAR},
+		#{item.ruleUnit,jdbcType=VARCHAR}
+		)
+	</foreach>
+	</insert>  
+
+
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.Organization">
+	insert into cp_Organization (c_OrgID, c_OrgCode, c_OrgName,
+	c_UpdateUserID, c_UpdateTime, c_OrgState,
+	c_orgType,c_parentOrgCode,c_gateLoginAccount,c_gatePassword,
+	c_ospDomain,c_country,c_province,c_region,c_city,c_orgAddress,
+	c_legalPerson,c_orgHead,c_orgHeadPhone,c_orderNo,c_memo,c_NetConfigId,c_ruleunit
+	)
+	values (#{orgId,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR},
+	#{orgName,jdbcType=VARCHAR},
+	#{updateUserId,jdbcType=VARCHAR},
+	#{updateTime,jdbcType=TIMESTAMP}, #{orgState,jdbcType=VARCHAR},
+	#{orgType,jdbcType=VARCHAR}, #{parentOrgCode,jdbcType=VARCHAR},
+	#{gateLoginAccount,jdbcType=VARCHAR},
+	#{gatePassword,jdbcType=VARCHAR}, #{ospDomain,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR},
+	#{province,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR},
+	#{city,jdbcType=VARCHAR},
+	#{orgAddress,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{orgHead,jdbcType=VARCHAR},
+	#{orgHeadphone,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER},
+	#{memo,jdbcType=VARCHAR},
+	#{netConfigId,jdbcType=VARCHAR}, #{ruleUnit,jdbcType=VARCHAR}
+	)
+	</insert>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.Organization" >
+    update cp_Organization
+    <set >
+      <if test="orgCode != null" >
+        c_OrgCode = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        c_OrgName = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        c_UpdateUserID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        c_UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgState != null" >
+        c_OrgState = #{orgState,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        c_orgType = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentOrgCode != null">
+        c_parentOrgCode = #{parentOrgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gateLoginAccount != null">
+        c_gateLoginAccount = #{gateLoginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gatePassword != null">
+        c_gatePassword = #{gatePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ospDomain != null">
+        c_ospDomain = #{ospDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        c_country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        c_province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        c_region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        c_city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null">
+        c_orgAddress = #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        c_legalPerson = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="orgHead != null">
+        c_orgHead = #{orgHead,jdbcType=VARCHAR},
+      </if>
+      <if test="orgHeadphone != null">
+        c_orgHeadPhone = #{orgHeadphone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        c_orderNo = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        c_memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="netConfigId != null">
+        c_NetConfigId = #{netConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleUnit != null">
+        c_ruleunit = #{ruleUnit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_OrgID = #{orgId,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

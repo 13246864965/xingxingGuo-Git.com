@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IThrombolysisSurveyDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.ThrombolysisSurvey" >
+    <id column="c_SurveyID" property="cSurveyid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_SurveyInfo" property="cSurveyinfo" jdbcType="LONGVARCHAR" />
+    <result column="c_SurveyResults" property="cSurveyresults" jdbcType="LONGVARCHAR" />
+    <result column="c_SurveyNote" property="cSurveynote" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_SurveyID, c_FirstAidID, c_UpdateUserID, c_UpdateTime,
+    c_SurveyInfo, c_SurveyResults, c_SurveyNote
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_thrombolysissurvey
+    where c_SurveyID = #{cSurveyid,jdbcType=VARCHAR}
+  </select>
+    <select id="selectByPrimaryFirstAidID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_thrombolysissurvey
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_thrombolysissurvey
+    where c_SurveyID = #{cSurveyid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.ThrombolysisSurvey" >
+    insert into cp_thrombolysissurvey (c_SurveyID, c_FirstAidID, c_UpdateUserID, 
+      c_UpdateTime, c_SurveyInfo, c_SurveyResults, 
+      c_SurveyNote)
+    values (#{cSurveyid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR}, #{cUpdateuserid,jdbcType=VARCHAR}, 
+      #{cUpdatetime,jdbcType=TIMESTAMP}, #{cSurveyinfo,jdbcType=LONGVARCHAR}, #{cSurveyresults,jdbcType=LONGVARCHAR}, 
+      #{cSurveynote,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.ThrombolysisSurvey" >
+    insert into cp_thrombolysissurvey
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cSurveyid != null" >
+        c_SurveyID,
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime,
+      </if>
+      <if test="cSurveyinfo != null" >
+        c_SurveyInfo,
+      </if>
+      <if test="cSurveyresults != null" >
+        c_SurveyResults,
+      </if>
+      <if test="cSurveynote != null" >
+        c_SurveyNote,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cSurveyid != null" >
+        #{cSurveyid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cSurveyinfo != null" >
+        #{cSurveyinfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cSurveyresults != null" >
+        #{cSurveyresults,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cSurveynote != null" >
+        #{cSurveynote,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.ThrombolysisSurvey" >
+    update cp_thrombolysissurvey
+    <set >
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cSurveyinfo != null" >
+        c_SurveyInfo = #{cSurveyinfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cSurveyresults != null" >
+        c_SurveyResults = #{cSurveyresults,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cSurveynote != null" >
+        c_SurveyNote = #{cSurveynote,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where c_SurveyID = #{cSurveyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.ThrombolysisSurvey" >
+    update cp_thrombolysissurvey
+    set c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      c_SurveyInfo = #{cSurveyinfo,jdbcType=LONGVARCHAR},
+      c_SurveyResults = #{cSurveyresults,jdbcType=LONGVARCHAR},
+      c_SurveyNote = #{cSurveynote,jdbcType=LONGVARCHAR}
+    where c_SurveyID = #{cSurveyid,jdbcType=VARCHAR}
+  </update>
+  
+  	<insert id="insertBatch" parameterType="java.util.List">
+		 insert into cp_thrombolysissurvey (c_SurveyID, c_FirstAidID, c_UpdateUserID, 
+      c_UpdateTime, c_SurveyInfo, c_SurveyResults, c_SurveyNote)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+		#{item.cSurveyid,jdbcType=VARCHAR}, #{item.cFirstaidid,jdbcType=VARCHAR}, #{item.cUpdateuserid,jdbcType=VARCHAR}, 
+      #{item.cUpdatetime,jdbcType=TIMESTAMP}, #{item.cSurveyinfo,jdbcType=LONGVARCHAR}, #{item.cSurveyresults,jdbcType=LONGVARCHAR}, 
+      #{item.cSurveynote,jdbcType=LONGVARCHAR}
+			)
+		</foreach>
+	</insert>  
+</mapper>

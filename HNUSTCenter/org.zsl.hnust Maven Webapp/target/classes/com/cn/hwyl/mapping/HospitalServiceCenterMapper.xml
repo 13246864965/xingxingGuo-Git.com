@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IHospitalServiceCenterDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.HospitalServiceCenter" >
+    <id column="c_serviceCenterCode" property="serviceCenterCode" jdbcType="VARCHAR" />
+    <result column="c_NetConfigId" property="netConfigId" jdbcType="VARCHAR" />
+    <result column="c_centerType" property="centerType" jdbcType="CHAR" />
+    <result column="c_serviceCenterGroupCode" property="serviceCenterGroupCode" jdbcType="VARCHAR" />
+    <result column="c_serviceCenterGroupName" property="serviceCenterGroupName" jdbcType="VARCHAR" />
+    <result column="c_netSolutionTemplate" property="netSolutionTemplate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_serviceCenterCode, c_NetConfigId, c_centerType, c_serviceCenterGroupCode, c_serviceCenterGroupName, 
+    c_netSolutionTemplate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_HospitalServiceCenter
+    where c_serviceCenterCode = #{serviceCenterCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_HospitalServiceCenter
+    where c_serviceCenterCode = #{serviceCenterCode,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.HospitalServiceCenter">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from cp_HospitalServiceCenter where
+			c_serviceCenterCode =
+			#{serviceCenterCode,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			  update cp_HospitalServiceCenter
+    <set >
+      <if test="netConfigId != null" >
+        c_NetConfigId = #{netConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="centerType != null" >
+        c_centerType = #{centerType,jdbcType=CHAR},
+      </if>
+      <if test="serviceCenterGroupCode != null" >
+        c_serviceCenterGroupCode = #{serviceCenterGroupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCenterGroupName != null" >
+        c_serviceCenterGroupName = #{serviceCenterGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="netSolutionTemplate != null" >
+        c_netSolutionTemplate = #{netSolutionTemplate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_serviceCenterCode = #{serviceCenterCode,jdbcType=VARCHAR}
+		</if>
+		<if test="count==0">
+			insert into cp_HospitalServiceCenter (c_serviceCenterCode, c_NetConfigId,
+			c_centerType, c_serviceCenterGroupCode, c_serviceCenterGroupName,
+			c_netSolutionTemplate)
+			values (#{serviceCenterCode,jdbcType=VARCHAR},
+			#{netConfigId,jdbcType=VARCHAR},
+			#{centerType,jdbcType=CHAR}, #{serviceCenterGroupCode,jdbcType=VARCHAR},
+			#{serviceCenterGroupName,jdbcType=VARCHAR},
+			#{netSolutionTemplate,jdbcType=VARCHAR})
+		</if>
+
+	</insert>
+  
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.HospitalServiceCenter" >
+    insert into cp_HospitalServiceCenter (c_serviceCenterCode, c_NetConfigId, 
+      c_centerType, c_serviceCenterGroupCode, c_serviceCenterGroupName, 
+      c_netSolutionTemplate)
+    values (#{serviceCenterCode,jdbcType=VARCHAR}, #{netConfigId,jdbcType=VARCHAR}, 
+      #{centerType,jdbcType=CHAR}, #{serviceCenterGroupCode,jdbcType=VARCHAR}, #{serviceCenterGroupName,jdbcType=VARCHAR}, 
+      #{netSolutionTemplate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.HospitalServiceCenter" >
+    insert into cp_HospitalServiceCenter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceCenterCode != null" >
+        c_serviceCenterCode,
+      </if>
+      <if test="netConfigId != null" >
+        c_NetConfigId,
+      </if>
+      <if test="centerType != null" >
+        c_centerType,
+      </if>
+      <if test="serviceCenterGroupCode != null" >
+        c_serviceCenterGroupCode,
+      </if>
+      <if test="serviceCenterGroupName != null" >
+        c_serviceCenterGroupName,
+      </if>
+      <if test="netSolutionTemplate != null" >
+        c_netSolutionTemplate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceCenterCode != null" >
+        #{serviceCenterCode,jdbcType=VARCHAR},
+      </if>
+      <if test="netConfigId != null" >
+        #{netConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="centerType != null" >
+        #{centerType,jdbcType=CHAR},
+      </if>
+      <if test="serviceCenterGroupCode != null" >
+        #{serviceCenterGroupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCenterGroupName != null" >
+        #{serviceCenterGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="netSolutionTemplate != null" >
+        #{netSolutionTemplate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.HospitalServiceCenter" >
+    update cp_HospitalServiceCenter
+    <set >
+      <if test="netConfigId != null" >
+        c_NetConfigId = #{netConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="centerType != null" >
+        c_centerType = #{centerType,jdbcType=CHAR},
+      </if>
+      <if test="serviceCenterGroupCode != null" >
+        c_serviceCenterGroupCode = #{serviceCenterGroupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCenterGroupName != null" >
+        c_serviceCenterGroupName = #{serviceCenterGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="netSolutionTemplate != null" >
+        c_netSolutionTemplate = #{netSolutionTemplate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_serviceCenterCode = #{serviceCenterCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.HospitalServiceCenter" >
+    update cp_HospitalServiceCenter
+    set c_NetConfigId = #{netConfigId,jdbcType=VARCHAR},
+      c_centerType = #{centerType,jdbcType=CHAR},
+      c_serviceCenterGroupCode = #{serviceCenterGroupCode,jdbcType=VARCHAR},
+      c_serviceCenterGroupName = #{serviceCenterGroupName,jdbcType=VARCHAR},
+      c_netSolutionTemplate = #{netSolutionTemplate,jdbcType=VARCHAR}
+    where c_serviceCenterCode = #{serviceCenterCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

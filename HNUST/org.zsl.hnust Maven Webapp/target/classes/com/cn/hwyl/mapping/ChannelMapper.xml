@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IChannelDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.Channel" >
+    <id column="c_channelCode" property="channelCode" jdbcType="VARCHAR" />
+    <result column="c_contractNo" property="contractNo" jdbcType="VARCHAR" />
+    <result column="c_channelType" property="channelType" jdbcType="CHAR" />
+    <result column="c_makeType" property="makeType" jdbcType="CHAR" />
+    <result column="c_makeOrgnize" property="makeOrgnize" jdbcType="VARCHAR" />
+    <result column="c_friendOrgnize" property="friendOrgnize" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_channelCode, c_contractNo, c_channelType, c_makeType, c_makeOrgnize, c_friendOrgnize
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_channel
+    where c_channelCode = #{channelCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_channel
+    where c_channelCode = #{channelCode,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.Channel">
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+		select count(*) from cp_channel where c_channelCode =
+		#{channelCode,jdbcType=VARCHAR}
+	</selectKey>
+	<if test="count > 0">
+		    update cp_channel
+    <set >
+      <if test="contractNo != null" >
+        c_contractNo = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null" >
+        c_channelType = #{channelType,jdbcType=CHAR},
+      </if>
+      <if test="makeType != null" >
+        c_makeType = #{makeType,jdbcType=CHAR},
+      </if>
+      <if test="makeOrgnize != null" >
+        c_makeOrgnize = #{makeOrgnize,jdbcType=VARCHAR},
+      </if>
+      <if test="friendOrgnize != null" >
+        c_friendOrgnize = #{friendOrgnize,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_channelCode = #{channelCode,jdbcType=VARCHAR}
+	</if>
+	<if test="count==0">
+		insert into cp_channel (c_channelCode, c_contractNo, c_channelType,
+		c_makeType, c_makeOrgnize, c_friendOrgnize
+		)
+		values (#{channelCode,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR},
+		#{channelType,jdbcType=CHAR},
+		#{makeType,jdbcType=CHAR}, #{makeOrgnize,jdbcType=VARCHAR}, #{friendOrgnize,jdbcType=VARCHAR}
+		)
+	</if>
+
+	</insert>
+
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.Channel" >
+    insert into cp_channel (c_channelCode, c_contractNo, c_channelType, 
+      c_makeType, c_makeOrgnize, c_friendOrgnize
+      )
+    values (#{channelCode,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{channelType,jdbcType=CHAR}, 
+      #{makeType,jdbcType=CHAR}, #{makeOrgnize,jdbcType=VARCHAR}, #{friendOrgnize,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.Channel" >
+    update cp_channel
+    <set >
+      <if test="contractNo != null" >
+        c_contractNo = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null" >
+        c_channelType = #{channelType,jdbcType=CHAR},
+      </if>
+      <if test="makeType != null" >
+        c_makeType = #{makeType,jdbcType=CHAR},
+      </if>
+      <if test="makeOrgnize != null" >
+        c_makeOrgnize = #{makeOrgnize,jdbcType=VARCHAR},
+      </if>
+      <if test="friendOrgnize != null" >
+        c_friendOrgnize = #{friendOrgnize,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_channelCode = #{channelCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.Channel" >
+    update cp_channel
+    set c_contractNo = #{contractNo,jdbcType=VARCHAR},
+      c_channelType = #{channelType,jdbcType=CHAR},
+      c_makeType = #{makeType,jdbcType=CHAR},
+      c_makeOrgnize = #{makeOrgnize,jdbcType=VARCHAR},
+      c_friendOrgnize = #{friendOrgnize,jdbcType=VARCHAR}
+    where c_channelCode = #{channelCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

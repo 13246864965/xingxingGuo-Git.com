@@ -1,0 +1,197 @@
+package com.cn.hwyl.module;
+
+
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cn.hwyl.pojo.FirstAidInfoView;
+import com.cn.hwyl.pojo.body.firstAid.FirstAidSelectBody;
+import com.cn.hwyl.pojo.request.BodyRequest;
+import com.cn.hwyl.pojo.request.HeadRequest;
+import com.cn.hwyl.pojo.response.Result;
+import com.cn.hwyl.service.IFirstAidInfoService;
+import com.cn.hwyl.service.IFirstAidInfoViewService;
+import com.cn.hwyl.service.IFirstAidService;
+import com.cn.hwyl.service.IPatientsService;
+import com.google.gson.Gson;
+
+//@Transactional(rollbackFor = {RuntimeException.class, Exception.class})
+@Transactional
+public class FirstAidModule {
+
+	private static Logger logger = Logger.getLogger(FirstAidModule.class);
+	
+	public static String firstAidAll(HeadRequest head, BodyRequest body) {
+
+		@SuppressWarnings("resource")
+		ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+
+		IFirstAidService firstAidService = (IFirstAidService) ac.getBean("firstAidService");
+
+		IFirstAidInfoService firstAidInfoService = (IFirstAidInfoService) ac.getBean("firstAidInfoService");
+		
+		IFirstAidInfoViewService firstAidInfoViewService = (IFirstAidInfoViewService) ac.getBean("firstAidInfoViewService");
+
+		IPatientsService patientsService = (IPatientsService) ac.getBean("patientsService");
+
+		Result result = new Result();
+
+		Gson gson = new Gson();
+
+		// 急救信息添加
+		if ("FirstAid_Add".equals(head.getService())) {
+			// 判断请求对象参数是否为空
+			if (body.getFirstAidAddBody() == null || "".equals(body.getFirstAidAddBody())) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			int firstAid = 0, firstAidInfo = 0, patients = 0;
+			try {
+
+				// 1,判断急救信息对象是否为空
+				if (body.getFirstAidAddBody().getFirstAid() != null) {
+					logger.info(
+							"FirstAid_Add-- FirstAid param{} :" + body.getFirstAidAddBody().getFirstAid().toString());
+					firstAid = firstAidService.insert(body.getFirstAidAddBody().getFirstAid());
+
+				}
+				// 2,判断急救详细信息对象是否为空
+				if (body.getFirstAidAddBody().getFirstAidInfo() != null) {
+					logger.info("FirstAid_Add-- FirstAidInfo param{} :"
+							+ body.getFirstAidAddBody().getFirstAidInfo().toString());
+					firstAidInfo = firstAidInfoService.insert(body.getFirstAidAddBody().getFirstAidInfo());
+				}
+				// 3,判断患者信息对象是否为空
+				if (body.getFirstAidAddBody().getPatients() != null) {
+					logger.info(
+							"FirstAid_Add-- Patients param{} :" + body.getFirstAidAddBody().getPatients().toString());
+					patients = patientsService.insert(body.getFirstAidAddBody().getPatients());
+				}
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+			}
+			if (firstAid > 0 && firstAidInfo > 0 && patients > 0) {
+				result.setResultCode("1");
+				result.setResultCode("操作成功");
+			}
+		}
+
+		// 急救信息修改
+		if ("FirstAid_Update".equals(head.getService())) {
+			if (body.getFirstAidUpdateBody() == null || "".equals(body.getFirstAidUpdateBody())) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			int firstAid = 0, firstAidInfo = 0, patients = 0;
+			try {
+
+				// 1,判断急救信息对象是否为空
+				if (body.getFirstAidUpdateBody().getFirstAid() != null) {
+					logger.info(
+							"FirstAid_Update-- FirstAid param{} :" + body.getFirstAidUpdateBody().getFirstAid().toString());
+					firstAid = firstAidService.updateByPrimaryKey(body.getFirstAidUpdateBody().getFirstAid());
+
+				}
+				// 2,判断急救详细信息对象是否为空
+				if (body.getFirstAidUpdateBody().getFirstAidInfo() != null) {
+					logger.info("FirstAid_Update-- FirstAidInfo param{} :"
+							+ body.getFirstAidUpdateBody().getFirstAidInfo().toString());
+					firstAidInfo = firstAidInfoService
+							.updateByPrimaryKey(body.getFirstAidUpdateBody().getFirstAidInfo());
+				}
+				// 3,判断患者信息对象是否为空
+				if (body.getFirstAidUpdateBody().getPatients() != null) {
+					logger.info(
+							"FirstAid_Update-- Patients param{} :" + body.getFirstAidUpdateBody().getPatients().toString());
+					patients = patientsService.updateByPrimaryKey(body.getFirstAidUpdateBody().getPatients());
+				}
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+			}
+			if (firstAid > 0 && firstAidInfo > 0 && patients > 0) {
+				result.setResultCode("1");
+				result.setResultCode("操作成功");
+			}
+
+		}
+		
+		//急救信息查询
+		if ("FirstAid_Select".equals(head.getService())) {
+			if (body.getFirstAidSelectBody() == null || "".equals(body.getFirstAidSelectBody())) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			List<FirstAidInfoView> firstAidInfoViewlists = null;
+			int count = 0;
+			try {
+				logger.info("FirstAid_Select param{} :" + body.getFirstAidSelectBody().getFirstAidInfoView().toString());
+				firstAidInfoViewlists = firstAidInfoViewService.selectFirstAidInfoViewByFirstAidID(body.getFirstAidSelectBody().getFirstAidInfoView());
+				count = firstAidInfoViewService.selectFirstAidInfoViewByCount(body.getFirstAidSelectBody().getFirstAidInfoView());
+				
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+			}
+			if (firstAidInfoViewlists.size() > 0 && count > 0) {
+				result.setResultCode("1");
+				result.setObj(firstAidInfoViewlists);
+				result.setRecordNum(count);
+				result.setPageNum((int) Math
+						.ceil((double) count / body.getFirstAidSelectBody().getFirstAidInfoView().getRecordNumPer()));
+			}
+			
+		}
+
+		return gson.toJson(result);
+	}
+
+	public static void main(String[] args) {
+		HeadRequest h = new HeadRequest();
+		h.setService("FirstAid_Add");
+		BodyRequest b = new BodyRequest();
+		FirstAidSelectBody fsb = new FirstAidSelectBody();
+		FirstAidInfoView faiv = new FirstAidInfoView();
+		faiv.setcFirstaidid("aef3248f-a220-47a0-adfa-752d20557738");
+		faiv.setcPatientsname("测试_1");
+		faiv.setRecordNumPer(10);
+		faiv.setCurrPageIndex(1);
+		fsb.setFirstAidInfoView(faiv);
+		b.setFirstAidSelectBody(fsb);
+//		FirstAidAddBody faa = new FirstAidAddBody();
+//		FirstAid fa = new FirstAid();
+//		fa.setcFirstaidid("123456");
+//		fa.setcAmbulancenumber("郭星星");
+//
+//		FirstAidInfo fai = new FirstAidInfo();
+//		// fai.setcFirstaidinfoid("123456");
+//		fai.setcFirstaidlog("郭星星");
+//
+//		Patients patients = new Patients();
+//
+//		// patients.setcFirstaidid("");
+//		// patients.setcPatientsid("123456");
+//		patients.setcOnsetaddress("郭星星");
+//		faa.setFirstAid(fa);
+//		faa.setFirstAidInfo(fai);
+//		faa.setPatients(patients);
+//		b.setFirstAidAddBody(faa);
+		firstAidAll(h, b);
+	}
+}

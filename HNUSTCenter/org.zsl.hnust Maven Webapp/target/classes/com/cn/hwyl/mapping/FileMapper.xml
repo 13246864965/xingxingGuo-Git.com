@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFileDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FileInfo" >
+    <result column="c_FileName" property="cFilename" jdbcType="VARCHAR" />
+    <result column="c_FileId" property="cFileid" jdbcType="VARCHAR" />
+    <result column="c_FilePath" property="cFilepath" jdbcType="VARCHAR" />
+    <result column="c_FileSize" property="cFilesize" jdbcType="VARCHAR" />
+    <result column="c_FileType" property="cFiletype" jdbcType="VARCHAR" />
+    <result column="c_IsDelete" property="cIsdelete" jdbcType="VARCHAR" />
+    <result column="c_FileForeign" property="cFileforeign" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<sql id="Base_Column_List">
+	c_FileName, c_FileId, c_FilePath, c_FileSize, c_FileType,
+	c_IsDelete, c_FileForeign
+	</sql>
+	<sql id="queryByCondition">
+		<if test="cFilename != null and cFilename != ''">
+			and c_FileName = #{cFilename,jdbcType=VARCHAR}
+		</if>
+		<if test="cFileid != null and cFileid != ''">
+			and c_FileId = #{cFileid,jdbcType=VARCHAR}
+		</if>
+		<if test="cFileforeign != null and cFileforeign != ''">
+			and c_FileForeign = #{cFileforeign,jdbcType=VARCHAR}
+		</if>
+	</sql>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.FileInfo" >
+    insert into cp_File (c_FileName, c_FileId, c_FilePath, 
+      c_FileSize, c_FileType, c_IsDelete, 
+      c_FileForeign)
+    values (#{cFilename,jdbcType=VARCHAR}, #{cFileid,jdbcType=VARCHAR}, #{cFilepath,jdbcType=VARCHAR}, 
+      #{cFilesize,jdbcType=VARCHAR}, #{cFiletype,jdbcType=VARCHAR}, #{cIsdelete,jdbcType=VARCHAR}, 
+      #{cFileforeign,jdbcType=VARCHAR})
+  </insert>
+
+	<insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.FileInfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from cp_File where
+			c_FileForeign =
+			#{cFileforeign,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			update cp_File
+			set c_FileId = #{cFileid,jdbcType=VARCHAR},
+			c_FileName = #{cFilename,jdbcType=VARCHAR},
+			c_FilePath =
+			#{cFilepath,jdbcType=VARCHAR},
+			c_FileSize =
+			#{cFilesize,jdbcType=VARCHAR},
+			c_FileType =
+			#{cFiletype,jdbcType=VARCHAR},
+			c_IsDelete =
+			#{cIsdelete,jdbcType=VARCHAR}
+			where c_FileForeign =
+			#{cFileforeign,jdbcType=VARCHAR}
+		</if>
+		<if test="count==0">
+				insert into cp_File
+				(c_FileName, c_FileId, c_FilePath,
+				c_FileSize, c_FileType,
+				c_IsDelete,
+				c_FileForeign)
+				values (#{cFilename,jdbcType=VARCHAR},
+				#{cFileid,jdbcType=VARCHAR},
+				#{cFilepath,jdbcType=VARCHAR},
+				#{cFilesize,jdbcType=VARCHAR}, #{cFiletype,jdbcType=VARCHAR},
+				#{cIsdelete,jdbcType=VARCHAR},
+				#{cFileforeign,jdbcType=VARCHAR})
+		</if>
+
+	</insert>
+  
+  <select id="selectByFile" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.FileInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_File
+    where 1=1 <include refid="queryByCondition" />
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.FileInfo" >
+    insert into cp_File
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cFilename != null" >
+        c_FileName,
+      </if>
+      <if test="cFileid != null" >
+        c_FileId,
+      </if>
+      <if test="cFilepath != null" >
+        c_FilePath,
+      </if>
+      <if test="cFilesize != null" >
+        c_FileSize,
+      </if>
+      <if test="cFiletype != null" >
+        c_FileType,
+      </if>
+      <if test="cIsdelete != null" >
+        c_IsDelete,
+      </if>
+      <if test="cFileforeign != null" >
+        c_FileForeign,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cFilename != null" >
+        #{cFilename,jdbcType=VARCHAR},
+      </if>
+      <if test="cFileid != null" >
+        #{cFileid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFilepath != null" >
+        #{cFilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="cFilesize != null" >
+        #{cFilesize,jdbcType=VARCHAR},
+      </if>
+      <if test="cFiletype != null" >
+        #{cFiletype,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdelete != null" >
+        #{cIsdelete,jdbcType=VARCHAR},
+      </if>
+      <if test="cFileforeign != null" >
+        #{cFileforeign,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

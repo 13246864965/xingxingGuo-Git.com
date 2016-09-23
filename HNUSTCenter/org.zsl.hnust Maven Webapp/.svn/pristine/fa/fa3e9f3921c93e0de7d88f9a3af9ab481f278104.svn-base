@@ -1,0 +1,21 @@
+package com.cn.hwyl.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.cn.hwyl.pojo.FirstAidInfo;
+
+@Repository
+public interface IFirstAidInfoDao{
+    int deleteByPrimaryKey(String cFirstaidinfoid);
+
+    int insert(FirstAidInfo record);
+
+    int insertSelective(FirstAidInfo record);
+
+    FirstAidInfo selectByPrimaryKey(String cFirstaidinfoid);
+
+    int updateByPrimaryKeySelective(FirstAidInfo record);
+
+    int updateByPrimaryKey(FirstAidInfo record);
+
+}

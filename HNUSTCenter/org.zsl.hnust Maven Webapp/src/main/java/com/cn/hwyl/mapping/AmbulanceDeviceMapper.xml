@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IAmbulanceDeviceDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.AmbulanceDevice" >
+    <id column="c_ADID" property="cAdid" jdbcType="VARCHAR" />
+    <result column="c_AmbulanceNumber" property="cAmbulancenumber" jdbcType="VARCHAR" />
+    <result column="c_DeviceNumber" property="cDevicenumber" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_OrgID" property="cOrgid" jdbcType="VARCHAR" />
+    <result column="c_DeviceType" property="cDevicetype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_ADID, c_AmbulanceNumber, c_DeviceNumber, c_UpdateTime, c_UpdateUserID, c_OrgID, 
+    c_DeviceType
+  </sql>
+   <sql  id="queryByCondition" >
+	  <if test="cOrgid != null and cOrgid != ''" >
+      and A.c_OrgID = #{cOrgid,jdbcType=VARCHAR}
+      </if>
+      <if test="cDevicenumber != null and cDevicenumber != ''" >
+      and A.c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR}
+      </if>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_Ambulance_Device
+    where c_ADID = #{cAdid,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.AmbulanceDevice" >
+    select 
+	 A.c_ADID, A.c_AmbulanceNumber, A.c_DeviceNumber, A.c_UpdateTime, A.c_UpdateUserID, A.c_OrgID, 
+    A.c_DeviceType
+<!--     ,F.c_FirstAidID as firstAidId -->
+    from cp_Ambulance_Device A 
+<!--     LEFT JOIN cp_FirstAid F ON A.c_OrgID = F.c_OrgID and A.c_DeviceNumber=F.c_DeviceNumber -->
+    where 1=1 <include refid="queryByCondition" /> 
+    limit #{currPageIndex},#{recordNumPer} 
+  </select>
+   <select id="selectByCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.AmbulanceDevice" >
+    select count(1)
+    from cp_Ambulance_Device A LEFT JOIN cp_FirstAid F ON A.c_OrgID = F.c_OrgID and A.c_DeviceNumber=F.c_DeviceNumber
+    where 1=1 <include refid="queryByCondition" /> 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_Ambulance_Device
+    where c_ADID = #{cAdid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.AmbulanceDevice" >
+    insert into cp_Ambulance_Device (c_ADID, c_AmbulanceNumber, c_DeviceNumber, 
+      c_UpdateTime, c_UpdateUserID, c_OrgID, 
+      c_DeviceType)
+    values (#{cAdid,jdbcType=VARCHAR}, #{cAmbulancenumber,jdbcType=VARCHAR}, #{cDevicenumber,jdbcType=VARCHAR}, 
+      #{cUpdatetime,jdbcType=TIMESTAMP}, #{cUpdateuserid,jdbcType=VARCHAR}, #{cOrgid,jdbcType=VARCHAR}, 
+      #{cDevicetype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.AmbulanceDevice" >
+    insert into cp_Ambulance_Device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cAdid != null" >
+        c_ADID,
+      </if>
+      <if test="cAmbulancenumber != null" >
+        c_AmbulanceNumber,
+      </if>
+      <if test="cDevicenumber != null" >
+        c_DeviceNumber,
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID,
+      </if>
+      <if test="cDevicetype != null" >
+        c_DeviceType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cAdid != null" >
+        #{cAdid,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancenumber != null" >
+        #{cAmbulancenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cDevicenumber != null" >
+        #{cDevicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cOrgid != null" >
+        #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDevicetype != null" >
+        #{cDevicetype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.AmbulanceDevice" >
+    update cp_Ambulance_Device
+    <set >
+      <if test="cAmbulancenumber != null" >
+        c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cDevicenumber != null" >
+        c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDevicetype != null" >
+        c_DeviceType = #{cDevicetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_ADID = #{cAdid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.AmbulanceDevice" >
+    update cp_Ambulance_Device
+    set c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+      c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      c_DeviceType = #{cDevicetype,jdbcType=VARCHAR}
+    where c_ADID = #{cAdid,jdbcType=VARCHAR}
+  </update>
+</mapper>

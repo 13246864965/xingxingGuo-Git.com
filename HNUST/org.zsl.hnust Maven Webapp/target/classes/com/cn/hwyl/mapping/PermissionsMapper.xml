@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IPermissionsDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.Permissions" >
+    <id column="c_PrivilegeID" property="cPrivilegeid" jdbcType="VARCHAR" />
+    <result column="c_PrivilegeName" property="cPrivilegename" jdbcType="VARCHAR" />
+    <result column="c_PrivilegeCode" property="cPrivilegecode" jdbcType="VARCHAR" />
+    <result column="c_PrivilegeType" property="cPrivilegetype" jdbcType="CHAR" />
+    <result column="c_SortNo" property="cSortno" jdbcType="INTEGER" />
+    <result column="c_Status" property="cStatus" jdbcType="CHAR" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateDate" property="cUpdatedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_PrivilegeID, c_PrivilegeName, c_PrivilegeCode, c_PrivilegeType, c_SortNo, c_Status, 
+    c_UpdateUserID, c_UpdateDate
+  </sql>
+  
+  <sql  id="queryByCondition" >
+	  <if test="cPrivilegename != null" >
+      and c_PrivilegeName = #{cPrivilegename,jdbcType=VARCHAR}
+      </if>
+      <if test="cPrivilegecode != null" >
+      and c_PrivilegeCode = #{cPrivilegecode,jdbcType=VARCHAR}
+      </if>
+      <if test="cPrivilegetype != null" >
+       and c_PrivilegeType= #{cPrivilegetype,jdbcType=VARCHAR}
+      </if>
+      <if test="cSortno != null" >
+      and cSorc_SortNotno=  #{cSortno,jdbcType=VARCHAR}
+      </if>
+      <if test="cStatus != null" >
+      and c_Status = #{cStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="cUserstate != null" >
+      and c_UserState = #{cUserstate,jdbcType=VARCHAR}
+      </if>
+      <if test="cUserphone != null" >
+      and c_UserPhone= #{cUserphone,jdbcType=VARCHAR}
+      </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_Permissions
+    where c_PrivilegeID = #{cPrivilegeid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.Permissions" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_Permissions
+    where 1=1 <include refid="queryByCondition" /> 
+    limit #{currPageIndex},#{recordNumPer} 
+  </select>
+   <select id="selectByCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.Permissions" >
+    select count(1)
+    from cp_Permissions
+    where 1=1 <include refid="queryByCondition" /> 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_Permissions
+    where c_PrivilegeID = #{cPrivilegeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.Permissions" >
+    insert into cp_Permissions (c_PrivilegeID, c_PrivilegeName, c_PrivilegeCode, 
+      c_PrivilegeType, c_SortNo, c_Status, 
+      c_UpdateUserID, c_UpdateDate)
+    values (#{cPrivilegeid,jdbcType=VARCHAR}, #{cPrivilegename,jdbcType=VARCHAR}, #{cPrivilegecode,jdbcType=VARCHAR}, 
+      #{cPrivilegetype,jdbcType=CHAR}, #{cSortno,jdbcType=INTEGER}, #{cStatus,jdbcType=CHAR}, 
+      #{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatedate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.Permissions" >
+   update cp_Permissions
+    <set >
+      <if test="cPrivilegename != null" >
+        c_PrivilegeName = #{cPrivilegename,jdbcType=VARCHAR},
+      </if>
+      <if test="cPrivilegecode != null" >
+        c_PrivilegeCode = #{cPrivilegecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cPrivilegetype != null" >
+        c_PrivilegeType = #{cPrivilegetype,jdbcType=CHAR},
+      </if>
+      <if test="cSortno != null" >
+        c_SortNo = #{cSortno,jdbcType=INTEGER},
+      </if>
+      <if test="cStatus != null" >
+        c_Status = #{cStatus,jdbcType=CHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatedate != null" >
+        c_UpdateDate = #{cUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_PrivilegeID = #{cPrivilegeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

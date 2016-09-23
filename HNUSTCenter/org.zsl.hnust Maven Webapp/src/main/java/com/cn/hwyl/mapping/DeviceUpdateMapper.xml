@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IDeviceUpdateDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.DeviceUpdate" >
+    <id column="c_WardshipID" property="cWardshipid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_DeviceNumber" property="cDevicenumber" jdbcType="VARCHAR" />
+    <result column="c_DeviceUpdateTime" property="cDeviceupdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_ReturnTime" property="cReturntime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_WardshipID, c_FirstAidID, c_DeviceNumber, c_DeviceUpdateTime, c_UpdateUserID, c_UpdateTime, 
+    c_ReturnTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_DeviceUpdate
+    where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_DeviceUpdate
+    where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}
+  </delete>
+
+	<insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.DeviceUpdate">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from cp_DeviceUpdate
+			where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			update cp_DeviceUpdate
+			set c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+			c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+			c_DeviceUpdateTime = #{cDeviceupdatetime,jdbcType=TIMESTAMP},
+			c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+			c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+			c_ReturnTime = #{cReturntime,jdbcType=TIMESTAMP}
+			where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}
+		</if>
+		<if test="count==0">
+			insert into cp_DeviceUpdate (c_WardshipID, c_FirstAidID, c_DeviceNumber,
+			c_DeviceUpdateTime, c_UpdateUserID, c_UpdateTime,
+			c_ReturnTime)
+			values (#{cWardshipid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR},
+			#{cDevicenumber,jdbcType=VARCHAR},
+			#{cDeviceupdatetime,jdbcType=TIMESTAMP},
+			#{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatetime,jdbcType=TIMESTAMP},
+			#{cReturntime,jdbcType=TIMESTAMP})
+		</if>
+	</insert>
+  
+  
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.DeviceUpdate" >
+    insert into cp_DeviceUpdate (c_WardshipID, c_FirstAidID, c_DeviceNumber, 
+      c_DeviceUpdateTime, c_UpdateUserID, c_UpdateTime, 
+      c_ReturnTime)
+    values (#{cWardshipid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR}, #{cDevicenumber,jdbcType=VARCHAR}, 
+      #{cDeviceupdatetime,jdbcType=TIMESTAMP}, #{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatetime,jdbcType=TIMESTAMP}, 
+      #{cReturntime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.DeviceUpdate" >
+    insert into cp_DeviceUpdate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cWardshipid != null" >
+        c_WardshipID,
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID,
+      </if>
+      <if test="cDevicenumber != null" >
+        c_DeviceNumber,
+      </if>
+      <if test="cDeviceupdatetime != null" >
+        c_DeviceUpdateTime,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime,
+      </if>
+      <if test="cReturntime != null" >
+        c_ReturnTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cWardshipid != null" >
+        #{cWardshipid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDevicenumber != null" >
+        #{cDevicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cDeviceupdatetime != null" >
+        #{cDeviceupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cReturntime != null" >
+        #{cReturntime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.DeviceUpdate" >
+    update cp_DeviceUpdate
+    <set >
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDevicenumber != null" >
+        c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cDeviceupdatetime != null" >
+        c_DeviceUpdateTime = #{cDeviceupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cReturntime != null" >
+        c_ReturnTime = #{cReturntime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.DeviceUpdate" >
+    update cp_DeviceUpdate
+    set c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+      c_DeviceUpdateTime = #{cDeviceupdatetime,jdbcType=TIMESTAMP},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      c_ReturnTime = #{cReturntime,jdbcType=TIMESTAMP}
+    where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}
+  </update>
+</mapper>

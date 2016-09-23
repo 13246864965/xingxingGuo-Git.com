@@ -1,0 +1,111 @@
+package com.cn.hwyl.module;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.cn.hwyl.pojo.Channel;
+import com.cn.hwyl.pojo.HospitalServiceCenter;
+import com.cn.hwyl.pojo.Organization;
+import com.cn.hwyl.pojo.request.HeadRequest;
+import com.cn.hwyl.pojo.response.Result;
+import com.cn.hwyl.service.IChannelService;
+import com.cn.hwyl.service.IHospitalServiceCenterService;
+import com.cn.hwyl.service.IOrganizationService;
+import com.google.gson.Gson;
+
+public class SynchronousModule {
+	private static Logger logger = Logger.getLogger(SynchronousModule.class);
+
+	public static String synchronousAll(HeadRequest head, HospitalServiceCenter hospitalServiceCenter) {
+
+		@SuppressWarnings("resource")
+		ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+		
+		IChannelService channelService = null;
+		IHospitalServiceCenterService hospitalServiceCenterService = null;
+		IOrganizationService organizationService = null;
+		
+		Gson gson = new Gson();
+
+		Result result = new Result();
+
+		Channel channel = (Channel) hospitalServiceCenter;
+
+		Organization organization = (Organization) hospitalServiceCenter;
+
+		// 同步添加/更新
+		if ("synchronousDataByOrganize".equals(head.getService())) {
+			int hospitalServiceCenterResult = 0;
+			int channelResult = 0;
+			int organizationResult = 0;
+
+			try {
+				hospitalServiceCenterService = (IHospitalServiceCenterService) ac
+						.getBean("hospitalServiceCenterService");
+				channelService = (IChannelService) ac.getBean("channelService");
+				organizationService = (IOrganizationService) ac.getBean("organizationService");
+
+				if (hospitalServiceCenter == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("服务中心信息传参为空");
+					return gson.toJson(result);
+				} else {
+					hospitalServiceCenterResult = hospitalServiceCenterService.saveOrUpdate(hospitalServiceCenter);
+				}
+
+				if (channel == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("渠道信息传参为空");
+					return gson.toJson(result);
+				} else {
+					channelResult = channelService.saveOrUpdate(channel);
+				}
+
+				if (organization == null) {
+					result.setResultCode("0");
+					result.setErrorInfo("机构信息传参为空");
+					return gson.toJson(result);
+				} else {
+					organizationResult = organizationService.saveOrUpdate(organization);
+				}
+
+				if (hospitalServiceCenterResult > 0 && channelResult > 0 && organizationResult > 0) {
+					result.setResultCode("1");
+					result.setErrorInfo("操作成功");
+					return gson.toJson(result);
+				}
+
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+				return gson.toJson(result);
+			}
+
+		}
+		return gson.toJson(result);
+	}
+	public static void main(String[] args) {
+		
+		@SuppressWarnings("resource")
+		ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+		IOrganizationService organizationService = (IOrganizationService) ac.getBean("organizationService");
+		Organization o = new Organization();
+		o.setCity("cccity");
+		o.setCountry("cccountry");
+		o.setGateLoginAccount("gggateLoginAccount");
+		o.setLegalPerson("lllegalPerson");
+		o.setMemo("mmmemo");
+		o.setNetConfigId("nnnetConfigId");
+		o.setOrderNo("1");
+		o.setOrgAddress("ooorgAddress");
+		o.setOrgCode("ooorgCode22233333");
+		o.setOrgHead("ooorgHead");
+		o.setOrgId("ooorgId222");
+		int a = organizationService.saveOrUpdate(o);
+		System.out.println(a);
+		
+	}
+}

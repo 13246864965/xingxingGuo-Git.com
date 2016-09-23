@@ -1,0 +1,182 @@
+package com.cn.hwyl.module;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.cn.hwyl.pojo.User;
+import com.cn.hwyl.pojo.body.user.UserDeleteBody;
+import com.cn.hwyl.pojo.body.user.UserSelectBody;
+import com.cn.hwyl.pojo.request.BodyRequest;
+import com.cn.hwyl.pojo.request.HeadRequest;
+import com.cn.hwyl.pojo.response.Result;
+import com.cn.hwyl.service.IUserService;
+import com.google.gson.Gson;
+
+public class UserModule {
+
+	private static Logger logger = Logger.getLogger(UserModule.class);
+
+	public static String userAll(HeadRequest head, BodyRequest body) {
+
+		@SuppressWarnings("resource")
+		ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+
+		IUserService userService = (IUserService) ac.getBean("userService");
+
+		Gson gson = new Gson();
+
+		Result result = new Result();
+		int isOk = 0;
+		//用户登录
+		if ("User_Login".equals(head.getService())) {
+			logger.info("User_Login param{} :" + body.getUserLoginBody().toString());
+			User user = userService.selectByCusername(body.getUserLoginBody().getcUsername());
+			if (user == null || "".equals(user)) {
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo(body.getUserLoginBody().getcUsername() + "用户不存在！！");
+				return gson.toJson(result);
+			}
+			try {// MD5Util.md5Encode(body.getUserLoginBody().getcUserpwd())
+				if (!user.getcUserpwd().equals(body.getUserLoginBody().getcUserpwd())) {
+					result.setResultCode("0");
+					result.setIsLogin(false);
+					result.setErrorInfo("用户密码不对,请重新输入！！");
+					return gson.toJson(result);
+				}
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+				return gson.toJson(result);
+			}
+			result.setResultCode("1");
+			result.setObj(user);
+			result.setIsLogin(true);
+		}
+
+		// 用户添加
+		if ("User_Add".equals(head.getService())) {
+			// 判断请求对象参数是否为空
+			if (body.getUserAddBody() == null || "".equals(body.getUserAddBody())) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			try {
+				logger.info("User_Add param{} :" + body.getUserAddBody().getUser().toString());
+				isOk = userService.insert(body.getUserAddBody().getUser());
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+				return gson.toJson(result);
+			}
+			if (isOk > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+
+		}
+		// 用户更新
+		if ("User_Update".equals(head.getService())) {
+			// 判断请求对象参数是否为空
+			if (body.getUserUpdate() == null || "".equals(body.getUserUpdate())) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return result.toString();
+			}
+			try {
+				logger.info("User_Update param{} :" + body.getUserUpdate().getUser().toString());
+				isOk = userService.updateByPrimaryKey(body.getUserUpdate().getUser());
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+			}
+
+			if (isOk > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+
+		}
+		//用户删除
+		if ("User_Delete".equals(head.getService())) {
+			if (body.getUserDeleteBody() == null || "".equals(body.getUserDeleteBody())) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return result.toString();
+			}
+			try {
+				logger.info("User_Delete param{} :" + body.getUserDeleteBody().getcUserid().toString());
+				isOk = userService.deleteByPrimaryKey(body.getUserDeleteBody().getcUserid());
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+			}
+			if (isOk > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+
+		}
+		//用户查询
+		if ("User_Select".equals(head.getService())) {
+			if (body.getUserSelectBody() == null || "".equals(body.getUserSelectBody())) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return result.toString();
+			}
+			if (body.getUserSelectBody().getUser() != null) {
+				logger.info("User_Select param{} :" + body.getUserSelectBody().getUser().toString());
+				List<User> userLists = null;
+				int count = 0;
+				try {
+					userLists = userService.selectByPage(body.getUserSelectBody().getUser());
+					count = userService.selectByPageCount(body.getUserSelectBody().getUser());
+				} catch (Exception e) {
+					logger.error("程序异常:" + e);
+					result.setResultCode("0");
+					result.setIsLogin(false);
+					result.setErrorInfo("程序异常,请联系管理员！！");
+				}
+
+				if (userLists.size() > 0 && count > 0) {
+					result.setResultCode("1");
+					result.setObj(userLists);
+					result.setRecordNum(count);
+					result.setPageNum(
+							(int) Math.ceil((double) count / body.getUserSelectBody().getUser().getRecordNumPer()));
+				}
+			}
+
+		}
+		return gson.toJson(result);
+	}
+
+	public static void main(String[] args) {
+		HeadRequest h = new HeadRequest();
+		h.setService("User_Login");
+		BodyRequest b = new BodyRequest();
+		UserDeleteBody bb = new UserDeleteBody();
+//		// 先set分页大小
+//		u.setRecordNumPer(10);
+//		u.setCurrPageIndex(2);
+		bb.setcUserid("1");
+		b.setUserDeleteBody(bb);
+		userAll(h, b);
+	}
+
+}

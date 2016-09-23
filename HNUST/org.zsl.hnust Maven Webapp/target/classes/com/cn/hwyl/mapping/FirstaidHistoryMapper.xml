@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstaidHistoryDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FirstaidHistory" >
+    <id column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidTime" property="cFirstaidtime" jdbcType="TIMESTAMP" />
+    <result column="c_FirstAidState" property="cFirstaidstate" jdbcType="CHAR" />
+    <result column="c_DeviceNumber" property="cDevicenumber" jdbcType="VARCHAR" />
+    <result column="c_CardNumber" property="cCardnumber" jdbcType="VARCHAR" />
+    <result column="c_AmbulanceNumber" property="cAmbulancenumber" jdbcType="VARCHAR" />
+    <result column="c_FirstAidUpdateCode" property="cFirstaidupdatecode" jdbcType="VARCHAR" />
+    <result column="c_FirstAidUpdateTime" property="cFirstaidupdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_OrgID" property="cOrgid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidEndTime" property="cFirstaidendtime" jdbcType="TIMESTAMP" />
+    <result column="c_IsCreateFirstAid" property="cIscreatefirstaid" jdbcType="CHAR" />
+    <result column="c_AVDeviceNumber" property="cAvdevicenumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_FirstAidID, c_FirstAidTime, c_FirstAidState, c_DeviceNumber, c_CardNumber, c_AmbulanceNumber, 
+    c_FirstAidUpdateCode, c_FirstAidUpdateTime, c_OrgID, c_FirstAidEndTime, c_IsCreateFirstAid, 
+    c_AVDeviceNumber
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_firstaidhistory
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_firstaidhistory
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.FirstaidHistory" >
+    insert into cp_firstaidhistory (c_FirstAidID, c_FirstAidTime, c_FirstAidState, 
+      c_DeviceNumber, c_CardNumber, c_AmbulanceNumber, 
+      c_FirstAidUpdateCode, c_FirstAidUpdateTime, 
+      c_OrgID, c_FirstAidEndTime, c_IsCreateFirstAid, 
+      c_AVDeviceNumber)
+    values (#{cFirstaidid,jdbcType=VARCHAR}, #{cFirstaidtime,jdbcType=TIMESTAMP}, #{cFirstaidstate,jdbcType=CHAR}, 
+      #{cDevicenumber,jdbcType=VARCHAR}, #{cCardnumber,jdbcType=VARCHAR}, #{cAmbulancenumber,jdbcType=VARCHAR}, 
+      #{cFirstaidupdatecode,jdbcType=VARCHAR}, #{cFirstaidupdatetime,jdbcType=TIMESTAMP}, 
+      #{cOrgid,jdbcType=VARCHAR}, #{cFirstaidendtime,jdbcType=TIMESTAMP}, #{cIscreatefirstaid,jdbcType=CHAR}, 
+      #{cAvdevicenumber,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FirstaidHistory" >
+    update cp_firstaidhistory
+    set c_FirstAidTime = #{cFirstaidtime,jdbcType=TIMESTAMP},
+      c_FirstAidState = #{cFirstaidstate,jdbcType=CHAR},
+      c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+      c_CardNumber = #{cCardnumber,jdbcType=VARCHAR},
+      c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      c_FirstAidUpdateCode = #{cFirstaidupdatecode,jdbcType=VARCHAR},
+      c_FirstAidUpdateTime = #{cFirstaidupdatetime,jdbcType=TIMESTAMP},
+      c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      c_FirstAidEndTime = #{cFirstaidendtime,jdbcType=TIMESTAMP},
+      c_IsCreateFirstAid = #{cIscreatefirstaid,jdbcType=CHAR},
+      c_AVDeviceNumber = #{cAvdevicenumber,jdbcType=VARCHAR}
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </update>
+</mapper>

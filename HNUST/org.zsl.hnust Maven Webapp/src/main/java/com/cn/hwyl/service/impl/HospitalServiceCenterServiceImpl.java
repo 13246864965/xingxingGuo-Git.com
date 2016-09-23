@@ -1,0 +1,44 @@
+package com.cn.hwyl.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cn.hwyl.dao.IHospitalServiceCenterDao;
+import com.cn.hwyl.pojo.HospitalServiceCenter;
+import com.cn.hwyl.service.IHospitalServiceCenterService;
+
+@Service("hospitalServiceCenterService")
+public class HospitalServiceCenterServiceImpl implements IHospitalServiceCenterService{
+
+	
+	@Resource
+	private IHospitalServiceCenterDao hospitalServiceCenterDao;
+	
+	
+	@Override
+	public int deleteByPrimaryKey(String cServicecentercode) {
+		return hospitalServiceCenterDao.deleteByPrimaryKey(cServicecentercode);
+	}
+
+	@Override
+	public int insert(HospitalServiceCenter record) {
+		return hospitalServiceCenterDao.insert(record);
+	}
+
+	@Override
+	public HospitalServiceCenter selectByPrimaryKey(String cServicecentercode) {
+		return hospitalServiceCenterDao.selectByPrimaryKey(cServicecentercode);
+	}
+
+	@Override
+	public int updateByPrimaryKey(HospitalServiceCenter record) {
+		return hospitalServiceCenterDao.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public int saveOrUpdate(HospitalServiceCenter record) {
+		return hospitalServiceCenterDao.saveOrUpdate(record);
+	}
+
+}

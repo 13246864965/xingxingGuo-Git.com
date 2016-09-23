@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFollowUpVisitsDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FollowUpVisits" >
+    <id column="c_VisitsID" property="cVisitsid" jdbcType="INTEGER" />
+    <result column="c_PatientsID" property="cPatientsid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_LeaveHospitalTime" property="cLeavehospitaltime" jdbcType="TIMESTAMP" />
+    <result column="c_DiagnosisOfChestPain" property="cDiagnosisofchestpain" jdbcType="VARCHAR" />
+    <result column="c_VisitsNumber" property="cVisitsnumber" jdbcType="INTEGER" />
+    <result column="c_ClinicalManifestation" property="cClinicalmanifestation" jdbcType="VARCHAR" />
+    <result column="c_DiagnosticOpinion" property="cDiagnosticopinion" jdbcType="VARCHAR" />
+    <result column="c_VisitsTime" property="cVisitstime" jdbcType="TIMESTAMP" />
+    <result column="c_State" property="cState" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_VisitsID, c_PatientsID, c_FirstAidID, c_LeaveHospitalTime, c_DiagnosisOfChestPain, 
+    c_VisitsNumber, c_ClinicalManifestation, c_DiagnosticOpinion, c_VisitsTime, c_State
+    
+    , c_PatientsName, c_PatientsSex, c_PatientsAge, c_PatientsBirthday, 
+    c_PatientsPhoneNumber, c_PatientsEmergencyContact, c_PatientsEmergencyPhoneNumber, 
+    c_OutpatientServiceID, c_HospitalID, c_OnsetAddress, c_OnsetTime, c_IsSend, c_UpdateUserID,c_IDNmber, c_LabelNo,
+    c_UpdateTime
+  </sql>
+  
+    <sql  id="queryByCondition" >
+	 <if test="cPatientsid != null" >
+        and cfv.c_PatientsID = #{cPatientsid,jdbcType=VARCHAR}
+      </if>
+      <if test="cFirstaidid != null" >
+        and cfv.c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+      </if>
+      <if test="cLeavehospitaltime != null" >
+       and  cfv.c_LeaveHospitalTime = #{cLeavehospitaltime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        and cfv.c_DiagnosisOfChestPain = #{cDiagnosisofchestpain,jdbcType=VARCHAR}
+      </if>
+      <if test="cVisitsnumber != null" >
+        and cfv.c_VisitsNumber = #{cVisitsnumber,jdbcType=INTEGER}
+      </if>
+      <if test="cClinicalmanifestation != null" >
+        and cfv.c_ClinicalManifestation = #{cClinicalmanifestation,jdbcType=VARCHAR}
+      </if>
+      <if test="cDiagnosticopinion != null" >
+        and cfv.c_DiagnosticOpinion = #{cDiagnosticopinion,jdbcType=VARCHAR}
+      </if>
+      <if test="cVisitstime != null" >
+       and  cfv.c_VisitsTime = #{cVisitstime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cState != null" >
+       and  cfv.c_State = #{cState,jdbcType=CHAR}
+      </if>
+      
+      
+      
+      
+       <if test="cPatientsname != null" >
+       and cp.c_PatientsName = #{cPatientsname,jdbcType=VARCHAR}
+      </if>
+      <if test="cPatientssex != null" >
+        and cp.c_PatientsSex = #{cPatientssex,jdbcType=CHAR}
+      </if>
+      <if test="cPatientsage != null" >
+        and cp.c_PatientsAge = #{cPatientsage,jdbcType=INTEGER}
+      </if>
+       <if test="cPatientsphonenumber != null" >
+        and cp.c_PatientsPhoneNumber = #{cPatientsphonenumber,jdbcType=VARCHAR}
+      </if>
+      <if test="cHospitalid != null" >
+       and cp.c_HospitalID = #{cHospitalid,jdbcType=VARCHAR}
+      </if>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_followupvisits cfv
+    where c_VisitsID = #{cVisitsid,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.FollowUpVisits" >
+    select 
+    *
+    from cp_followupvisits cfv LEFT JOIN  cp_patients cp ON cfv.c_FirstAidID = cp.c_FirstAidID
+    where 1=1 <include refid="queryByCondition" /> 
+    limit #{currPageIndex},#{recordNumPer} 
+
+  </select>
+  
+   <select id="selectByPageCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.FollowUpVisits" >
+    select count(1)
+    from cp_followupvisits cfv LEFT JOIN  cp_patients cp ON cfv.c_FirstAidID = cp.c_FirstAidID
+    where 1=1 <include refid="queryByCondition" /> 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cp_followupvisits cfv
+    where c_VisitsID = #{cVisitsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.FollowUpVisits" >
+    insert into cp_followupvisits (c_VisitsID, c_PatientsID, c_FirstAidID, 
+      c_LeaveHospitalTime, c_DiagnosisOfChestPain, 
+      c_VisitsNumber, c_ClinicalManifestation, 
+      c_DiagnosticOpinion, c_VisitsTime, c_State
+      )
+    values (#{cVisitsid,jdbcType=INTEGER}, #{cPatientsid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR}, 
+      #{cLeavehospitaltime,jdbcType=TIMESTAMP}, #{cDiagnosisofchestpain,jdbcType=VARCHAR}, 
+      #{cVisitsnumber,jdbcType=INTEGER}, #{cClinicalmanifestation,jdbcType=VARCHAR}, 
+      #{cDiagnosticopinion,jdbcType=VARCHAR}, #{cVisitstime,jdbcType=TIMESTAMP}, #{cState,jdbcType=CHAR}
+      )
+  </insert>
+  
+   <insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.FollowUpVisits">
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+		select count(*) from cp_followupvisits
+		where c_VisitsID = #{cVisitsid,jdbcType=INTEGER}
+	</selectKey>
+	<if test="count > 0">
+		 update cp_followupvisits
+    <set >
+      <if test="cPatientsid != null" >
+        c_PatientsID = #{cPatientsid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cLeavehospitaltime != null" >
+        c_LeaveHospitalTime = #{cLeavehospitaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        c_DiagnosisOfChestPain = #{cDiagnosisofchestpain,jdbcType=VARCHAR},
+      </if>
+      <if test="cVisitsnumber != null" >
+        c_VisitsNumber = #{cVisitsnumber,jdbcType=INTEGER},
+      </if>
+      <if test="cClinicalmanifestation != null" >
+        c_ClinicalManifestation = #{cClinicalmanifestation,jdbcType=VARCHAR},
+      </if>
+      <if test="cDiagnosticopinion != null" >
+        c_DiagnosticOpinion = #{cDiagnosticopinion,jdbcType=VARCHAR},
+      </if>
+      <if test="cVisitstime != null" >
+        c_VisitsTime = #{cVisitstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cState != null" >
+        c_State = #{cState,jdbcType=CHAR},
+      </if>
+    </set>
+    where c_VisitsID = #{cVisitsid,jdbcType=INTEGER}
+	</if>
+	<if test="count==0">
+	insert into cp_followupvisits (c_VisitsID, c_PatientsID, c_FirstAidID,
+	c_LeaveHospitalTime, c_DiagnosisOfChestPain,
+	c_VisitsNumber, c_ClinicalManifestation,
+	c_DiagnosticOpinion, c_VisitsTime, c_State
+	)
+	values (#{cVisitsid,jdbcType=INTEGER}, #{cPatientsid,jdbcType=VARCHAR},
+	#{cFirstaidid,jdbcType=VARCHAR},
+	#{cLeavehospitaltime,jdbcType=TIMESTAMP},
+	#{cDiagnosisofchestpain,jdbcType=VARCHAR},
+	#{cVisitsnumber,jdbcType=INTEGER},
+	#{cClinicalmanifestation,jdbcType=VARCHAR},
+	#{cDiagnosticopinion,jdbcType=VARCHAR},
+	#{cVisitstime,jdbcType=TIMESTAMP}, #{cState,jdbcType=CHAR}
+	)
+	</if>
+</insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.FollowUpVisits" >
+    insert into cp_followupvisits
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cVisitsid != null" >
+        c_VisitsID,
+      </if>
+      <if test="cPatientsid != null" >
+        c_PatientsID,
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID,
+      </if>
+      <if test="cLeavehospitaltime != null" >
+        c_LeaveHospitalTime,
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        c_DiagnosisOfChestPain,
+      </if>
+      <if test="cVisitsnumber != null" >
+        c_VisitsNumber,
+      </if>
+      <if test="cClinicalmanifestation != null" >
+        c_ClinicalManifestation,
+      </if>
+      <if test="cDiagnosticopinion != null" >
+        c_DiagnosticOpinion,
+      </if>
+      <if test="cVisitstime != null" >
+        c_VisitsTime,
+      </if>
+      <if test="cState != null" >
+        c_State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cVisitsid != null" >
+        #{cVisitsid,jdbcType=INTEGER},
+      </if>
+      <if test="cPatientsid != null" >
+        #{cPatientsid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cLeavehospitaltime != null" >
+        #{cLeavehospitaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        #{cDiagnosisofchestpain,jdbcType=VARCHAR},
+      </if>
+      <if test="cVisitsnumber != null" >
+        #{cVisitsnumber,jdbcType=INTEGER},
+      </if>
+      <if test="cClinicalmanifestation != null" >
+        #{cClinicalmanifestation,jdbcType=VARCHAR},
+      </if>
+      <if test="cDiagnosticopinion != null" >
+        #{cDiagnosticopinion,jdbcType=VARCHAR},
+      </if>
+      <if test="cVisitstime != null" >
+        #{cVisitstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cState != null" >
+        #{cState,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.FollowUpVisits" >
+    update cp_followupvisits
+    <set >
+      <if test="cPatientsid != null" >
+        c_PatientsID = #{cPatientsid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cLeavehospitaltime != null" >
+        c_LeaveHospitalTime = #{cLeavehospitaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDiagnosisofchestpain != null" >
+        c_DiagnosisOfChestPain = #{cDiagnosisofchestpain,jdbcType=VARCHAR},
+      </if>
+      <if test="cVisitsnumber != null" >
+        c_VisitsNumber = #{cVisitsnumber,jdbcType=INTEGER},
+      </if>
+      <if test="cClinicalmanifestation != null" >
+        c_ClinicalManifestation = #{cClinicalmanifestation,jdbcType=VARCHAR},
+      </if>
+      <if test="cDiagnosticopinion != null" >
+        c_DiagnosticOpinion = #{cDiagnosticopinion,jdbcType=VARCHAR},
+      </if>
+      <if test="cVisitstime != null" >
+        c_VisitsTime = #{cVisitstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cState != null" >
+        c_State = #{cState,jdbcType=CHAR},
+      </if>
+    </set>
+    where c_VisitsID = #{cVisitsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FollowUpVisits" >
+    update cp_followupvisits
+    set c_PatientsID = #{cPatientsid,jdbcType=VARCHAR},
+      c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      c_LeaveHospitalTime = #{cLeavehospitaltime,jdbcType=TIMESTAMP},
+      c_DiagnosisOfChestPain = #{cDiagnosisofchestpain,jdbcType=VARCHAR},
+      c_VisitsNumber = #{cVisitsnumber,jdbcType=INTEGER},
+      c_ClinicalManifestation = #{cClinicalmanifestation,jdbcType=VARCHAR},
+      c_DiagnosticOpinion = #{cDiagnosticopinion,jdbcType=VARCHAR},
+      c_VisitsTime = #{cVisitstime,jdbcType=TIMESTAMP},
+      c_State = #{cState,jdbcType=CHAR}
+    where c_VisitsID = #{cVisitsid,jdbcType=INTEGER}
+  </update>
+</mapper>

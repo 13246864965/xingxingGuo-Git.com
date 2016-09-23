@@ -1,0 +1,20 @@
+package com.cn.hwyl.service;
+
+import com.cn.hwyl.pojo.Role;
+
+public interface IRoleService {
+
+    int deleteByPrimaryKey(String cRoleid);
+
+    int insert(Role record);
+
+    int insertSelective(Role record);
+
+    Role selectByPrimaryKey(String cRoleid);
+
+    int updateByPrimaryKeySelective(Role record);
+
+    int updateByPrimaryKey(Role record);
+
+
+}

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IUserDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.User" >
+    <id column="c_UserID" property="cUserid" jdbcType="VARCHAR" />
+    <result column="c_UserCode" property="cUsercode" jdbcType="VARCHAR" />
+    <result column="c_UserName" property="cUsername" jdbcType="VARCHAR" />
+    <result column="c_UserPWD" property="cUserpwd" jdbcType="VARCHAR" />
+    <result column="c_UserSex" property="cUsersex" jdbcType="VARCHAR" />
+    <result column="c_UserAge" property="cUserage" jdbcType="INTEGER" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_OrgID" property="cOrgid" jdbcType="VARCHAR" />
+    <result column="c_UserType" property="cUsertype" jdbcType="VARCHAR" />
+    <result column="c_UserState" property="cUserstate" jdbcType="VARCHAR" />
+    <result column="c_UserTrueName" property="cUsertruename" jdbcType="VARCHAR" />
+    <result column="c_UserJob" property="cUserjob" jdbcType="VARCHAR" />
+    <result column="c_UserPhone" property="cUserphone" jdbcType="VARCHAR" />
+    <result column="c_UserEmail" property="cUseremail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_UserID, c_UserCode, c_UserName, c_UserPWD, c_UserSex, c_UserAge, c_UpdateUserID, 
+    c_UpdateTime, c_OrgID, c_UserType, c_UserState, c_UserTrueName, c_UserJob, c_UserPhone, 
+    c_UserEmail
+  </sql>
+  
+   <sql  id="queryByCondition" >
+	  <if test="cUserid != null" >
+      and c_UserID = #{cUserid,jdbcType=VARCHAR}
+      </if>
+      <if test="cUsercode != null" >
+      and c_UserCode = #{cUsercode,jdbcType=VARCHAR}
+      </if>
+      <if test="cUsername != null" >
+       and c_UserName= #{cUsername,jdbcType=VARCHAR}
+      </if>
+      <if test="cOrgid != null" >
+      and c_OrgID=  #{cOrgid,jdbcType=VARCHAR}
+      </if>
+      <if test="cUsertype != null" >
+      and c_UserType = #{cUsertype,jdbcType=VARCHAR}
+      </if>
+      <if test="cUserstate != null" >
+      and c_UserState = #{cUserstate,jdbcType=VARCHAR}
+      </if>
+      <if test="cUserphone != null" >
+      and c_UserPhone= #{cUserphone,jdbcType=VARCHAR}
+      </if>
+  </sql>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_User
+    where 1=1 <include refid="queryByCondition" /> 
+    limit #{currPageIndex},#{recordNumPer} 
+
+  </select>
+  
+   <select id="selectByPageCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.User" >
+    select count(1)
+    from cp_User
+    where 1=1 <include refid="queryByCondition" /> 
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_User
+    where c_UserID = #{cUserid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCusername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_User
+    where c_UserName = #{cUsername,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_User
+    where c_UserID = #{cUserid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.User" >
+    insert into cp_User (c_UserID, c_UserCode, c_UserName, 
+      c_UserPWD, c_UserSex, c_UserAge, 
+      c_UpdateUserID, c_UpdateTime, c_OrgID, 
+      c_UserType, c_UserState, c_UserTrueName, 
+      c_UserJob, c_UserPhone, c_UserEmail
+      )
+    values (#{cUserid,jdbcType=VARCHAR}, #{cUsercode,jdbcType=VARCHAR}, #{cUsername,jdbcType=VARCHAR}, 
+      #{cUserpwd,jdbcType=VARCHAR}, #{cUsersex,jdbcType=VARCHAR}, #{cUserage,jdbcType=INTEGER}, 
+      #{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatetime,jdbcType=TIMESTAMP}, #{cOrgid,jdbcType=VARCHAR}, 
+      #{cUsertype,jdbcType=VARCHAR}, #{cUserstate,jdbcType=VARCHAR}, #{cUsertruename,jdbcType=VARCHAR}, 
+      #{cUserjob,jdbcType=VARCHAR}, #{cUserphone,jdbcType=VARCHAR}, #{cUseremail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.User" >
+    insert into cp_User
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cUserid != null" >
+        c_UserID,
+      </if>
+      <if test="cUsercode != null" >
+        c_UserCode,
+      </if>
+      <if test="cUsername != null" >
+        c_UserName,
+      </if>
+      <if test="cUserpwd != null" >
+        c_UserPWD,
+      </if>
+      <if test="cUsersex != null" >
+        c_UserSex,
+      </if>
+      <if test="cUserage != null" >
+        c_UserAge,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime,
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID,
+      </if>
+      <if test="cUsertype != null" >
+        c_UserType,
+      </if>
+      <if test="cUserstate != null" >
+        c_UserState,
+      </if>
+      <if test="cUsertruename != null" >
+        c_UserTrueName,
+      </if>
+      <if test="cUserjob != null" >
+        c_UserJob,
+      </if>
+      <if test="cUserphone != null" >
+        c_UserPhone,
+      </if>
+      <if test="cUseremail != null" >
+        c_UserEmail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cUserid != null" >
+        #{cUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsercode != null" >
+        #{cUsercode,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsername != null" >
+        #{cUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserpwd != null" >
+        #{cUserpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsersex != null" >
+        #{cUsersex,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserage != null" >
+        #{cUserage,jdbcType=INTEGER},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cOrgid != null" >
+        #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsertype != null" >
+        #{cUsertype,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserstate != null" >
+        #{cUserstate,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsertruename != null" >
+        #{cUsertruename,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserjob != null" >
+        #{cUserjob,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserphone != null" >
+        #{cUserphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cUseremail != null" >
+        #{cUseremail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.User" >
+    update cp_User
+    <set >
+      <if test="cUsercode != null" >
+        c_UserCode = #{cUsercode,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsername != null" >
+        c_UserName = #{cUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserpwd != null" >
+        c_UserPWD = #{cUserpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsersex != null" >
+        c_UserSex = #{cUsersex,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserage != null" >
+        c_UserAge = #{cUserage,jdbcType=INTEGER},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsertype != null" >
+        c_UserType = #{cUsertype,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserstate != null" >
+        c_UserState = #{cUserstate,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsertruename != null" >
+        c_UserTrueName = #{cUsertruename,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserjob != null" >
+        c_UserJob = #{cUserjob,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserphone != null" >
+        c_UserPhone = #{cUserphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cUseremail != null" >
+        c_UserEmail = #{cUseremail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_UserID = #{cUserid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.User" >
+    update cp_User
+    set c_UserCode = #{cUsercode,jdbcType=VARCHAR},
+      c_UserName = #{cUsername,jdbcType=VARCHAR},
+      c_UserPWD = #{cUserpwd,jdbcType=VARCHAR},
+      c_UserSex = #{cUsersex,jdbcType=VARCHAR},
+      c_UserAge = #{cUserage,jdbcType=INTEGER},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      c_UserType = #{cUsertype,jdbcType=VARCHAR},
+      c_UserState = #{cUserstate,jdbcType=VARCHAR},
+      c_UserTrueName = #{cUsertruename,jdbcType=VARCHAR},
+      c_UserJob = #{cUserjob,jdbcType=VARCHAR},
+      c_UserPhone = #{cUserphone,jdbcType=VARCHAR},
+      c_UserEmail = #{cUseremail,jdbcType=VARCHAR}
+    where c_UserID = #{cUserid,jdbcType=VARCHAR}
+  </update>
+</mapper>

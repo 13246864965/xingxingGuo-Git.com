@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstAidInfoViewDao" >
+  <resultMap id="ViewBaseResultMap" type="com.cn.hwyl.pojo.FirstAidInfoView" >
+    <result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidState" property="cFirstaidstate" jdbcType="CHAR" />
+    <result column="c_DeviceNumber" property="cDevicenumber" jdbcType="VARCHAR" />
+    <result column="c_CardNumber" property="cCardnumber" jdbcType="VARCHAR" />
+    <result column="c_AmbulanceNumber" property="cAmbulancenumber" jdbcType="VARCHAR" />
+    <result column="c_FirstAidUpdateCode" property="cFirstaidupdatecode" jdbcType="VARCHAR" />
+    <result column="c_FirstAidUpdateTime" property="cFirstaidupdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_OrgID" property="cOrgid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidTime" property="cFirstaidtime" jdbcType="TIMESTAMP" />
+    <result column="c_FirstAidEndTime" property="cFirstaidendtime" jdbcType="TIMESTAMP" />
+    <result column="c_FirstAidInfoID" property="cFirstaidinfoid" jdbcType="VARCHAR" />
+    <result column="c_HighRiskState" property="cHighriskstate" jdbcType="VARCHAR" />
+    <result column="c_ToHospitalType" property="cTohospitaltype" jdbcType="VARCHAR" />
+    <result column="c_TransportLocation" property="cTransportlocation" jdbcType="VARCHAR" />
+    <result column="c_AcceptsLocation" property="cAcceptslocation" jdbcType="VARCHAR" />
+    <result column="c_AcceptsDoctors" property="cAcceptsdoctors" jdbcType="VARCHAR" />
+    <result column="c_AcceptsNurse" property="cAcceptsnurse" jdbcType="VARCHAR" />
+    <result column="c_IsDetourCCU" property="cIsdetourccu" jdbcType="CHAR" />
+    <result column="c_FirstContactType" property="cFirstcontacttype" jdbcType="VARCHAR" />
+    <result column="c_FirstContactDoctors" property="cFirstcontactdoctors" jdbcType="VARCHAR" />
+    <result column="c_FirstContactTime" property="cFirstcontacttime" jdbcType="TIMESTAMP" />
+    <result column="c_FirstECGTime" property="cFirstecgtime" jdbcType="TIMESTAMP" />
+    <result column="c_ECGDiagnosisTime" property="cEcgdiagnosistime" jdbcType="TIMESTAMP" />
+    <result column="c_IsECGTransmission" property="cIsecgtransmission" jdbcType="CHAR" />
+    <result column="c_TransmissionTime" property="cTransmissiontime" jdbcType="TIMESTAMP" />
+    <result column="c_Consciousness" property="cConsciousness" jdbcType="VARCHAR" />
+    <result column="c_Br" property="cBr" jdbcType="VARCHAR" />
+    <result column="c_Pulse" property="cPulse" jdbcType="VARCHAR" />
+    <result column="c_BT" property="cBt" jdbcType="VARCHAR" />
+    <result column="c_BP" property="cBp" jdbcType="VARCHAR" />
+    <result column="c_HR" property="cHr" jdbcType="VARCHAR" />
+    <result column="c_BloodTime" property="cBloodtime" jdbcType="TIMESTAMP" />
+    <result column="c_ReportTime" property="cReporttime" jdbcType="TIMESTAMP" />
+    <result column="c_KillipLevel" property="cKilliplevel" jdbcType="VARCHAR" />
+    <result column="c_cTnI" property="cCtni" jdbcType="VARCHAR" />
+    <result column="c_cTnT" property="cCtnt" jdbcType="VARCHAR" />
+    <result column="c_IDNmber" property="cIDNmber" jdbcType="VARCHAR" />
+    <result column="c_Myo" property="cMyo" jdbcType="VARCHAR" />
+    <result column="c_CKMB" property="cCkmb" jdbcType="VARCHAR" />
+    <result column="c_Cr" property="cCr" jdbcType="VARCHAR" />
+    <result column="c_IsShock" property="cIsshock" jdbcType="CHAR" />
+    <result column="c_ShockTime" property="cShocktime" jdbcType="TIMESTAMP" />
+    <result column="c_ShockAddress" property="cShockaddress" jdbcType="VARCHAR" />
+    <result column="c_IsHeartBeatStop" property="cIsheartbeatstop" jdbcType="CHAR" />
+    <result column="c_StopTime" property="cStoptime" jdbcType="TIMESTAMP" />
+    <result column="c_StopAddress" property="cStopaddress" jdbcType="VARCHAR" />
+    <result column="c_IsAcuteHeartFailure" property="cIsacuteheartfailure" jdbcType="CHAR" />
+    <result column="c_HeartFailureTime" property="cHeartfailuretime" jdbcType="TIMESTAMP" />
+    <result column="c_HeartFailureAddress" property="cHeartfailureaddress" jdbcType="VARCHAR" />
+    <result column="c_IsHeartRateDisorder" property="cIsheartratedisorder" jdbcType="CHAR" />
+    <result column="c_DisorderTime" property="cDisordertime" jdbcType="TIMESTAMP" />
+    <result column="c_DisorderAddress" property="cDisorderaddress" jdbcType="VARCHAR" />
+    <result column="c_ComplicationsType" property="cComplicationstype" jdbcType="VARCHAR" />
+    <result column="c_IsAfterStop" property="cIsafterstop" jdbcType="CHAR" />
+    <result column="c_IsChangeST" property="cIschangest" jdbcType="CHAR" />
+    <result column="c_IsMarkersOn" property="cIsmarkerson" jdbcType="CHAR" />
+    <result column="c_GraceScore" property="cGracescore" jdbcType="DOUBLE" />
+    <result column="c_DangerousLevel" property="cDangerouslevel" jdbcType="VARCHAR" />
+    <result column="c_TreatmentType" property="cTreatmenttype" jdbcType="VARCHAR" />
+<!--     <result column="c_OutcomeTime" property="cOutcometime" jdbcType="TIMESTAMP" /> -->
+    <result column="c_IsHeartFailure" property="cIsheartfailure" jdbcType="CHAR" />
+    <result column="c_HospitalizationDays" property="cHospitalizationdays" jdbcType="INTEGER" />
+    <result column="c_HospitalCosts" property="cHospitalcosts" jdbcType="DOUBLE" />
+    <result column="c_PatientsOutComeType" property="cPatientsoutcometype" jdbcType="VARCHAR" />
+    <result column="c_CABG" property="cCabg" jdbcType="CHAR" />
+<!--     <result column="c_Other" property="cOther" jdbcType="CHAR" /> -->
+    <result column="c_DiagnosisOfChestPain" property="cDiagnosisofchestpain" jdbcType="VARCHAR" />
+    <result column="c_PatientsID" property="cPatientsid" jdbcType="VARCHAR" />
+    <result column="c_PatientsName" property="cPatientsname" jdbcType="VARCHAR" />
+    <result column="c_PatientsSex" property="cPatientssex" jdbcType="CHAR" />
+    <result column="c_PatientsAge" property="cPatientsage" jdbcType="INTEGER" />
+    <result column="c_PatientsBirthday" property="cPatientsbirthday" jdbcType="TIMESTAMP" />
+    <result column="c_PatientsPhoneNumber" property="cPatientsphonenumber" jdbcType="VARCHAR" />
+    <result column="c_PatientsEmergencyContact" property="cPatientsemergencycontact" jdbcType="VARCHAR" />
+    <result column="c_PatientsEmergencyPhoneNumber" property="cPatientsemergencyphonenumber" jdbcType="VARCHAR" />
+    <result column="c_OutpatientServiceID" property="cOutpatientserviceid" jdbcType="VARCHAR" />
+    <result column="c_HospitalID" property="cHospitalid" jdbcType="VARCHAR" />
+    <result column="c_OnsetAddress" property="cOnsetaddress" jdbcType="VARCHAR" />
+    <result column="c_OnsetTime" property="cOnsettime" jdbcType="TIMESTAMP" />
+    <result column="c_IsSend" property="cIssend" jdbcType="CHAR" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_illness" property="cIllness" jdbcType="LONGVARCHAR" />
+    <result column="c_PrimaryDiagnosis" property="cPrimarydiagnosis" jdbcType="LONGVARCHAR" />
+    <result column="c_PatientsInfoNote" property="cPatientsinfonote" jdbcType="LONGVARCHAR" />
+    <result column="c_illnessDescription" property="cIllnessdescription" jdbcType="LONGVARCHAR" />
+<!--     <result column="c_FirstAidLog" property="cFirstaidlog" jdbcType="LONGVARCHAR" /> -->
+    <result column="c_MedicalRecords" property="cMedicalrecords" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  
+   <sql  id="queryFirstAidInfoViewByCondition" >
+	  <if test="cPatientsname != null and cPatientsname !=''" >
+      and cvfaiv.c_Patientsname LIKE CONCAT(CONCAT('%', #{cPatientsname,jdbcType=VARCHAR}), '%') 
+      </if>
+	  <if test="cPatientssex != null and cPatientssex !=''" >
+      and cvfaiv.c_PatientsSex = #{cPatientssex,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cPatientsphonenumber != null and cPatientsphonenumber !=''" >
+      and cvfaiv.c_PatientsPhoneNumber = #{cPatientsphonenumber,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cOutpatientserviceid != null and cOutpatientserviceid !=''" >
+      and cvfaiv.c_OutpatientServiceID = #{cOutpatientserviceid,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cHospitalid != null and cHospitalid !=''" >
+      and cvfaiv.c_HospitalID = #{cHospitalid,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cOnsetaddress != null and cOnsetaddress !=''" >
+      and cvfaiv.c_OnsetAddress = #{cOnsetaddress,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cPrimarydiagnosis != null and cPrimarydiagnosis !=''" >
+      and cvfaiv.c_PrimaryDiagnosis = #{cPrimarydiagnosis,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cTohospitaltype != null and cTohospitaltype !=''" >
+      and cvfaiv.c_ToHospitalType = #{cTohospitaltype,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cDiagnosisofchestpain != null and cDiagnosisofchestpain !=''" >
+      and cvfaiv.c_DiagnosisOfChestPain = #{cDiagnosisofchestpain,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cAmbulancenumber != null and cAmbulancenumber !=''" >
+      and cvfaiv.c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cCardnumber != null and cCardnumber !=''" >
+      and cvfaiv.c_CardNumber = #{cCardnumber,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cDevicenumber != null and cDevicenumber !=''" >
+      and cvfaiv.c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR} 
+      </if>
+      
+	  <if test="cSearch != null and cSearch !=''" >
+      and (cvfaiv.c_DeviceNumber LIKE CONCAT(CONCAT('%', #{cSearch}), '%') or
+      cvfaiv.c_PatientsSex LIKE CONCAT(CONCAT('%', #{cSearch}), '%') or
+      cvfaiv.c_Patientsname LIKE CONCAT(CONCAT('%', #{cSearch}), '%')
+       ) 
+      </if>
+  </sql>
+	<sql id="View_Base_Column_List">
+	cvfaiv.c_FirstAidID,
+	<!-- cvfaiv.c_FirstAidTime, -->
+	DATE_FORMAT(cvfaiv.c_FirstAidTime,'%Y-%m-%d %H:%i:%s') as cFirstaidtime
+	,
+	cvfaiv.c_FirstAidState,
+	cvfaiv.c_DeviceNumber,
+	cvfaiv.c_CardNumber,
+	cvfaiv.c_AmbulanceNumber,
+	cvfaiv.c_FirstAidUpdateCode,
+	<!-- cvfaiv.c_FirstAidUpdateTime, -->
+	DATE_FORMAT(cvfaiv.c_FirstAidUpdateTime,'%Y-%m-%d %H:%i:%s') as
+	cFirstaidupdatetime,
+	cvfaiv.c_OrgID,
+	<!-- cvfaiv.c_FirstAidEndTime, -->
+	DATE_FORMAT(cvfaiv.c_FirstAidEndTime,'%Y-%m-%d %H:%i:%s') as
+	cFirstaidendtime,
+	cvfaiv.c_FirstAidInfoID,
+	cvfaiv.c_HighRiskState,
+	cvfaiv.c_illness,
+	cvfaiv.c_ToHospitalType,
+	cvfaiv.c_TransportLocation,
+	cvfaiv.c_AcceptsLocation,
+	cvfaiv.c_AcceptsDoctors,
+	cvfaiv.c_AcceptsNurse,
+	cvfaiv.c_IsDetourCCU,
+	cvfaiv.c_FirstContactType,
+	cvfaiv.c_FirstContactDoctors,
+	<!-- cvfaiv.c_FirstContactTime, -->
+	DATE_FORMAT(cvfaiv.c_FirstContactTime,'%Y-%m-%d %H:%i:%s') as
+	cFirstcontacttime,
+	DATE_FORMAT(cvfaiv.c_FirstECGTime,'%Y-%m-%d %H:%i:%s') as cFirstecgtime,
+	DATE_FORMAT(cvfaiv.c_ECGDiagnosisTime,'%Y-%m-%d %H:%i:%s') as
+	cEcgdiagnosistime,
+	<!-- cvfaiv.c_FirstECGTime, -->
+	<!-- cvfaiv.c_ECGDiagnosisTime, -->
+	cvfaiv.c_IsECGTransmission,
+	DATE_FORMAT(cvfaiv.c_ECGDiagnosisTime,'%Y-%m-%d %H:%i:%s') as
+	cEcgdiagnosistime,
+	<!-- cvfaiv.c_TransmissionTime, -->
+	cvfaiv.c_Consciousness,
+	cvfaiv.c_Br,
+	cvfaiv.c_Pulse,
+	cvfaiv.c_BT,
+	cvfaiv.c_BP,
+	cvfaiv.c_HR,
+	<!-- cvfaiv.c_BloodTime, -->
+	<!-- cvfaiv.c_ReportTime, -->
+	DATE_FORMAT(cvfaiv.c_BloodTime,'%Y-%m-%d %H:%i:%s') as cBloodtime ,
+	DATE_FORMAT(cvfaiv.c_ReportTime,'%Y-%m-%d %H:%i:%s') as cReporttime,
+	cvfaiv.c_KillipLevel,
+	cvfaiv.c_cTnI,
+	cvfaiv.c_CTnT,
+	cvfaiv.c_IDNmber,
+	cvfaiv.c_Myo,
+	cvfaiv.c_CKMB,
+	cvfaiv.c_Cr,
+	cvfaiv.c_PrimaryDiagnosis,
+	cvfaiv.c_IsShock,
+	<!-- cvfaiv.c_ShockTime, -->
+	DATE_FORMAT(cvfaiv.c_ShockTime,'%Y-%m-%d %H:%i:%s') as cShocktime,
+	cvfaiv.c_ShockAddress,
+	cvfaiv.c_IsHeartBeatStop,
+	DATE_FORMAT(cvfaiv.c_StopTime,'%Y-%m-%d %H:%i:%s') as cStoptime,
+	<!-- cvfaiv.c_StopTime, -->
+	cvfaiv.c_StopAddress,
+	cvfaiv.c_IsAcuteHeartFailure,
+	DATE_FORMAT(cvfaiv.c_HeartFailureTime,'%Y-%m-%d %H:%i:%s') as cHeartfailuretime,
+	<!-- cvfaiv.c_HeartFailureTime, -->
+	cvfaiv.c_HeartFailureAddress,
+	cvfaiv.c_IsHeartRateDisorder,
+	DATE_FORMAT(cvfaiv.c_DisorderTime,'%Y-%m-%d %H:%i:%s') cDisordertime,
+	<!-- cvfaiv.c_DisorderTime, -->
+	cvfaiv.c_DisorderAddress,
+	cvfaiv.c_ComplicationsType,
+	cvfaiv.c_PatientsInfoNote,
+	cvfaiv.c_IsAfterStop,
+	cvfaiv.c_IsChangeST,
+	cvfaiv.c_IsMarkersOn,
+	cvfaiv.c_GraceScore,
+	cvfaiv.c_DangerousLevel,
+	cvfaiv.c_TreatmentType,
+	<!-- cvfaiv.c_OutcomeTime, -->
+	cvfaiv.c_IsHeartFailure,
+	cvfaiv.c_HospitalizationDays,
+	cvfaiv.c_HospitalCosts,
+	cvfaiv.c_PatientsOutComeType,
+	cvfaiv.c_illnessDescription,
+	<!-- cvfaiv.c_FirstAidLog, -->
+	cvfaiv.c_MedicalRecords,
+	cvfaiv.c_CABG,
+	<!-- cvfaiv.c_Other, -->
+	cvfaiv.c_DiagnosisOfChestPain,
+	cvfaiv.c_PatientsID,
+	cvfaiv.c_PatientsName,
+	cvfaiv.c_PatientsSex,
+	cvfaiv.c_PatientsAge,
+	cvfaiv.c_PatientsBirthday,
+	cvfaiv.c_PatientsPhoneNumber,
+	cvfaiv.c_PatientsEmergencyContact,
+	cvfaiv.c_PatientsEmergencyPhoneNumber,
+	cvfaiv.c_OutpatientServiceID,
+	cvfaiv.c_HospitalID,
+	cvfaiv.c_OnsetAddress,
+	DATE_FORMAT(cvfaiv.c_OnsetTime,'%Y-%m-%d %H:%i:%s') as cOnsettime,
+	<!-- cvfaiv.c_OnsetTime, -->
+	cvfaiv.c_IsSend,
+	cvfaiv.c_UpdateUserID,
+	DATE_FORMAT(cvfaiv.c_UpdateTime,'%Y-%m-%d %H:%i:%s') as cUpdatetime
+	<!-- cvfaiv.c_UpdateTime -->
+</sql>
+ <select id="selectFirstAidInfoViewByFirstAidID" resultMap="ViewBaseResultMap"
+	parameterType="com.cn.hwyl.pojo.FirstAidInfoView">
+	select case cvfaiv.c_FirstAidState when '1' then '急救中'
+	when '2' then '已拒绝'
+	when '3' then '待审核'
+	when '4' then '结束'
+	when '5' then '完成'
+	END as c_FirstAidStateCH,
+	'急救信息' as 'update',
+	'胸痛诊疗' as 'cpDiagnosis',
+	'患者转归' as 'patients',
+	'一键通知' as 'oneKeyNotice',
+	'实时监测' as 'mecg',
+	'影像信息' as 'imageInfo',
+	'STEMI' as 'stemi',
+	'介入手术' as 'straight',<include refid="View_Base_Column_List" />
+	from cp_vw_FirstAidInfoView cvfaiv
+	where 1=1
+	<include refid="queryFirstAidInfoViewByCondition" />
+	limit #{currPageIndex},#{recordNumPer}
+</select>
+  
+  <select id="selectFirstAidInfoViewByCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.FirstAidInfoView" >
+    select count(1)
+    from cp_vw_FirstAidInfoView cvfaiv
+    where 1=1 <include refid="queryFirstAidInfoViewByCondition" />
+  </select>
+  
+  
+ <select id="selectFirstAidHistoryView" resultMap="ViewBaseResultMap"
+	parameterType="com.cn.hwyl.pojo.FirstAidInfoView">
+	select case cvfaiv.c_FirstAidState when '1' then '急救中'
+	when '2' then '已拒绝'
+	when '3' then '待审核'
+	when '4' then '结束'
+	when '5' then '完成'
+	END as c_FirstAidStateCH,
+	'急救信息' as 'update',
+	'胸痛诊疗' as 'cpDiagnosis',
+	'患者转归' as 'patients',
+	'一键通知' as 'oneKeyNotice',
+	'实时监测' as 'mecg',
+	'影像信息' as 'imageInfo',
+	'STEMI' as 'stemi',
+	'介入手术' as 'straight',<include refid="View_Base_Column_List" />
+	from cp_vw_FirstAidHistoryView cvfaiv
+	where 1=1
+	<include refid="queryFirstAidInfoViewByCondition" />
+	limit #{currPageIndex},#{recordNumPer}
+</select>
+  
+  <select id="selectFirstAidHistoryViewCount" resultType="java.lang.Integer" parameterType="com.cn.hwyl.pojo.FirstAidInfoView" >
+    select count(1)
+    from cp_vw_FirstAidHistoryView cvfaiv
+    where 1=1 <include refid="queryFirstAidInfoViewByCondition" />
+  </select>
+</mapper>

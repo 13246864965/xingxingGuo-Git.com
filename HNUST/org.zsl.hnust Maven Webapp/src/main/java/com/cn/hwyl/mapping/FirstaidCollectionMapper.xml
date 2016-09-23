@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstaidCollectionDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FirstaidCollection" >
+    <id column="c_CollectionID" property="cCollectionid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidInfoID" property="cFirstaidinfoid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_CollectionID, c_FirstAidInfoID, c_FirstAidID, c_UpdateUserID, c_UpdateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_firstaidcollection
+    where c_CollectionID = #{cCollectionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_firstaidcollection
+    where c_CollectionID = #{cCollectionid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.FirstaidCollection" >
+    insert into cp_firstaidcollection (c_CollectionID, c_FirstAidInfoID, c_FirstAidID, 
+      c_UpdateUserID, c_UpdateTime)
+    values (#{cCollectionid,jdbcType=VARCHAR}, #{cFirstaidinfoid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR}, 
+      #{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.FirstaidCollection" >
+    insert into cp_firstaidcollection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cCollectionid != null" >
+        c_CollectionID,
+      </if>
+      <if test="cFirstaidinfoid != null" >
+        c_FirstAidInfoID,
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID,
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID,
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cCollectionid != null" >
+        #{cCollectionid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidinfoid != null" >
+        #{cFirstaidinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FirstaidCollection" >
+    update cp_firstaidcollection
+    <set >
+      <if test="cFirstaidinfoid != null" >
+        c_FirstAidInfoID = #{cFirstaidinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_CollectionID = #{cCollectionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.FirstaidCollection" >
+    update cp_firstaidcollection
+    set c_FirstAidInfoID = #{cFirstaidinfoid,jdbcType=VARCHAR},
+      c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP}
+    where c_CollectionID = #{cCollectionid,jdbcType=VARCHAR}
+  </update>
+</mapper>

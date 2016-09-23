@@ -1,0 +1,136 @@
+package com.cn.hwyl.module;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.cn.hwyl.pojo.Permissions;
+import com.cn.hwyl.pojo.request.BodyRequest;
+import com.cn.hwyl.pojo.request.HeadRequest;
+import com.cn.hwyl.pojo.response.Result;
+import com.cn.hwyl.service.IPermissionsService;
+import com.google.gson.Gson;
+
+public class PermissionsModule {
+	private  Logger logger = Logger.getLogger(UserModule.class);
+
+	public String permissionsAll(HeadRequest head, BodyRequest body) {
+
+		@SuppressWarnings("resource")
+		ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+
+		IPermissionsService permissionsService = (IPermissionsService) ac.getBean("permissionsService");
+
+		Gson gson = new Gson();
+
+		Result result = new Result();
+		int isOK = 0;
+		// 权限添加
+		if ("Permissions_Add".equals(head.getService())) {
+			if (body.getPermissionsAddBody() == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			try {
+				logger.info("Permissions_Add param{} :" + body.getPermissionsAddBody().getPermissions().toString());
+				isOK = permissionsService.insert(body.getPermissionsAddBody().getPermissions());
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+				return gson.toJson(result);
+			}
+			if (isOK > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+		}
+		//权限修改
+		if("Permissions_Update".equals(head.getService())){
+
+			if (body.getPermissionsUpdateBody() == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			try {
+				logger.info("Permissions_Update param{} :" + body.getPermissionsUpdateBody().getPermissions().toString());
+				isOK = permissionsService.updateByPrimaryKey(body.getPermissionsUpdateBody().getPermissions());
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+				return gson.toJson(result);
+			}
+			if (isOK > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+		
+		}
+		//删除权限
+		if("Permissions_Delete".equals(head.getService())){
+			
+			if (body.getPermissionsDeleteBody() == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			try {
+				logger.info("Permissions_Delete param{} :" + body.getPermissionsDeleteBody().toString());
+				isOK = permissionsService.deleteByPrimaryKey(body.getPermissionsDeleteBody().getcPrivilegeID());
+			} catch (Exception e) {
+				logger.error("程序异常:" + e);
+				result.setResultCode("0");
+				result.setIsLogin(false);
+				result.setErrorInfo("程序异常,请联系管理员！！");
+				return gson.toJson(result);
+			}
+			if (isOK > 0) {
+				result.setResultCode("1");
+				result.setErrorInfo("操作成功");
+				return gson.toJson(result);
+			}
+			
+		}
+		//查询权限
+		if("Permissions_Select".equals(head.getService())){
+			if (body.getPermissionsSelectBody() == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			if(body.getPermissionsSelectBody().getPermissions() !=null){
+				logger.info("Permissions_Select param{} :" + body.getPermissionsSelectBody().getPermissions().toString());
+				List<Permissions> permissionslists =null;
+				int count = 0;
+				try {
+					permissionslists = permissionsService.selectByPage(body.getPermissionsSelectBody().getPermissions());
+					count = permissionsService.selectByCount(body.getPermissionsSelectBody().getPermissions());
+				} catch (Exception e) {
+					logger.error("程序异常:" + e);
+					result.setResultCode("0");
+					result.setIsLogin(false);
+					result.setErrorInfo("程序异常,请联系管理员！！");
+				}
+				if (permissionslists.size() > 0 && count > 0) {
+					result.setResultCode("1");
+					result.setObj(permissionslists);
+					result.setRecordNum(count);
+					result.setPageNum(
+							(int) Math.ceil((double) count / body.getPermissionsSelectBody().getPermissions().getRecordNumPer()));
+				}
+			}
+			
+		}
+
+		return gson.toJson(result);
+	}
+}

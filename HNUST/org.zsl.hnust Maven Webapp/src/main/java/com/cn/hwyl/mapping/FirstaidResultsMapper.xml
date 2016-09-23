@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstaidResultsDao">
+	<resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FirstaidResults">
+		<id column="c_ResultsID" property="cResultsid" jdbcType="VARCHAR" />
+		<result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+		<result column="c_UpdateUserID" property="cUpdateuserid"
+			jdbcType="VARCHAR" />
+		<result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+		<result column="c_ResultsType" property="cResultstype"
+			jdbcType="INTEGER" />
+		<result column="c_Reason" property="cReason" jdbcType="LONGVARCHAR" />
+		<result column="c_ResultsNote" property="cResultsnote"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		c_ResultsID, c_FirstAidID, c_UpdateUserID, c_UpdateTime, c_ResultsType, c_Reason,
+		c_ResultsNote
+	</sql>
+
+	<sql id="queryByCondition">
+		<if test="cResultsid != null">
+			and c_ResultsID = #{cResultsid,jdbcType=VARCHAR}
+		</if>
+		<if test="cFirstaidid != null">
+			and c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+		</if>
+		<if test="cResultstype != null">
+			and c_ResultsType= #{cResultstype,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	<select id="selectByPage" resultMap="BaseResultMap"
+		parameterType="com.cn.hwyl.pojo.FirstaidResults">
+		select
+		<include refid="Base_Column_List" />
+		from cp_firstaidresults
+		where 1=1
+		<include refid="queryByCondition" />
+		limit #{currPageIndex},#{recordNumPer}
+	</select>
+
+	<select id="selectByPageCount" resultType="java.lang.Integer"
+		parameterType="com.cn.hwyl.pojo.FirstaidResults">
+		select count(1)
+		from cp_firstaidresults
+		where 1=1
+		<include refid="queryByCondition" />
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from cp_firstaidresults
+		where c_ResultsID = #{cResultsid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from cp_firstaidresults
+		where c_ResultsID = #{cResultsid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hwyl.pojo.FirstaidResults">
+		insert into cp_firstaidresults (c_ResultsID, c_FirstAidID,
+		c_UpdateUserID,
+		c_UpdateTime, c_ResultsType, c_Reason,
+		c_ResultsNote)
+		values (#{cResultsid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR},
+		#{cUpdateuserid,jdbcType=VARCHAR},
+		#{cUpdatetime,jdbcType=TIMESTAMP}, #{cResultstype,jdbcType=INTEGER}, #{cReason,jdbcType=LONGVARCHAR},
+		#{cResultsnote,jdbcType=LONGVARCHAR})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FirstaidResults">
+		update cp_firstaidresults
+		set c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+		c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+		c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+		c_ResultsType = #{cResultstype,jdbcType=INTEGER}
+		where c_ResultsID = #{cResultsid,jdbcType=VARCHAR}
+	</update>
+</mapper>

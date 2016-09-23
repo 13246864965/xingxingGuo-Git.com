@@ -1,0 +1,96 @@
+package com.cn.hwyl.main;
+
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
+
+import org.apache.log4j.Logger;
+
+import com.cn.hwyl.module.AmbulanceDeviceModule;
+import com.cn.hwyl.module.FirstAidModule;
+import com.cn.hwyl.module.OrganizeModule;
+import com.cn.hwyl.module.PermissionsModule;
+import com.cn.hwyl.module.SynchronousModule;
+import com.cn.hwyl.module.UserModule;
+import com.cn.hwyl.pojo.HospitalServiceCenter;
+import com.cn.hwyl.pojo.request.BodyRequest;
+import com.cn.hwyl.pojo.request.HeadRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+/**
+ * 此类为端点服务类，它的方法publish用于将一个已经添加了@WebService注解对象绑定到一个地址的端口上。
+ * 
+ * @WebService
+ * 它是一个注解，用在类上指定将此类发布成一个ws. Endpoint
+ */
+@WebService
+@SOAPBinding(style = Style.RPC) 
+public class WebServiceCP{
+	
+	private static Logger logger = Logger.getLogger(WebServiceCP.class);
+
+	// exclude=true时，该方法不会被发布@WebMethod(exclude = false)
+	public String callService(@WebParam(name="head")String head, @WebParam(name="body")String body) {
+		logger.info("callService HeadRequest param{0} is:::" + head.toString());
+		logger.info("callService BodyRequest param{1} is:::" + body.toString());
+
+		Gson gson = new Gson();
+		HeadRequest headReq = gson.fromJson(head, new TypeToken<HeadRequest>() {
+		}.getType());
+
+		BodyRequest bodyReq = gson.fromJson(body, new TypeToken<BodyRequest>() {
+		}.getType());
+
+		String result = null;
+		String service = headReq.getService();
+		// 用户模块
+		if (service.contains("User_Login")) {
+			result = UserModule.userAll(headReq, bodyReq);
+		}
+		// 急救模块
+		if (service.contains("FirstAid_")) {
+			result = FirstAidModule.firstAidAll(headReq, bodyReq);
+		}
+		// 机构模块
+		if (service.contains("Organize_")) {
+			result = OrganizeModule.organizeAll(headReq, bodyReq);
+		}
+		// 权限模块
+		if (service.contains("Permissions_")) {
+			result = PermissionsModule.permissionsAll(headReq, bodyReq);
+		}
+		//设备模块
+		if(service.contains("AmbulanceDevice_")){
+			result = AmbulanceDeviceModule.ambulanceDeviceAll(headReq, bodyReq);
+			
+		}
+		
+		return result;
+	}
+	
+	@WebMethod
+	public String dataService(@WebParam(name="head")String head, @WebParam(name="body")String body) {
+		logger.info("callService HeadRequest param{0} is:::" + head.toString());
+		logger.info("callService BodyRequest param{1} is:::" + body.toString());
+
+		Gson gson = new Gson();
+		String result = null;
+
+		HeadRequest q = gson.fromJson(head, new TypeToken<HeadRequest>() {
+		}.getType());
+
+		HospitalServiceCenter hospitalServiceCenter = gson.fromJson(body, new TypeToken<HospitalServiceCenter>() {
+		}.getType());
+
+		logger.info("dataService  param{} is:::" + hospitalServiceCenter.toString());
+
+		if ("synchronousDataByOrganize".equals(q.getService())) {
+			result = SynchronousModule.synchronousAll(q, hospitalServiceCenter);
+		}
+		return result;
+	}
+
+}

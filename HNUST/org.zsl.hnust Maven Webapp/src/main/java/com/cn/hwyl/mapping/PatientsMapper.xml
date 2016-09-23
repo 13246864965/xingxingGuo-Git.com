@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IPatientsDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.Patients" >
+    <id column="c_PatientsID" property="cPatientsid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_PatientsName" property="cPatientsname" jdbcType="VARCHAR" />
+    <result column="c_PatientsSex" property="cPatientssex" jdbcType="CHAR" />
+    <result column="c_PatientsAge" property="cPatientsage" jdbcType="INTEGER" />
+    <result column="c_PatientsBirthday" property="cPatientsbirthday" jdbcType="TIMESTAMP" />
+    <result column="c_PatientsPhoneNumber" property="cPatientsphonenumber" jdbcType="VARCHAR" />
+    <result column="c_PatientsEmergencyContact" property="cPatientsemergencycontact" jdbcType="VARCHAR" />
+    <result column="c_PatientsEmergencyPhoneNumber" property="cPatientsemergencyphonenumber" jdbcType="VARCHAR" />
+    <result column="c_OutpatientServiceID" property="cOutpatientserviceid" jdbcType="VARCHAR" />
+    <result column="c_HospitalID" property="cHospitalid" jdbcType="VARCHAR" />
+    <result column="c_OnsetAddress" property="cOnsetaddress" jdbcType="VARCHAR" />
+    <result column="c_IDNmber" property="cIDNmber" jdbcType="VARCHAR" />
+    <result column="c_LabelNo" property="cLabelNo" jdbcType="VARCHAR" />
+    <result column="c_OnsetTime" property="cOnsettime" jdbcType="TIMESTAMP" />
+    <result column="c_IsSend" property="cIssend" jdbcType="CHAR" />
+    <result column="c_UpdateUserID" property="cUpdateuserid" jdbcType="VARCHAR" />
+    <result column="c_UpdateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_PatientsID, c_FirstAidID, c_PatientsName, c_PatientsSex, c_PatientsAge, c_PatientsBirthday, 
+    c_PatientsPhoneNumber, c_PatientsEmergencyContact, c_PatientsEmergencyPhoneNumber, 
+    c_OutpatientServiceID, c_HospitalID, c_OnsetAddress, c_OnsetTime, c_IsSend, c_UpdateUserID,c_IDNmber, c_LabelNo,
+    c_UpdateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_Patients
+    where c_PatientsID = #{cPatientsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_Patients
+    where c_PatientsID = #{cPatientsid,jdbcType=VARCHAR}
+  </delete>
+
+	<insert id="saveOrUpdate" parameterType="com.cn.hwyl.pojo.Patients">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from cp_Patients where
+			c_PatientsID = #{cPatientsid,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			 update cp_Patients
+    <set >
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsname != null" >
+        c_PatientsName = #{cPatientsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientssex != null" >
+        c_PatientsSex = #{cPatientssex,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsage != null" >
+        c_PatientsAge = #{cPatientsage,jdbcType=INTEGER},
+      </if>
+      <if test="cPatientsbirthday != null" >
+        c_PatientsBirthday = #{cPatientsbirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cPatientsphonenumber != null" >
+        c_PatientsPhoneNumber = #{cPatientsphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsemergencycontact != null" >
+        c_PatientsEmergencyContact = #{cPatientsemergencycontact,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsemergencyphonenumber != null" >
+        c_PatientsEmergencyPhoneNumber = #{cPatientsemergencyphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cOutpatientserviceid != null" >
+        c_OutpatientServiceID = #{cOutpatientserviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalid != null" >
+        c_HospitalID = #{cHospitalid,jdbcType=VARCHAR},
+      </if>
+      <if test="cOnsetaddress != null" >
+        c_OnsetAddress = #{cOnsetaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIDNmber != null" >
+        c_IDNmber = #{cIDNmber,jdbcType=VARCHAR},
+      </if>
+      <if test="cOnsettime != null" >
+        c_OnsetTime = #{cOnsettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cIssend != null" >
+        c_IsSend = #{cIssend,jdbcType=CHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cIDNmber != null" >
+        c_IDNmber = #{cIDNmber,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_PatientsID = #{cPatientsid,jdbcType=VARCHAR}
+		</if>
+		<if test="count==0">
+			insert into cp_Patients (c_PatientsID, c_FirstAidID, c_PatientsName,
+			c_PatientsSex, c_PatientsAge, c_PatientsBirthday,
+			c_PatientsPhoneNumber, c_PatientsEmergencyContact,
+			c_PatientsEmergencyPhoneNumber, c_OutpatientServiceID,
+			c_HospitalID, c_OnsetAddress, c_OnsetTime,c_IDNmber,c_LabelNo,
+			c_IsSend, c_UpdateUserID, c_UpdateTime
+			)
+			values (#{cPatientsid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR},
+			#{cPatientsname,jdbcType=VARCHAR},
+			#{cPatientssex,jdbcType=CHAR}, #{cPatientsage,jdbcType=INTEGER},
+			#{cPatientsbirthday,jdbcType=TIMESTAMP},
+			#{cPatientsphonenumber,jdbcType=VARCHAR},
+			#{cPatientsemergencycontact,jdbcType=VARCHAR},
+			#{cPatientsemergencyphonenumber,jdbcType=VARCHAR},
+			#{cOutpatientserviceid,jdbcType=VARCHAR},
+			#{cHospitalid,jdbcType=VARCHAR}, #{cOnsetaddress,jdbcType=VARCHAR},
+			#{cOnsettime,jdbcType=TIMESTAMP}, #{cIDNmber,jdbcType=VARCHAR},
+			#{cLabelNo,jdbcType=TIMESTAMP},
+			#{cIssend,jdbcType=CHAR}, #{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatetime,jdbcType=TIMESTAMP}
+			)
+		</if>
+
+	</insert>
+  
+  
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.Patients" >
+    insert into cp_Patients (c_PatientsID, c_FirstAidID, c_PatientsName, 
+      c_PatientsSex, c_PatientsAge, c_PatientsBirthday, 
+      c_PatientsPhoneNumber, c_PatientsEmergencyContact, 
+      c_PatientsEmergencyPhoneNumber, c_OutpatientServiceID, 
+      c_HospitalID, c_OnsetAddress, c_OnsetTime, c_IDNmber,c_LabelNo,
+      c_IsSend, c_UpdateUserID, c_UpdateTime
+      )
+    values (#{cPatientsid,jdbcType=VARCHAR}, #{cFirstaidid,jdbcType=VARCHAR}, #{cPatientsname,jdbcType=VARCHAR}, 
+      #{cPatientssex,jdbcType=CHAR}, #{cPatientsage,jdbcType=INTEGER}, #{cPatientsbirthday,jdbcType=TIMESTAMP}, 
+      #{cPatientsphonenumber,jdbcType=VARCHAR}, #{cPatientsemergencycontact,jdbcType=VARCHAR}, 
+      #{cPatientsemergencyphonenumber,jdbcType=VARCHAR}, #{cOutpatientserviceid,jdbcType=VARCHAR}, 
+      #{cHospitalid,jdbcType=VARCHAR}, #{cOnsetaddress,jdbcType=VARCHAR}, #{cOnsettime,jdbcType=TIMESTAMP},
+      #{cIDNmber,jdbcType=VARCHAR}, #{cLabelNo,jdbcType=VARCHAR}, 
+      #{cIssend,jdbcType=CHAR}, #{cUpdateuserid,jdbcType=VARCHAR}, #{cUpdatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.Patients" >
+     update cp_Patients
+    <set >
+      <if test="cFirstaidid != null" >
+        c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsname != null" >
+        c_PatientsName = #{cPatientsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientssex != null" >
+        c_PatientsSex = #{cPatientssex,jdbcType=CHAR},
+      </if>
+      <if test="cPatientsage != null" >
+        c_PatientsAge = #{cPatientsage,jdbcType=INTEGER},
+      </if>
+      <if test="cPatientsbirthday != null" >
+        c_PatientsBirthday = #{cPatientsbirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cPatientsphonenumber != null" >
+        c_PatientsPhoneNumber = #{cPatientsphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsemergencycontact != null" >
+        c_PatientsEmergencyContact = #{cPatientsemergencycontact,jdbcType=VARCHAR},
+      </if>
+      <if test="cPatientsemergencyphonenumber != null" >
+        c_PatientsEmergencyPhoneNumber = #{cPatientsemergencyphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cOutpatientserviceid != null" >
+        c_OutpatientServiceID = #{cOutpatientserviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="cHospitalid != null" >
+        c_HospitalID = #{cHospitalid,jdbcType=VARCHAR},
+      </if>
+      <if test="cOnsetaddress != null" >
+        c_OnsetAddress = #{cOnsetaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cIDNmber != null" >
+        c_IDNmber = #{cIDNmber,jdbcType=VARCHAR},
+      </if>
+      <if test="cOnsettime != null" >
+        c_OnsetTime = #{cOnsettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cIssend != null" >
+        c_IsSend = #{cIssend,jdbcType=CHAR},
+      </if>
+      <if test="cUpdateuserid != null" >
+        c_UpdateUserID = #{cUpdateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cUpdatetime != null" >
+        c_UpdateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_PatientsID = #{cPatientsid,jdbcType=VARCHAR}
+  </update>
+</mapper>

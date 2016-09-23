@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hwyl.dao.IFirstAidDao" >
+  <resultMap id="BaseResultMap" type="com.cn.hwyl.pojo.FirstAid" >
+    <id column="c_FirstAidID" property="cFirstaidid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidTime" property="cFirstaidtime" jdbcType="TIMESTAMP" />
+    <result column="c_FirstAidState" property="cFirstaidstate" jdbcType="CHAR" />
+    <result column="c_DeviceNumber" property="cDevicenumber" jdbcType="VARCHAR" />
+    <result column="c_CardNumber" property="cCardnumber" jdbcType="VARCHAR" />
+    <result column="c_AmbulanceNumber" property="cAmbulancenumber" jdbcType="VARCHAR" />
+    <result column="c_FirstAidUpdateCode" property="cFirstaidupdatecode" jdbcType="VARCHAR" />
+    <result column="c_FirstAidUpdateTime" property="cFirstaidupdatetime" jdbcType="TIMESTAMP" />
+    <result column="c_OrgID" property="cOrgid" jdbcType="VARCHAR" />
+    <result column="c_FirstAidEndTime" property="cFirstaidendtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    c_FirstAidID, c_FirstAidTime, c_FirstAidState, c_DeviceNumber, c_CardNumber, c_AmbulanceNumber, 
+    c_FirstAidUpdateCode, c_FirstAidUpdateTime, c_OrgID, c_FirstAidEndTime
+  </sql>
+	<sql id="queryByCondition">
+		<if test="cOrgid != null">
+			and c_OrgID = #{cOrgid,jdbcType=VARCHAR}
+		</if>
+		<if test="cDevicenumber != null">
+			and c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR}
+		</if>
+	</sql>  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_FirstAid
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectFirstAidIdByCondition" resultMap="BaseResultMap" parameterType="com.cn.hwyl.pojo.FirstAid" >
+    select 
+    <include refid="Base_Column_List" />
+    from cp_FirstAid
+    where 1=1 <include refid="queryByCondition" />
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cp_FirstAid
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hwyl.pojo.FirstAid" >
+    insert into cp_FirstAid (c_FirstAidID, c_FirstAidTime, c_FirstAidState, 
+      c_DeviceNumber, c_CardNumber, c_AmbulanceNumber, 
+      c_FirstAidUpdateCode, c_FirstAidUpdateTime, 
+      c_OrgID, c_FirstAidEndTime)
+    values (#{cFirstaidid,jdbcType=VARCHAR}, #{cFirstaidtime,jdbcType=TIMESTAMP}, #{cFirstaidstate,jdbcType=CHAR}, 
+      #{cDevicenumber,jdbcType=VARCHAR}, #{cCardnumber,jdbcType=VARCHAR}, #{cAmbulancenumber,jdbcType=VARCHAR}, 
+      #{cFirstaidupdatecode,jdbcType=VARCHAR}, #{cFirstaidupdatetime,jdbcType=TIMESTAMP}, 
+      #{cOrgid,jdbcType=VARCHAR}, #{cFirstaidendtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hwyl.pojo.FirstAid" >
+    insert into cp_FirstAid
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cFirstaidid != null" >
+        c_FirstAidID,
+      </if>
+      <if test="cFirstaidtime != null" >
+        c_FirstAidTime,
+      </if>
+      <if test="cFirstaidstate != null" >
+        c_FirstAidState,
+      </if>
+      <if test="cDevicenumber != null" >
+        c_DeviceNumber,
+      </if>
+      <if test="cCardnumber != null" >
+        c_CardNumber,
+      </if>
+      <if test="cAmbulancenumber != null" >
+        c_AmbulanceNumber,
+      </if>
+      <if test="cFirstaidupdatecode != null" >
+        c_FirstAidUpdateCode,
+      </if>
+      <if test="cFirstaidupdatetime != null" >
+        c_FirstAidUpdateTime,
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID,
+      </if>
+      <if test="cFirstaidendtime != null" >
+        c_FirstAidEndTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cFirstaidid != null" >
+        #{cFirstaidid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidtime != null" >
+        #{cFirstaidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cFirstaidstate != null" >
+        #{cFirstaidstate,jdbcType=CHAR},
+      </if>
+      <if test="cDevicenumber != null" >
+        #{cDevicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cCardnumber != null" >
+        #{cCardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancenumber != null" >
+        #{cAmbulancenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidupdatecode != null" >
+        #{cFirstaidupdatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidupdatetime != null" >
+        #{cFirstaidupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cOrgid != null" >
+        #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidendtime != null" >
+        #{cFirstaidendtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hwyl.pojo.FirstAid" >
+    update cp_FirstAid
+    <set >
+      <if test="cFirstaidtime != null" >
+        c_FirstAidTime = #{cFirstaidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cFirstaidstate != null" >
+        c_FirstAidState = #{cFirstaidstate,jdbcType=CHAR},
+      </if>
+      <if test="cDevicenumber != null" >
+        c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cCardnumber != null" >
+        c_CardNumber = #{cCardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cAmbulancenumber != null" >
+        c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidupdatecode != null" >
+        c_FirstAidUpdateCode = #{cFirstaidupdatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidupdatetime != null" >
+        c_FirstAidUpdateTime = #{cFirstaidupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cOrgid != null" >
+        c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cFirstaidendtime != null" >
+        c_FirstAidEndTime = #{cFirstaidendtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hwyl.pojo.FirstAid" >
+    update cp_FirstAid
+    set c_FirstAidTime = #{cFirstaidtime,jdbcType=TIMESTAMP},
+      c_FirstAidState = #{cFirstaidstate,jdbcType=CHAR},
+      c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR},
+      c_CardNumber = #{cCardnumber,jdbcType=VARCHAR},
+      c_AmbulanceNumber = #{cAmbulancenumber,jdbcType=VARCHAR},
+      c_FirstAidUpdateCode = #{cFirstaidupdatecode,jdbcType=VARCHAR},
+      c_FirstAidUpdateTime = #{cFirstaidupdatetime,jdbcType=TIMESTAMP},
+      c_OrgID = #{cOrgid,jdbcType=VARCHAR},
+      c_FirstAidEndTime = #{cFirstaidendtime,jdbcType=TIMESTAMP}
+    where c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR}
+  </update>
+</mapper>

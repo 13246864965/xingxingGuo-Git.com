@@ -1,0 +1,54 @@
+package com.cn.hwyl.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cn.hwyl.dao.IFirstAidDao;
+import com.cn.hwyl.pojo.FirstAid;
+import com.cn.hwyl.pojo.FirstAidInfo;
+import com.cn.hwyl.pojo.FirstAidInfoView;
+import com.cn.hwyl.service.IFirstAidInfoService;
+import com.cn.hwyl.service.IFirstAidService;
+
+
+@Service("firstAidService")
+public class FirstAidServiceImpl implements IFirstAidService{
+
+	@Resource
+	private IFirstAidDao firstAidDao;
+
+	@Override
+	public int deleteByPrimaryKey(String cFirstaidid) {
+		return firstAidDao.deleteByPrimaryKey(cFirstaidid);
+	}
+
+	@Override
+	public int insert(FirstAid record) {
+		return firstAidDao.insert(record);
+	}
+
+	@Override
+	public int insertSelective(FirstAid record) {
+		return firstAidDao.insertSelective(record);
+	}
+
+	@Override
+	public FirstAid selectByPrimaryKey(String cFirstaidid) {
+		return firstAidDao.selectByPrimaryKey(cFirstaidid);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(FirstAid record) {
+		return firstAidDao.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(FirstAid record) {
+		return firstAidDao.updateByPrimaryKey(record);
+	}
+
+}
