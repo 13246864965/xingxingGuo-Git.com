@@ -11,8 +11,12 @@
 		<result column="c_TimeNote" property="cTimenote" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		c_TimeID, c_FirstAidID, c_Time, c_TimeType,
-		c_UpdateUserID,c_TimeNote
+		c_TimeID, 
+		c_FirstAidID,
+		DATE_FORMAT(c_Time,'%Y-%m-%d %H:%i:%s') cTime,
+		c_TimeType,
+		c_UpdateUserID,
+		c_TimeNote
 	</sql>
 	<sql id="queryByCondition">
 		<if test="cTimeid != null">

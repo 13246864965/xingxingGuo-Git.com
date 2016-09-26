@@ -11,8 +11,13 @@
     <result column="c_ReturnTime" property="cReturntime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    c_WardshipID, c_FirstAidID, c_DeviceNumber, c_DeviceUpdateTime, c_UpdateUserID, c_UpdateTime, 
-    c_ReturnTime
+    c_WardshipID,
+     c_FirstAidID,
+      c_DeviceNumber,
+      DATE_FORMAT(c_DeviceUpdateTime,'%Y-%m-%d %H:%i:%s') cDeviceupdatetime,
+       c_UpdateUserID, 
+       DATE_FORMAT(c_UpdateTime,'%Y-%m-%d %H:%i:%s') cUpdatetime,
+    DATE_FORMAT(c_ReturnTime,'%Y-%m-%d %H:%i:%s') cReturntime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -20,6 +25,25 @@
     from cp_DeviceUpdate
     where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}
   </select>
+	<select id="selectDeviceUpdateByFirst" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from
+		cp_DeviceUpdate
+		where
+		c_FirstAidID=#{cFirstaidid,jdbcType=VARCHAR} and c_ReturnTime is not NULL ORDER BY c_UpdateTime LIMIT 0,1;
+	</select>
+	<select id="selectDeviceUpdateByLast" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from
+		cp_DeviceUpdate
+		where
+		c_FirstAidID=#{cFirstaidid,jdbcType=VARCHAR} and c_ReturnTime is NULL ORDER BY c_UpdateTime DESC LIMIT 0,1;
+	</select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from cp_DeviceUpdate
     where c_WardshipID = #{cWardshipid,jdbcType=VARCHAR}

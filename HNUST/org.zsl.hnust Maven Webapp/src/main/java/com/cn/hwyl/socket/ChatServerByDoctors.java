@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cn.hwyl.main.StartMsdlServiceMain;
+import com.cn.hwyl.main.WSDLProperties;
 import com.cn.hwyl.pojo.ConsultationInfo;
 import com.cn.hwyl.service.IConsultationInfoService;
 
@@ -79,25 +80,25 @@ class Chat extends Thread {
 
 	//保存会诊记录到数据库
 	private void saveConsultationInfo(String consultationInfo) {
-//		if (consultationInfo != null) {
-//			@SuppressWarnings("resource")
-//			ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
-//			IConsultationInfoService consultationInfoService = (IConsultationInfoService) ac
-//					.getBean("consultationInfoService");
-//			ConsultationInfo c = new ConsultationInfo();
-//			c.setcOrgid(consultationInfo.split(",")[1]);
-//			c.setcFirstaidid(consultationInfo.split(",")[2]);
-//			c.setcConsultationuserid(consultationInfo.split(",")[3]);
-//			c.setcConsultationtime(new Date());
-//			c.setcConsultationcontent(consultationInfo.split(",")[4]);
-//			c.setcConsultationid(UUID.randomUUID().toString());
-//			try {
-//				consultationInfoService.insert(c);
-//			} catch (Exception e) {
-//				throw new RuntimeException();
-//			}
-//
-//		}
+		if (consultationInfo != null) {
+			@SuppressWarnings("resource")
+			ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
+			IConsultationInfoService consultationInfoService = (IConsultationInfoService) ac
+					.getBean("consultationInfoService");
+			ConsultationInfo c = new ConsultationInfo();
+			c.setcOrgid(consultationInfo.split(",")[1]);
+			c.setcFirstaidid(consultationInfo.split(",")[2]);
+			c.setcConsultationuserid(consultationInfo.split(",")[3]);
+			c.setcConsultationtime(new Date());
+			c.setcConsultationcontent(consultationInfo.split(",")[4]);
+			c.setcConsultationid(UUID.randomUUID().toString());
+			try {
+				consultationInfoService.insert(c);
+			} catch (Exception e) {
+				throw new RuntimeException();
+			}
+
+		}
 	}
 
 }
@@ -118,7 +119,9 @@ public class ChatServerByDoctors {
 		// 创建一个ServerSocket在端口2121监听客户请求
 		ServerSocket serverSocket = null;
 		try {
-			serverSocket = new ServerSocket(2121);
+			//配置文件获取端口
+			int port = Integer.valueOf(WSDLProperties.getFrontDoctorPort());
+			serverSocket = new ServerSocket(port);
 			logger.info(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())+" 成功启动ServiceSocket"+serverSocket.getLocalSocketAddress()+"服务！！！");
 			
 		} catch (IOException e) {

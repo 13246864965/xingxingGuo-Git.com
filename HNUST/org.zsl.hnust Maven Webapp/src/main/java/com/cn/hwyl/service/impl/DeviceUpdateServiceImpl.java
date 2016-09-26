@@ -42,4 +42,14 @@ public class DeviceUpdateServiceImpl implements IDeviceUpdateService{
 		return deviceUpdateDao.saveOrUpdate(record);
 	}
 
+	@Override
+	public DeviceUpdate selectDeviceUpdateByFirst(String cFirstaidid) {
+		return deviceUpdateDao.selectDeviceUpdateByFirst(cFirstaidid);
+	}
+
+	@Override
+	public DeviceUpdate selectDeviceUpdateByLast(String cFirstaidid) {
+		return deviceUpdateDao.selectDeviceUpdateByLast(cFirstaidid);
+	}
+
 }

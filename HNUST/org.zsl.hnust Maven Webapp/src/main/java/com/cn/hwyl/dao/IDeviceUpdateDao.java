@@ -15,4 +15,9 @@ public interface IDeviceUpdateDao {
     int updateByPrimaryKey(DeviceUpdate record);
     
     int saveOrUpdate(DeviceUpdate record);
+    
+    //根据急救编号查询第一条设备合同信息
+    DeviceUpdate selectDeviceUpdateByFirst(String cFirstaidid);
+    //根据急救编号查询最近添加的一条设备合同信息
+    DeviceUpdate selectDeviceUpdateByLast(String cFirstaidid);
 }

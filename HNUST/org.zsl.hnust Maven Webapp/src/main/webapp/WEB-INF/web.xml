@@ -65,21 +65,21 @@
   </listener>
    <!-- servlet 监听器 -->
   <servlet>
-    <servlet-name>StartServiceSocketMain</servlet-name>
-    <servlet-class>com.cn.hwyl.main.StartServiceSocketMain</servlet-class>
+    <servlet-name>StartSocketServiceByCardNumber</servlet-name>
+    <servlet-class>com.cn.hwyl.main.StartSocketServiceByCardNumber</servlet-class>
     <load-on-startup>5</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>StartServiceSocketMain</servlet-name>
+    <servlet-name>StartSocketServiceByCardNumber</servlet-name>
     <url-pattern>/event-collect</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>StartServic1eSocketMain</servlet-name>
-    <servlet-class>com.cn.hwyl.main.StartServic1eSocketMain</servlet-class>
+    <servlet-name>StartSocketServiceByDoctors</servlet-name>
+    <servlet-class>com.cn.hwyl.main.StartSocketServiceByDoctors</servlet-class>
     <load-on-startup>5</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>StartServic1eSocketMain</servlet-name>
+    <servlet-name>StartSocketServiceByDoctors</servlet-name>
     <url-pattern>/event-collects</url-pattern>
   </servlet-mapping>
 </web-app>

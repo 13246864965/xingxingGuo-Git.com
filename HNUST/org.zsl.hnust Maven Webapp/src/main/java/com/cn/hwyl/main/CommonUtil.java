@@ -1,5 +1,12 @@
 package com.cn.hwyl.main;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -77,6 +84,32 @@ public class CommonUtil {
 		return wsvo;
 	}
 
+	/**
+	 * 获取本地ip
+	 * @return
+	 */
+	public static String getLocalIP() {
+		String ip = "";
+		try {
+			Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+			while (en.hasMoreElements()) {
+				NetworkInterface intf = (NetworkInterface) en.nextElement();
+				Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses();
+				while (enumIpAddr.hasMoreElements()) {
+					InetAddress inetAddress = (InetAddress) enumIpAddr.nextElement();
+					if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress()
+							&& inetAddress.isSiteLocalAddress()) {
+						ip = inetAddress.getHostAddress().toString();
+						break;
+					}
+				}
+			}
+		} catch (SocketException e) {
+			logger.error("getLocalIP error:" + e);
+		}
+		logger.info("获取本地 IP             :>>>>>>>>>>>>>" + ip);
+		return ip;
+	}
 	/**
 	 * 测试主函数
 	 * 

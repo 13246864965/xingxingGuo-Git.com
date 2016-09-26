@@ -80,6 +80,39 @@ public class AmbulanceDeviceModule {
 			}
 
 		}
+		 //根据急救编号查询第一条/最后一条设备合同信息
+		if(head.getService().contains("AmbulanceDevice_DeviceUpdate_selectChoose_")){
+			if (body.getDeviceUpdatSelectBody() == null) {
+				result.setResultCode("0");
+				result.setErrorInfo("传参为空");
+				return gson.toJson(result);
+			}
+			DeviceUpdate deviceUp = null;
+			if (body.getDeviceUpdatSelectBody().getcFirstaidid() != null) {
+				logger.info("AmbulanceDevice_DeviceUpdate_selectChoose_ param    :"+body.getDeviceUpdatSelectBody().getcFirstaidid().toString());
+				try {
+					// 查询最后一条
+					if ("AmbulanceDevice_DeviceUpdate_selectChoose_last".equals(head.getService())) {
+						deviceUp = deviceUpdateService
+								.selectDeviceUpdateByLast(body.getDeviceUpdatSelectBody().getcFirstaidid());
+					}
+					// 第一条
+					if ("AmbulanceDevice_DeviceUpdate_selectChoose_first".equals(head.getService())) {
+						deviceUp = deviceUpdateService
+								.selectDeviceUpdateByFirst(body.getDeviceUpdatSelectBody().getcFirstaidid());
+					}
+					result.setResultCode("1");
+					result.setObj(deviceUp);
+				} catch (Exception e) {
+					logger.error("未查到设备信息"+body.getDeviceUpdatSelectBody().getcFirstaidid());
+					result.setResultCode("0");
+					result.setErrorInfo("未查到设备信息"+body.getDeviceUpdatSelectBody().getcFirstaidid());
+					return gson.toJson(result);
+				
+				}
+				return gson.toJson(result);
+			}
+		}
 		//查询设备是否创建急救
 		if("AmbulanceDevice_DeviceUpdate_select".equals(head.getService())){
 			if (body.getDeviceUpdatSelectBody() == null) {
@@ -90,6 +123,7 @@ public class AmbulanceDeviceModule {
 			if(body.getDeviceUpdatSelectBody().getcWardshipid() != null){
 				DeviceUpdate deviceUpdate = null;
 				try {
+					logger.info("AmbulanceDevice_DeviceUpdate_select param:      "+body.getDeviceUpdatSelectBody().getcWardshipid().toString());
 					deviceUpdate = deviceUpdateService.selectByPrimaryKey(body.getDeviceUpdatSelectBody().getcWardshipid());
 				} catch (Exception e) {
 					logger.error("程序异常:" + e);

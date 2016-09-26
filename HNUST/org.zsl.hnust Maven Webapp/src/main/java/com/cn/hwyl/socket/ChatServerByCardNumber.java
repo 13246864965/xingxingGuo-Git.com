@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.cn.hwyl.main.WSDLProperties;
 import com.cn.hwyl.pojo.FirstAidTime;
 import com.cn.hwyl.service.IFirstAidService;
 import com.cn.hwyl.service.IFirstAidTimeService;
@@ -143,7 +144,7 @@ class ChatByCardNumber extends Thread {
 				if (firstAidID != null) {
 					firstAidTime.setcTimeid(UUID.randomUUID().toString());
 					firstAidTime.setcFirstaidid(firstAidID.split(",")[0]);
-					firstAidTime.setcTime(startDate);
+					firstAidTime.setcTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startDate));
 					firstAidTime.setcTimenote("刷卡记录");
 					// 根据message.trim().substring(0, 2)判断                                                         需处理
 					String cTimetype = message.trim().substring(0, 2).toString();
@@ -183,7 +184,9 @@ public class ChatServerByCardNumber {
 		// 创建一个ServerSocket在端口2121监听客户请求
 		ServerSocket serverSocket = null;
 		try {
-			serverSocket = new ServerSocket(2122);
+			//配置文件获取端口
+			int port = Integer.valueOf(WSDLProperties.getFrontCardPort());
+			serverSocket = new ServerSocket(port);
 			// serverSocket = new ServerSocket(port, 10,
 			// InetAddress.getLocalHost());
 			logger.info(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())+" 成功启动ServiceSocket"+serverSocket.getLocalSocketAddress()+"服务！！！");

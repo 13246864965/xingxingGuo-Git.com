@@ -20,6 +20,7 @@ import com.cn.hwyl.dao.IFirstAidInfoDao;
 import com.cn.hwyl.dao.IFirstaidCollectionDao;
 import com.cn.hwyl.dao.IFirstaidHistoryDao;
 import com.cn.hwyl.pojo.AmbulanceDevice;
+import com.cn.hwyl.pojo.DeviceUpdate;
 import com.cn.hwyl.pojo.FileInfo;
 import com.cn.hwyl.pojo.FirstAid;
 import com.cn.hwyl.pojo.FirstAidInfo;
@@ -74,7 +75,8 @@ public class TestMyBatis {
 	private IFirstaidTaskService firstaidTaskService;
 	@Resource
 	private IFirstaidResultsService firstaidResultsService;
-
+	@Resource
+	private IDeviceUpdateService deviceUpdateServcie;
 	// @Before
 	// public void before() {
 	// ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
@@ -162,11 +164,11 @@ public class TestMyBatis {
 	public void test9() {
 		FirstAidTime f = new FirstAidTime();
 		f.setcTimeid(UUID.randomUUID().toString());
-		f.setcFirstaidid("test");
-		f.setcTime(new Date());
-		f.setcTimenote("test1");
+		f.setcFirstaidid("testssssssssssssss");
+		f.setcTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		f.setcTimenote("testsssssssssss");
 		f.setcTimetype("");
-		f.setcUpdateuserid("guoxing");
+		f.setcUpdateuserid("guoxinsssssg");
 		int aa = firstAidTimeService.saveOrUpdate(f);
 		System.out.println("---------------------------------------------" + aa);
 	}
@@ -235,17 +237,19 @@ public class TestMyBatis {
 
 	@Test
 	public void test15() {
-		List<FirstAidTime> list = new ArrayList<FirstAidTime>();
-		for (int i = 0; i < 5; i++) {
-			FirstAidTime firstAidTime = new FirstAidTime();
-			firstAidTime.setcTimeid("cTimeid" + i);
-			firstAidTime.setcFirstaidid("cFirstaidid" + i);
-			firstAidTime.setcTime(new Date());
-			firstAidTime.setcUpdateuserid("cUpdateuserid" + i);
-			list.add(firstAidTime);
-		}
-		firstAidTimeService.insertBatchAndDelete(list);
-		System.out.println(firstAidTimeService.selectByPrimaryByFirstAidTime(list.get(0)).get(0).toString());
+//		List<FirstAidTime> list = new ArrayList<FirstAidTime>();
+//		for (int i = 0; i < 5; i++) {
+//			FirstAidTime firstAidTime = new FirstAidTime();
+//			firstAidTime.setcTimeid("cTimeid" + i);
+//			firstAidTime.setcFirstaidid("cFirstaidid" + i);
+//			firstAidTime.setcTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+//			firstAidTime.setcUpdateuserid("cUpdateuserid" + i);
+//			list.add(firstAidTime);
+//		}
+//		firstAidTimeService.insertBatchAndDelete(list);
+		FirstAidTime a  = firstAidTimeService.selectByPrimaryKey("c2ef9935-cfa6-4ce2-9a0b-2b2e21b11f0f");
+		System.out.println(a.getcTime());
+//		System.out.println(firstAidTimeService.selectByPrimaryByFirstAidTime(list.get(0)).get(0).toString());
 	}
 
 	@Test
@@ -323,6 +327,13 @@ public class TestMyBatis {
 				firstaidResultsService.selectByPage(record);
 		System.out.println(firstaidResultsService.selectByPageCount(record));
 		System.out.println(a.size());
+	}
+	@Test
+	public void test22() {
+		DeviceUpdate aa = deviceUpdateServcie.selectDeviceUpdateByFirst("97d55245-b800-4d2f-bf3b-9ad1169cf877");
+		DeviceUpdate bb = deviceUpdateServcie.selectDeviceUpdateByLast("97d55245-b800-4d2f-bf3b-9ad1169cf877");
+		System.out.println(aa.toString());
+		System.out.println(bb.toString());
 	}
 
 	public static void main(String[] args) {

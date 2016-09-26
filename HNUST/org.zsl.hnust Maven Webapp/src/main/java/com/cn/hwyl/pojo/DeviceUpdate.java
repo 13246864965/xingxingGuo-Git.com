@@ -9,13 +9,16 @@ public class DeviceUpdate {
 
     private String cDevicenumber;
 
-    private Date cDeviceupdatetime;
+//    private Date cDeviceupdatetime;
+    private String cDeviceupdatetime;
 
     private String cUpdateuserid;
 
-    private Date cUpdatetime;
+//    private Date cUpdatetime;
+    private String cUpdatetime;
 
-    private Date cReturntime;
+//    private Date cReturntime;
+    private String cReturntime;
     
 private int count;
     
@@ -52,13 +55,6 @@ private int count;
         this.cDevicenumber = cDevicenumber == null ? null : cDevicenumber.trim();
     }
 
-    public Date getcDeviceupdatetime() {
-        return cDeviceupdatetime;
-    }
-
-    public void setcDeviceupdatetime(Date cDeviceupdatetime) {
-        this.cDeviceupdatetime = cDeviceupdatetime;
-    }
 
     public String getcUpdateuserid() {
         return cUpdateuserid;
@@ -68,21 +64,30 @@ private int count;
         this.cUpdateuserid = cUpdateuserid == null ? null : cUpdateuserid.trim();
     }
 
-    public Date getcUpdatetime() {
-        return cUpdatetime;
-    }
 
-    public void setcUpdatetime(Date cUpdatetime) {
-        this.cUpdatetime = cUpdatetime;
-    }
+	public String getcDeviceupdatetime() {
+		return cDeviceupdatetime;
+	}
 
-    public Date getcReturntime() {
-        return cReturntime;
-    }
+	public void setcDeviceupdatetime(String cDeviceupdatetime) {
+		this.cDeviceupdatetime = cDeviceupdatetime;
+	}
 
-    public void setcReturntime(Date cReturntime) {
-        this.cReturntime = cReturntime;
-    }
+	public String getcUpdatetime() {
+		return cUpdatetime;
+	}
+
+	public void setcUpdatetime(String cUpdatetime) {
+		this.cUpdatetime = cUpdatetime;
+	}
+
+	public String getcReturntime() {
+		return cReturntime;
+	}
+
+	public void setcReturntime(String cReturntime) {
+		this.cReturntime = cReturntime;
+	}
 
 	@Override
 	public String toString() {

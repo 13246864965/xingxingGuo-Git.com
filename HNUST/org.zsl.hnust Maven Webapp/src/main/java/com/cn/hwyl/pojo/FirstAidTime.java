@@ -7,7 +7,8 @@ public class FirstAidTime {
 
     private String cFirstaidid;
 
-    private Date cTime;
+//    private Date cTime;
+     private String cTime;
 
     private String cTimetype;
 
@@ -42,15 +43,16 @@ public class FirstAidTime {
         this.cFirstaidid = cFirstaidid == null ? null : cFirstaidid.trim();
     }
 
-    public Date getcTime() {
-        return cTime;
-    }
 
-    public void setcTime(Date cTime) {
-        this.cTime = cTime;
-    }
+    public String getcTime() {
+		return cTime;
+	}
 
-    public String getcTimetype() {
+	public void setcTime(String cTime) {
+		this.cTime = cTime;
+	}
+
+	public String getcTimetype() {
         return cTimetype;
     }
 

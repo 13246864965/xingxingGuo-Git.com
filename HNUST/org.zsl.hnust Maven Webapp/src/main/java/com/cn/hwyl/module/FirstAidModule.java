@@ -2,6 +2,7 @@ package com.cn.hwyl.module;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -222,7 +223,7 @@ public class FirstAidModule {
 		for (int i = 0; i <3; i++) {
 			FirstAidTime firstAidTime = new FirstAidTime();
 			firstAidTime.setcFirstaidid("cFirstaidid"+i);
-			firstAidTime.setcTime(new Date());
+			firstAidTime.setcTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			firstAidTime.setcTimetype(String.valueOf(i));
 			firstAidTimeLists.add(firstAidTime);
 		}

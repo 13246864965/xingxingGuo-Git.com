@@ -130,6 +130,12 @@
 	  <if test="cDevicenumber != null and cDevicenumber !=''" >
       and cvfaiv.c_DeviceNumber = #{cDevicenumber,jdbcType=VARCHAR} 
       </if>
+	  <if test="cOrgid != null and cOrgid !=''" >
+      and cvfaiv.c_OrgID = #{cOrgid,jdbcType=VARCHAR} 
+      </if>
+	  <if test="cFirstaidid != null and cFirstaidid !=''" >
+      and cvfaiv.c_FirstAidID = #{cFirstaidid,jdbcType=VARCHAR} 
+      </if>
       
 	  <if test="cSearch != null and cSearch !=''" >
       and (cvfaiv.c_DeviceNumber LIKE CONCAT(CONCAT('%', #{cSearch}), '%') or
