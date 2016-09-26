@@ -61,6 +61,7 @@ public class CommonUtil {
 	        System.out.println("原始：" + str);
 	        System.out.println("MD5后：" + md5Encode(str));
 	    }
+
 	}
 
 

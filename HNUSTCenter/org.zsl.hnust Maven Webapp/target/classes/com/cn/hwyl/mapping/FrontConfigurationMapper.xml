@@ -29,7 +29,7 @@
   <insert id="insert" parameterType="com.cn.hwyl.pojo.FrontConfiguration" >
     insert into cp_FrontConfiguration (c_OrgID, c_OrgCode, c_SocketAddress, 
       c_wsdlAddress, c_ServerAddress, c_Describe, 
-      c_UpdateUserID,c_AVOutAddress, c_UpdateTime)c_AVOutAddress
+      c_UpdateUserID,c_AVOutAddress, c_UpdateTime)
     values (#{cOrgid,jdbcType=VARCHAR}, #{cOrgcode,jdbcType=VARCHAR}, #{cSocketaddress,jdbcType=VARCHAR}, 
       #{cWsdladdress,jdbcType=VARCHAR}, #{cServeraddress,jdbcType=VARCHAR}, #{cDescribe,jdbcType=VARCHAR}, 
       #{cUpdateuserid,jdbcType=VARCHAR},#{cAVOutAddress,jdbcType=VARCHAR}, #{cUpdatetime,jdbcType=TIMESTAMP})

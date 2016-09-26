@@ -124,7 +124,7 @@ public class WebCenterServiceCP{
 			}
 			if ("0".equals(bodyReq.getcOrgId().split(",")[1])) {
 				result.setObj("http://" + frontConfiguration.getcServeraddress() + "/HWYL/file/upload");
-			} else {
+			} else if("1".equals(bodyReq.getcOrgId().split(",")[1])){
 				result.setObj(frontConfiguration);
 			}
 			result.setResultCode("1");
